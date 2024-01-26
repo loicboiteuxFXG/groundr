@@ -1,0 +1,19 @@
+{
+  "name": "groundr",
+  "version": "1.0.0",
+  "description": "Un site de rencontre conçu pour le cours 420-08D-FX",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loicboiteuxFXG/groundr.git"
+  },
+  "author": "Loïc Boiteux, Adam Demers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loicboiteuxFXG/groundr/issues"
+  },
+  "homepage": "https://github.com/loicboiteuxFXG/groundr#readme"
+}
