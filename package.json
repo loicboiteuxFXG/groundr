@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/loicboiteuxFXG/groundr/issues"
   },
-  "homepage": "https://github.com/loicboiteuxFXG/groundr#readme"
+  "homepage": "https://github.com/loicboiteuxFXG/groundr#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-script": "^2.0.5"
+  }
 }
