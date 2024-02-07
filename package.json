@@ -4,6 +4,8 @@
   "description": "Un site de rencontre conçu pour le cours 420-08D-FX",
   "main": "index.js",
   "scripts": {
+    "server": "node server/index.js",
+    "client": "npm --prefix client/ run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
