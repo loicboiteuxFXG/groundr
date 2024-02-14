@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+/*
+Routes sert à sélectionner le composant à afficher selon la route (/ = Presentation)
+Il est aussi appelé Switch sur certains tutos
+ */
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Presentation from "./pages/Presentation";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <>
+        <Routes>
+          <Route path="/" element={<Presentation />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </>
   );
-}
+};
 
 export default App;
