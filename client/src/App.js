@@ -3,7 +3,7 @@ Routes sert à sélectionner le composant à afficher selon la route (/ = Presen
 Il est aussi appelé Switch sur certains tutos
  */
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import HomeLayout from './pages/HomeLayout';
 import Presentation from "./pages/Presentation";
 
 const App = () => {
@@ -11,7 +11,8 @@ const App = () => {
       <>
         <Routes>
           <Route path="/" element={<Presentation />} />
-          <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<HomeLayout />}>
+            </Route>
         </Routes>
       </>
   );
