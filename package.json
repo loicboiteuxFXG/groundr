@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/loicboiteuxFXG/groundr#readme",
   "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "react": "^18.2.0",
+    "react-query": "^3.39.3",
     "react-script": "^2.0.5"
   }
 }

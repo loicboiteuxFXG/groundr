@@ -2,7 +2,7 @@
 Routes sert à sélectionner le composant à afficher selon la route (/ = Presentation)
 Il est aussi appelé Switch sur certains tutos
  */
-import { Routes, Route } from 'react-router-dom';
+import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import HomeLayout from './pages/HomeLayout';
 import Presentation from "./pages/Presentation";
 import HomeChatbox from "./components/HomeChatbox";
@@ -12,7 +12,7 @@ import HomeSwiper from "./components/HomeSwiper";
 
 const App = () => {
   return (
-      <>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Presentation />} />
             <Route path="/home" element={<HomeLayout />}>
@@ -21,7 +21,7 @@ const App = () => {
                 <Route path="swipe" element={<HomeSwiper />} />
             </Route>
         </Routes>
-      </>
+      </BrowserRouter>
   );
 };
 

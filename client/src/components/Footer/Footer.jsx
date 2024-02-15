@@ -6,9 +6,9 @@ const Footer = () => {
         <>
             <footer>
                 <div className="footer-container">
-                    <a>Lien 1</a>
-                    <a>Lien 2</a>
-                    <a>Lien 3</a>
+                    <div>Lien 1</div>
+                    <div>Lien 2</div>
+                    <div>Lien 3</div>
                 </div>
             </footer>
         </>
