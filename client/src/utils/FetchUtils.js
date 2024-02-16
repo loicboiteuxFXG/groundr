@@ -1,5 +1,4 @@
 export const fetchDemo = async () => {
-    console.log("Fetching Demo");
-    const res = await fetch('https://catfact.ninja/fact');
+    const res = await fetch('http://localhost:3001');
     return res.json();
 }
