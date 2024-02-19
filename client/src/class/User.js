@@ -1,6 +1,7 @@
-class User {
+export class User {
     firstName;
     lastName;
+    password;
     email;
     DoB;
     gender;
@@ -13,6 +14,7 @@ class User {
      * Constructeur pour un utilisateur de GoundR.
      * @param {string} firstName Prénom
      * @param {string} lastName Nom de famille
+     * @param {string} password Mot de passe
      * @param {string} email Email
      * @param {Date} DoB Date de naissance
      * @param {string} gender Identité de genre ["M", "F", "X"]
@@ -21,7 +23,7 @@ class User {
      * @param {number} longitude
      * @param {Array<string>} interestList Array des intérets de l'utilisateur
      */
-    constructor(firstName, lastName, email, DoB, gender, orientation, interestList, latitude, longitude){
+    constructor(firstName, lastName, password, email, DoB = null, gender = "", orientation = "", interestList = [], latitude = 0, longitude = 0){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

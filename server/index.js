@@ -3,13 +3,15 @@ const cors = require('cors')
 const app = express()
 const port = 3001
 
-const MongoHandler = require("./utils/MongoHandler");
+const MongoHandler = require("./utils/mongo/MongoHandler");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
 
+const userRoutes = require('./routes/user');
+app.use('/user', userRoutes);
 
 app.get('/get', async (req, res) => {
     const response = await fetch('https://catfact.ninja/fact');

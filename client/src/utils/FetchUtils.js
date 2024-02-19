@@ -10,15 +10,14 @@ export const fetchDB = async () => {
 
 
 
-export const postDemo = async (data) => {
-    const serializedBody = JSON.stringify(data); // (2) in notes below
-    console.log(serializedBody);
-    const fetchOptions = { // (3)
-        method: 'POST', // (4)
-        body: serializedBody, // (5)
+export const postCreateUser = async (user) => {
+    const serializedBody = JSON.stringify(user);
+    const fetchOptions = {
+        method: 'POST',
+        body: serializedBody,
         headers: {
             'Content-Type': 'application/json',
         },
     };
-    fetch('http://localhost:3001/post', fetchOptions); // We pass in the options here to configure our fetch request
+    fetch('http://localhost:3001/user/create', fetchOptions);
 }

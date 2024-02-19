@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {postDemo} from "../../utils/FetchUtils";
 
 const HomeSettings = () => {
 
@@ -7,7 +6,6 @@ const HomeSettings = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault(); // (1) in notes below
-        postDemo({"name": name})
     };
 
 
