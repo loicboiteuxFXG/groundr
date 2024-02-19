@@ -14,6 +14,7 @@ const HomeChatbox = () => {
         return <p>Something went wrong :(</p>
     }
 
+
     return(
         <p>{data['fact']}</p>
     )

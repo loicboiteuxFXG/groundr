@@ -3,6 +3,12 @@ export const fetchDemo = async () => {
     return res.json();
 }
 
+export const fetchDB = async () => {
+    const res = await fetch('http://localhost:3001/db');
+    return res.json();
+}
+
+
 
 export const postDemo = async (data) => {
     const serializedBody = JSON.stringify(data); // (2) in notes below

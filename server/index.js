@@ -3,6 +3,8 @@ const cors = require('cors')
 const app = express()
 const port = 3001
 
+const MongoHandler = require("./utils/MongoHandler");
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
@@ -13,6 +15,12 @@ app.get('/get', async (req, res) => {
     const response = await fetch('https://catfact.ninja/fact');
     const body = await response.json();
     res.send(body);
+});
+
+app.get('/db', async (req, res) => {
+    const response = await MongoHandler.MongoHandler();
+    console.dir(response);
+    res.send(response);
 });
 
 
