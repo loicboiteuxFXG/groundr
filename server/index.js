@@ -18,9 +18,9 @@ app.get('/get', async (req, res) => {
 });
 
 app.get('/db', async (req, res) => {
-    const response = await MongoHandler.MongoHandler();
-    console.dir(response);
-    res.send(response);
+    const body = await MongoHandler.MongoHandler();
+    console.dir(body);
+    res.send(body);
 });
 
 
