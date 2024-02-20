@@ -1,10 +1,11 @@
 const express = require('express');
-const {MongoHandler} = require("../utils/mongo/MongoHandler");
-const {CreateUser} = require("../utils/mongo/CreateUser");
+const MongoUtils = require('../utils/MongoUtils');
 const router = express.Router();
 
 router.post('/create', (req, res) => {
-    CreateUser(req.body)
+    MongoUtils.CreateUser(req.body)
+        .then(user => {console.dir("Created user" + user)})
+        .catch(err => console.error(err));
 });
 
 

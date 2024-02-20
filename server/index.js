@@ -3,7 +3,7 @@ const cors = require('cors')
 const app = express()
 const port = 3001
 
-const MongoHandler = require("./utils/mongo/MongoHandler");
+const MongoUtils = require('./utils/MongoUtils')
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -20,7 +20,7 @@ app.get('/get', async (req, res) => {
 });
 
 app.get('/db', async (req, res) => {
-    const body = await MongoHandler.MongoHandler();
+    const body = await MongoUtils.GetAllUsers();
     console.dir(body);
     res.send(body);
 });

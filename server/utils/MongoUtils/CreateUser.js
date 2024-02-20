@@ -14,7 +14,6 @@ const  CreateUser = async (data) => {
         }
     });
 
-    let returnData;
 
     async function run() {
         try {
@@ -31,7 +30,7 @@ const  CreateUser = async (data) => {
     }
 
     await run().catch(console.dir);
-    return returnData;
+    return data;
 }
 
 module.exports = { CreateUser };

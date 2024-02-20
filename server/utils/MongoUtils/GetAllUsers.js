@@ -1,4 +1,4 @@
-const  MongoHandler = (method, data) => {
+const  GetAllUsers = async () => {
 
     const {MongoClient, ServerApiVersion} = require('mongodb');
     const config = require('../../../config.json');
@@ -12,23 +12,29 @@ const  MongoHandler = (method, data) => {
         }
     });
 
-    let returnData;
+    let returnData = [];
 
     async function run() {
         try {
             // Connect the client to the server	(optional starting in v4.7)
             await client.connect();
             // Send a ping to confirm a successful connection
-            returnData = await method(client, data);
+            const cursor = await client.db("GroundR").collection("Users").find({});
+            // Print returned documents
 
+            for await (const doc of cursor) {
+
+                returnData.push(doc);
+
+            }
         } finally {
             // Ensures that the client will close when you finish/error
             await client.close();
         }
     }
 
-    run().catch(console.dir);
+    await run().catch(console.dir);
     return returnData;
 }
 
-module.exports = { MongoHandler };
+module.exports = { GetAllUsers };
