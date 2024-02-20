@@ -9,6 +9,10 @@ import HomeChatbox from "./components/HomeChatbox";
 import HomeSettings from "./components/HomeSettings";
 import HomeSwiper from "./components/HomeSwiper";
 
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const App = () => {
   return (
