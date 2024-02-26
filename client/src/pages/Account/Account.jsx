@@ -11,11 +11,13 @@ const Account = () => {
     return(
         <>
             <ShowcaseHeader/>
-            <div className="container">
+            <div className="container account-content">
                 <h2 className="text-center"><img src={require('../../images/logo_web.png')}/></h2>
-                <Link to="login" className="btnGround">Se connecter</Link>
-                <Link to="signup" className="btnGround">Créer un compte</Link>
-                <Outlet/>
+                <p className="golden">Bienvenue sur GroundR Web</p>
+                <div>
+                    <Link to="login" className="btnGround">Se connecter</Link>
+                    <Link to="signup" className="btnGround">Créer un compte</Link>
+                </div>
             </div>
             <Footer/>
         </>
