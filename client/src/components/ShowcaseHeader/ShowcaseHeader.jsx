@@ -25,7 +25,7 @@ const ShowcaseHeader = () => {
                 <div className="container header-layout">
                     <h1 className="presTitle"><Link to={'/'}><img src={require('../../images/logo_nobackground.png')}/></Link>
                     </h1>
-                    <Button text={"Sign in"} onClick={handleClick}/>
+                    <Button text={"GroundR Web"} onClick={handleClick}/>
                 </div>
             </header>
         </>
