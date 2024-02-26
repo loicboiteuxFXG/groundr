@@ -9,8 +9,24 @@ const HomeLayout = () => {
             <Link to="swipe">Swipe</Link>
             <Link to="settings">Settings</Link>
             <Link to="chat">Chat</Link>
-            <ProfileEdit/>
+      
             <Outlet/>
+      
+            <div className="page-layout">
+                <div className='sidebar'>
+                    <div>
+                        <h1>LOGO</h1>
+                        <Link to="swipe" className="btnGround">Let's Ground!</Link>
+                        <Link to="chat">Chat</Link>
+                    </div>
+                    <div>
+                        <Link to="settings">Settings</Link>
+                    </div>
+                </div>
+                <div className="content">
+                    <Outlet/>
+                </div>
+            </div>
             <Footer/>
         </>
     );
