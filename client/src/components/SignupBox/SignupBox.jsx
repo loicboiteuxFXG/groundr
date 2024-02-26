@@ -24,22 +24,29 @@ const SignupBox = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData();
-        // axios.post('http://localhost:3001/user/create', formData)
-        //     .then((response) => {
-        //         console.log(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-
         formData.append('file', file);
+
+
+        let filename = ""
         axios.post('http://localhost:3001/file/upload', formData)
             .then((response) => {
-                console.log(response.data);
+                filename = response.data.filename;
+                let user = new User(firstName, lastName, password, email, DoB, gender, orientation, [], filename);
+                console.dir(user);
+
+                axios.post('http://localhost:3001/user/create', user)
+                    .then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 console.log(error);
             });
+
+
     };
 
 
