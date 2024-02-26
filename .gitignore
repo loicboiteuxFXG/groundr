@@ -130,3 +130,8 @@ dist
 .pnp.*
 
 .idea
+.vscode
+
+.css
+.css.map
+.module.css
