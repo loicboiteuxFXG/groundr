@@ -1,7 +1,7 @@
-const  MongoHandler = async () => {
+const  GetAllUsers = async () => {
 
     const {MongoClient, ServerApiVersion} = require('mongodb');
-    const config = require('../../config.json');
+    const config = require('../../../config.json');
     const uri = `mongodb+srv://cegep:${config.mongo.password}@cluster0.dosk9nq.mongodb.net/?retryWrites=true&w=majority`;
     // Create a MongoClient with a MongoClientOptions object to set the Stable API version
     const client = new MongoClient(uri, {
@@ -37,4 +37,4 @@ const  MongoHandler = async () => {
     return returnData;
 }
 
-module.exports = { MongoHandler };
+module.exports = { GetAllUsers };
