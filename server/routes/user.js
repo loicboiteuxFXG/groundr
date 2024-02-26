@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const MongoUtils = require('../utils/MongoUtils');
 const router = express.Router();
