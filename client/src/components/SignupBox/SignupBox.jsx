@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {User} from "../../class/User";
-import {postCreateUser} from "../../utils/FetchUtils";
-import ProfileEdit from "../ProfileEdit/ProfileEdit";
-import profileEdit from "../ProfileEdit/ProfileEdit";
+import Select from 'react-select';
+
+const InterestsOptions = require('../../data/Interests.json');
 
 
 const SignupBox = () => {
@@ -14,6 +14,7 @@ const SignupBox = () => {
     const [gender, setGender] = useState("M");
     const [orientation, setOrientation] = useState("M");
     const [DoB, setDoB] = useState(Date());
+    const [interests, setInterests] = useState([]);
     const [file, setFile] = useState()
 
 
@@ -26,12 +27,13 @@ const SignupBox = () => {
         const formData = new FormData();
         formData.append('file', file);
 
+        let interestsToSend = interests.map(i => i.value);
 
         let filename = ""
         axios.post('http://localhost:3001/file/upload', formData)
             .then((response) => {
                 filename = response.data.filename;
-                let user = new User(firstName, lastName, password, email, DoB, gender, orientation, [], filename);
+                let user = new User(firstName, lastName, password, email, DoB, gender, orientation, interestsToSend, filename);
                 console.dir(user);
 
                 axios.post('http://localhost:3001/user/create', user)
@@ -101,6 +103,17 @@ const SignupBox = () => {
                     <option value="A">Tout</option>
                     <option value="O">Autre</option>
                 </select>
+            </label>
+            <label>Mes intérêts
+                <Select
+                    defaultValue={interests}
+                    isMulti
+                    name="colors"
+                    options={InterestsOptions}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={setInterests}
+                />
             </label>
             <label>
                 <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange}/>
