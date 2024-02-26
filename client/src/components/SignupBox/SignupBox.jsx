@@ -1,17 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "../../class/User";
 import Select from 'react-select';
 import ShowcaseHeader from "../ShowcaseHeader";
 import Footer from "../Footer";
+import "../../styles.css"
+import {useNavigate} from "react-router-dom";
 
 const InterestsOptions = require('../../data/Interests.json');
 
 
 const SignupBox = () => {
+    useEffect(() => {
+        document.title = "Créer un compte | GroundR"
+    }, []);
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPwd] = useState("");
+    const [password_confirm, setPwdConf] = useState("")
     const [email, setEmail] = useState("");
     const [gender, setGender] = useState("M");
     const [orientation, setOrientation] = useState("M");
@@ -19,6 +26,7 @@ const SignupBox = () => {
     const [interests, setInterests] = useState([]);
     const [file, setFile] = useState()
 
+    const navigate = useNavigate()
 
     function handleFileChange(event) {
         setFile(event.target.files[0])
@@ -41,6 +49,7 @@ const SignupBox = () => {
                 axios.post('http://localhost:3001/user/create', user)
                     .then((response) => {
                         console.log(response.data);
+                        navigate('/home')
                     })
                     .catch((error) => {
                         console.log(error);
@@ -57,72 +66,152 @@ const SignupBox = () => {
     return (
         <>
             <ShowcaseHeader/>
-            <form onSubmit={handleSubmit}>
-                <label>Enter your first name:
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                </label>
-                <label>Enter your first name:
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                </label>
-                <label>Enter your email:                    <input
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </label>
-                <label>Enter your password:
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPwd(e.target.value)}
-                    />
-                </label>
-                <label>Date de naissance:
-                    <input type='date' onChange={e => setDoB(e.target.value)} value={DoB}/>
-                </label>
-                <label>Genre
-                    <select name="gender" value={gender} onChange={e => setGender(e.target.value)}>
-                        <option value="M">Homme</option>
-                        <option value="F">Femme</option>
-                        <option value="O">Autre</option>
-                    </select>
-                </label>
-                <label>Je recherche
-                    <select name="orientation" value={orientation} onChange={e => setOrientation(e.target.value)}>
-                        <option value="M">Homme</option>
-                        <option value="F">Femme</option>
-                        <option value="A">Tout</option>
-                        <option value="O">Autre</option>
-                    </select>
-                </label>
-                <label>Mes intérêts
-                    <Select
-                        defaultValue={interests}
-                        isMulti
-                        name="colors"
-                        options={InterestsOptions}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        onChange={setInterests}
-                    />
-                </label>
-                <label>
-                    <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleFileChange}/>
-                </label>
-                <input type="submit"/>
-            </form>
+            <div className="container signup-layout">
+                <h2 className="golden">Créer un compte</h2>
+                <div className="signup-card">
+                    <form onSubmit={handleSubmit}>
+                        <label for="firstname">Prénom</label>
+                        <input
+                            id="firstname"
+                            className="form-control"
+                            type="text"
+                            name="firstName"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+
+                        <label for="lastname">Nom</label>
+                        <input
+                            id="lastname"
+                            className="form-control"
+                            type="text"
+                            name="lastName"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+
+                        <label for="email">Adresse courriel</label>
+                        <input
+                            id="email"
+                            className="form-control"
+                            type="text"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+
+                        <label for="password">Créez un mot de passe</label>
+                        <input
+                            id="password"
+                            className="form-control"
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPwd(e.target.value)}
+                        />
+
+                        <label for="password_confirm">Confirmez votre mot de passe</label>
+                        <input
+                            id="password_confirm"
+                            className="form-control"
+                            type="password"
+                            name="password_confirm"
+                            value={password_confirm}
+                            onChange={(e) => setPwdConf(e.target.value)}
+                        />
+
+                        <label for="birthdate">Date de naissance</label>
+                        <input id="birthdate" className="form-control" type='date' onChange={e => setDoB(e.target.value)} value={DoB}/>
+
+                        <label for="gender">Identité de genre</label>
+                        <select id="gender" className="form-select" name="gender" value={gender}
+                                onChange={e => setGender(e.target.value)}>
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="O">Autre</option>
+                        </select>
+
+                        <label for="orientation">Je recherche</label>
+                        <select id="orientation" className="form-select" name="orientation" value={orientation}
+                                onChange={e => setOrientation(e.target.value)}>
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="B">Les deux</option>
+                            <option value="A">Tout</option>
+                        </select>
+
+                        <label for="interests">Mes intérêts</label>
+                        <Select
+                            id="interests"
+                            defaultValue={interests}
+                            isMulti
+                            name="interests"
+                            options={InterestsOptions}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            onChange={setInterests}
+
+                            theme={(theme) => ({
+                                ...theme,
+                                borderRadius: 5,
+                                colors: {
+                                    ...theme.colors,
+                                    primary25: 'DarkGoldenRod',
+                                    primary: 'DarkGoldenRod',
+                                }
+                            })}
+                            styles={{
+                                input: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    color:"lightgrey"
+                                }),
+                                control: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    backgroundColor:"#232020",
+                                    color:"white",
+                                    borderColor:"#e3a256",
+                                    borderRadius:"5px",
+                                    marginBottom:"20px"
+                                }),
+                                menu: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    backgroundColor: "#232020",
+                                    borderRadius: "5px",
+                                    color: "white"
+                                }),
+                                menuList: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: "5px",
+                                    color:"white",
+                                }),
+                                multiValue: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: "5px",
+                                    color:"white",
+                                    backgroundColor:"DarkGoldenRod"
+                                }),
+                                multiValueLabel: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    color:"white"
+                                }),
+                                multiValueRemove: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: "5px",
+                                    color:"white",
+                                    ":hover": {
+                                        backgroundColor:"goldenrod"
+                                    }
+                                })
+                            }}
+                        />
+
+                        <label for="profilepicture">Ajoutez une photo de profil</label>
+                        <input id="profilepicture" type="file" className="form-control" accept="image/png, image/jpg, image/jpeg"
+                               onChange={handleFileChange}/>
+                        <input type="submit" className="custom-btn" value="Créer un compte"/>
+                    </form>
+                </div>
+            </div>
             <Footer/>
         </>
     );

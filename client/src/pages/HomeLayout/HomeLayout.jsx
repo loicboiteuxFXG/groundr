@@ -1,7 +1,12 @@
 import {Link, Outlet} from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
+import {useEffect} from "react";
 const HomeLayout = () => {
+    useEffect(() => {
+        document.title = "Accueil | GroundR"
+    }, []);
+
     return (
         <>
             <div className="page-layout">
