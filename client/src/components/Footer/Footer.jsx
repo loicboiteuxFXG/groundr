@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import './Footer.css';
+import '../../styles.css';
 
 const Footer = () => {
     return (

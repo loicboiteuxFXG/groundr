@@ -1,0 +1,35 @@
+import {Link, Outlet} from "react-router-dom";
+import '../../styles.css';
+import { useNavigate } from "react-router-dom"
+
+
+const ShowcaseHeader = () => {
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        navigate("/account")
+    }
+    const Button = ({text, onClick}) => {
+
+        return(
+            <button type="button" className="custom-btn" onClick={onClick}>
+                {text}
+            </button>
+        )
+    }
+    return (
+        <>
+            <header>
+                <div className="container header-layout">
+                    <h1 className="presTitle"><Link to={'/'}><img src={require('../../images/logo_nobackground.png')}/></Link>
+                    </h1>
+                    <Button text={"Sign in"} onClick={handleClick}/>
+                </div>
+            </header>
+        </>
+    );
+}
+
+export default ShowcaseHeader;

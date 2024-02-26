@@ -1,10 +1,14 @@
+import ShowcaseHeader from "../../components/ShowcaseHeader";
 import Footer from "../../components/Footer";
-import './Presentation.css'
+import '../../styles.css'
 const Presentation = () => {
     return(
 
         <>
-            <h1>Page vitrine</h1>
+            <ShowcaseHeader/>
+            <div className="container">
+                <h1>Page vitrine</h1>
+            </div>
             <Footer/>
         </>
 
