@@ -1,9 +1,9 @@
 import {useQuery} from "react-query";
-import {fetchDB} from "../../utils/FetchUtils";
+import {fetchUser} from "../../utils/FetchUtils";
 
 const HomeSwiper = () => {
 
-    const { data, status } = useQuery('test', fetchDB, {cacheTime: 0})
+    const { data, status } = useQuery('test', fetchUser, {cacheTime: 0})
 
     if (status === 'loading') {
         return <p>Loading...</p>

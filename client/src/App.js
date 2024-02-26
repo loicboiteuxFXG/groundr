@@ -8,6 +8,9 @@ import Presentation from "./pages/Presentation";
 import HomeChatbox from "./components/HomeChatbox";
 import HomeSettings from "./components/HomeSettings";
 import HomeSwiper from "./components/HomeSwiper";
+import Account from "./pages/Account";
+import LoginBox from "./components/LoginBox";
+import SignupBox from "./components/SignupBox";
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,18 +18,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const App = () => {
-  return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Presentation />} />
-            <Route path="/home" element={<HomeLayout />}>
-                <Route path="chat" element={<HomeChatbox />} />
-                <Route path="settings" element={<HomeSettings />} />
-                <Route path="swipe" element={<HomeSwiper />} />
-            </Route>
-        </Routes>
-      </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Presentation/>}/>
+                <Route path="/home" element={<HomeLayout/>}>
+                    <Route path="chat" element={<HomeChatbox/>}/>
+                    <Route path="settings" element={<HomeSettings/>}/>
+                    <Route path="swipe" element={<HomeSwiper/>}/>
+                </Route>
+                <Route path="/account" element={<Account/>}>
+                    <Route path="login" element={<LoginBox/>}/>
+                    <Route path="signup" element={<SignupBox/>}/>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 };
 
 export default App;

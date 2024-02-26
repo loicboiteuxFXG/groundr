@@ -3,13 +3,17 @@ const cors = require('cors')
 const app = express()
 const port = 3001
 
-const MongoHandler = require("./utils/MongoHandler");
+const MongoUtils = require('./utils/MongoUtils')
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
 
+const userRoutes = require('./routes/user');
+const fileRoutes = require('./routes/file');
+app.use('/user', userRoutes);
+app.use('/file', fileRoutes);
 
 app.get('/get', async (req, res) => {
     const response = await fetch('https://catfact.ninja/fact');
@@ -18,7 +22,7 @@ app.get('/get', async (req, res) => {
 });
 
 app.get('/db', async (req, res) => {
-    const body = await MongoHandler.MongoHandler();
+    const body = await MongoUtils.GetAllUsers();
     console.dir(body);
     res.send(body);
 });

@@ -1,0 +1,6 @@
+[
+    { "value": "cooking", "label": "Cuisine" },
+    { "value": "sports", "label": "Sports" },
+    { "value": "tech", "label": "Technologie" },
+    { "value": "arts", "label": "Arts" }
+]
