@@ -39,14 +39,23 @@ const SignupBox = () => {
 
         let interestsToSend = interests.map(i => i.value);
 
-        let filename = ""
         axios.post('http://localhost:3001/file/upload', formData)
             .then((response) => {
-                filename = response.data.filename;
-                let user = new User(firstName, lastName, password, email, DoB, gender, orientation, interestsToSend, filename);
-                console.dir(user);
+                let filename = response.data.filename;
+                let userData = {
+                    "firstname":firstName, 
+                    "lastName":lastName, 
+                    "password":password, 
+                    "password_confirm": password_confirm, 
+                    "email": email, 
+                    "DoB": DoB, 
+                    "gender": gender, 
+                    "orientation": orientation, 
+                    "interestsToSend": interestsToSend, 
+                    "filename": filename
+                }
 
-                axios.post('http://localhost:3001/user/create', user)
+                axios.post('http://localhost:3001/user/create', userData)
                     .then((response) => {
                         console.log(response.data);
                         navigate('/home')
