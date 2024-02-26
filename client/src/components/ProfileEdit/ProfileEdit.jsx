@@ -10,18 +10,11 @@ const ProfileEdit = () => {
         setFile(event.target.files[0])
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-
-        postUpdateUser()
-    };
-
 
     return (
-        <form onSubmit={handleSubmit}>
+        <>
             <label>Date de naissance:
-                <input type='date' onChange={e => setDoB(e.target.value)} value={DoB} />
+                <input type='date' onChange={e => setDoB(e.target.value)} value={DoB}/>
             </label>
             <label>Genre
                 <select name="gender" value={gender} onChange={e => setGender(e.target.value)}>
@@ -41,8 +34,7 @@ const ProfileEdit = () => {
             <label>
                 <input type="file" accept="image/png, image/jpg, image/jpeg" onChange={handleChange}/>
             </label>
-            <input type="submit"/>
-        </form>
+        </>
     );
 }
 

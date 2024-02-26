@@ -3,12 +3,13 @@ export const fetchDemo = async () => {
     return res.json();
 }
 
-export const fetchDB = async () => {
-    const res = await fetch('http://localhost:3001/db');
+export const fetchUser = async (id) => {
+    const res = await fetch(`http://localhost:3001/user/get/${id}`);
     return res.json();
 }
 
 
+export const fetchUsers = async () => {}
 
 export const postCreateUser = async (user) => {
     const serializedBody = JSON.stringify(user);
