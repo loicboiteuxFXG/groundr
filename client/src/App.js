@@ -27,10 +27,9 @@ const App = () => {
                     <Route path="settings" element={<HomeSettings/>}/>
                     <Route path="swipe" element={<HomeSwiper/>}/>
                 </Route>
-                <Route path="/account" element={<Account/>}>
-                    <Route path="login" element={<LoginBox/>}/>
-                    <Route path="signup" element={<SignupBox/>}/>
-                </Route>
+                <Route path="/account" element={<Account/>}/>
+                <Route path="/account/login" element={<LoginBox/>}/>
+                <Route path="/account/signup" element={<SignupBox/>}/>
             </Routes>
         </BrowserRouter>
     );
