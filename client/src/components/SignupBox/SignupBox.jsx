@@ -42,13 +42,25 @@ const SignupBox = () => {
         axios.post('http://localhost:3001/file/upload', formData)
             .then((response) => {
                 filename = response.data.filename;
-                let user = new User(firstName, lastName, password, email, DoB, gender, orientation, interestsToSend, filename);
-                console.dir(user);
+                let userData = {
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password,
+                    "password_confirm": password_confirm,
+                    "gender": gender,
+                    "orientation": orientation,
+                    "DoB": DoB,
+                    "interests": interests,
+                    "pfpURL": filename
+                }
 
-                axios.post('http://localhost:3001/user/create', user)
+                axios.post('http://localhost:3001/user/create', userData)
                     .then((response) => {
-                        console.log(response.data);
-                        navigate('/home')
+                        console.log(response.data)
+                        if (response.data.status !== "error")
+                            navigate('/home')
+
                     })
                     .catch((error) => {
                         console.log(error);
