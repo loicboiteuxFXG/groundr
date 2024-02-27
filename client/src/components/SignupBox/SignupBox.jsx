@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from 'react-select';
+import { trackPromise } from 'react-promise-tracker';
+import { useNavigate } from "react-router-dom";
+
 import ShowcaseHeader from "../ShowcaseHeader";
 import Footer from "../Footer";
 import "../../styles.css"
-import {useNavigate} from "react-router-dom";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const InterestsOptions = require('../../data/Interests.json');
 
@@ -25,6 +28,9 @@ const SignupBox = () => {
     const [interests, setInterests] = useState([]);
     const [file, setFile] = useState()
 
+
+
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
 
     function handleFileChange(event) {
@@ -33,6 +39,8 @@ const SignupBox = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setLoading(true);
+
         const formData = new FormData();
         formData.append('file', file);
 
@@ -58,25 +66,28 @@ const SignupBox = () => {
                 axios.post('http://localhost:3001/user/create', userData)
                     .then((response) => {
                         console.log(response.data)
-                        if (response.data.status !== "error")
+                        if (response.data.status !== "error") {
                             navigate('/home')
+                        } else {
+                            setLoading(false);
+                        }
 
                     })
                     .catch((error) => {
+                        setLoading(false);
                         console.log(error);
-                    });
+                    })
             })
             .catch((error) => {
+                setLoading(false);
                 console.log(error);
-            });
-
-
+            })
     };
 
 
     return (
         <>
-            <ShowcaseHeader/>
+            <ShowcaseHeader />
             <div className="container signup-layout">
                 <h2 className="golden">Créer un compte</h2>
                 <div className="signup-card">
@@ -132,11 +143,11 @@ const SignupBox = () => {
                         />
 
                         <label for="birthdate">Date de naissance</label>
-                        <input id="birthdate" className="form-control" type='date' onChange={e => setDoB(e.target.value)} value={DoB}/>
+                        <input id="birthdate" className="form-control" type='date' onChange={e => setDoB(e.target.value)} value={DoB} />
 
                         <label for="gender">Identité de genre</label>
                         <select id="gender" className="form-select" name="gender" value={gender}
-                                onChange={e => setGender(e.target.value)}>
+                            onChange={e => setGender(e.target.value)}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
@@ -144,7 +155,7 @@ const SignupBox = () => {
 
                         <label for="orientation">Je recherche</label>
                         <select id="orientation" className="form-select" name="orientation" value={orientation}
-                                onChange={e => setOrientation(e.target.value)}>
+                            onChange={e => setOrientation(e.target.value)}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="B">Les deux</option>
@@ -174,15 +185,15 @@ const SignupBox = () => {
                             styles={{
                                 input: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    color:"lightgrey"
+                                    color: "lightgrey"
                                 }),
                                 control: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    backgroundColor:"#232020",
-                                    color:"white",
-                                    borderColor:"#e3a256",
-                                    borderRadius:"5px",
-                                    marginBottom:"20px"
+                                    backgroundColor: "#232020",
+                                    color: "white",
+                                    borderColor: "#e3a256",
+                                    borderRadius: "5px",
+                                    marginBottom: "20px"
                                 }),
                                 menu: (baseStyles, state) => ({
                                     ...baseStyles,
@@ -193,24 +204,24 @@ const SignupBox = () => {
                                 menuList: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: "5px",
-                                    color:"white",
+                                    color: "white",
                                 }),
                                 multiValue: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: "5px",
-                                    color:"white",
-                                    backgroundColor:"DarkGoldenRod"
+                                    color: "white",
+                                    backgroundColor: "DarkGoldenRod"
                                 }),
                                 multiValueLabel: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    color:"white"
+                                    color: "white"
                                 }),
                                 multiValueRemove: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: "5px",
-                                    color:"white",
+                                    color: "white",
                                     ":hover": {
-                                        backgroundColor:"goldenrod"
+                                        backgroundColor: "goldenrod"
                                     }
                                 })
                             }}
@@ -218,12 +229,12 @@ const SignupBox = () => {
 
                         <label for="profilepicture">Ajoutez une photo de profil</label>
                         <input id="profilepicture" type="file" className="form-control" accept="image/png, image/jpg, image/jpeg"
-                               onChange={handleFileChange}/>
-                        <input type="submit" className="custom-btn" value="Créer un compte"/>
+                            onChange={handleFileChange} />
+                        {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Créer un compte" />}
                     </form>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 }
