@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {User} from "../../class/User";
 import Select from 'react-select';
 import ShowcaseHeader from "../ShowcaseHeader";
 import Footer from "../Footer";
