@@ -35,12 +35,6 @@ app.get('/db', async (req, res) => {
 });
 
 
-app.post('/post', async (req, res) => {
-    const data = req.body;
-    console.log(data); // always good practice to verify your data is coming through in the shape you expect it to be in.
-})
-
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
