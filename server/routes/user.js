@@ -8,19 +8,7 @@ const { ValidateSignup } = require('../middleware/Validation');
 
 
 router.post('/create', ValidateSignup,(req, res) => {
-    // console.info(ValidateSignup(req.body))
-    // return
-    console.log("back to route")
     
-
-    MongoUtils.CreateUser(req.body)
-        .then(user => {
-            return res.send({status: "OK", message: "Compte créé"})
-        })
-        .catch(err => {
-            console.error(err);
-            res.send({status: "error", message: err})
-        });
 });
 
 router.get('/:id', (req, res) => {

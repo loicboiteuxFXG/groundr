@@ -14,8 +14,13 @@ app.use(cors());
 
 const userRoutes = require('./routes/user');
 const fileRoutes = require('./routes/file');
+const authRoutes = require('./routes/auth');
+
 app.use('/user', userRoutes);
 app.use('/file', fileRoutes);
+app.use('/auth', authRoutes);
+
+
 
 app.get('/get', async (req, res) => {
     const response = await fetch('https://catfact.ninja/fact');

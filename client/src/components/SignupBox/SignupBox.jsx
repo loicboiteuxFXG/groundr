@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from 'react-select';
-import { trackPromise } from 'react-promise-tracker';
 import { useNavigate } from "react-router-dom";
 
 import ShowcaseHeader from "../ShowcaseHeader";
@@ -63,7 +62,7 @@ const SignupBox = () => {
                     "pfpURL": filename
                 }
 
-                axios.post('http://localhost:3001/user/create', userData)
+                axios.post('http://localhost:3001/auth/register', userData)
                     .then((response) => {
                         console.log(response.data)
                         if (response.data.status !== "error") {
