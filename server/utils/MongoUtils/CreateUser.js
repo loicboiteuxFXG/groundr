@@ -2,7 +2,7 @@
 const { ClientHandler } = require('./ClientHandler')
 
 const  CreateUser = async (data) => {
-    const client = await ClientHandler()
+    const client = await ClientHandler();
 
     try {
         // Connect the client to the server	(optional starting in v4.7)
