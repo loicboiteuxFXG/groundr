@@ -4,7 +4,7 @@ const express = require('express');
 const MongoUtils = require('../utils/MongoUtils');
 const router = express.Router();
 
-const { ValidateSignup } = require('../utils/Validation');
+const { ValidateSignup } = require('../middleware/Validation');
 
 
 router.post('/create', ValidateSignup,(req, res) => {
