@@ -82,8 +82,8 @@ const LoginBox = () => {
                             id="password" 
                             value={password} 
                             onChange={(e) => setPwd(e.target.value)} 
-
                             />
+
                         </div>
                         {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Se connecter" />}
                     </form>

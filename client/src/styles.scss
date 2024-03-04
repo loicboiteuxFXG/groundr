@@ -178,10 +178,10 @@ footer {
     label{
       color: white;
       font-family: Montserrat, sans-serif;
+      margin-top: 20px;
     }
     input, select{
       color: white;
-      margin-bottom: 20px;
       background-color: $dark-color;
       border: 1px solid #e3a256;
     }
@@ -189,7 +189,7 @@ footer {
       border: none;
       color: $dark-color;
       text-align: center;
-      margin: 0 auto;
+      margin: 20px auto 0 auto
     }
     input::file-selector-button{
       background-color: $dark-color;
@@ -197,6 +197,13 @@ footer {
     }
     input:focus{
       box-shadow: none;
+    }
+
+    .css-es2p3j-control, .css-sg40b7-control {
+      margin-bottom: 0;
+      &:focus{
+        margin-bottom: 0;
+      }
     }
   }
 }
