@@ -85,7 +85,7 @@ const LoginBox = () => {
 
                             />
                         </div>
-                        {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Créer un compte" />}
+                        {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Se connecter" />}
                     </form>
                 </div>
             </div>
