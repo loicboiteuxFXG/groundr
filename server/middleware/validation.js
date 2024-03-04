@@ -25,13 +25,16 @@ const ValidateSignup = async (req, res, next) => {
         // return res.send({status: "error", message: "Les mots de passe ne correspondent pas"});
     }
 
-    let user = await GetUser({"email": userData.email});
+    let user = await GetUser({"email": userData.email})
     
     if (user != null) {
         if (Object.keys(user).length !== 0)
             errors.email = "Un utilisateur avec cette adresse courriel existe déjà."
             // return res.send({status: "error", message: "Un utilisateur existe déja"});
     }
+
+    if(errors)
+        return res.status(400).send(errors)
 
     next()
 }

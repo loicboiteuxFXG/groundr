@@ -7,7 +7,7 @@ import Footer from "../Footer"
 import "../../styles.css"
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator"
 const InterestsOptions = require('../../data/Interests.json')
-const bcrypt = require('bcryptjs')
+const sha256 = require('js-sha256')
 
 const SignupBox = () => {
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ const SignupBox = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        console.log(formData.DoB)
         const validationErrors = {}
 
         if (!formData.firstName.trim()) {
@@ -97,23 +97,23 @@ const SignupBox = () => {
         if(Object.keys(validationErrors).length === 0){
             setLoading(true)
 
-            const formData = new FormData();
-            formData.append('file', file)
+            const data = new FormData();
+            data.append('file', file)
 
-            let interestsToSend = formData.interests.map(i => i.value);
+            let interestsToSend = interests.map(i => i.value);
 
-            let filename = ""
+            var filename = ""
 
-            axios.post('http://localhost:3001/file/upload', formData)
+            axios.post('http://localhost:3001/file/upload', data)
                 .then((response) => {
                     filename = response.data.filename
                 })
                 .catch((error) => {
-                    filename = "default-user.png"
+                    console.error(error)
                 })
 
-            let hashedPassword = bcrypt.hash(formData.password, 69)
-            let hashedPassword2 = bcrypt.hash(formData.password_confirm, 69)
+            let hashedPassword = sha256.sha256(formData.password)
+            let hashedPassword2 = sha256.sha256(formData.password_confirm)
 
             let userData = {
                 "firstName": formData.firstName,
@@ -129,9 +129,8 @@ const SignupBox = () => {
             }
 
 
-            axios.post('http://localhost:3001/user/create', userData)
+            axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {
-                    console.log(response.data)
                     if (response.data.status !== "error") {
                         navigate('/home')
                     } else {
@@ -141,7 +140,8 @@ const SignupBox = () => {
                 })
                 .catch((error) => {
                     setLoading(false)
-                    console.log(error)
+                    const errors = error.response.data
+                    setErrors(errors)
                 })
         }
     };
@@ -203,7 +203,7 @@ const SignupBox = () => {
                             onChange={handleChange}/>
                         {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
                         <label htmlFor="birthdate">Date de naissance</label>
-                        <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"} type='date'
+                        <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"} type='date' name="DoB"
                                onChange={handleChange}/>
                         {errors.DoB && <span className="invalid-feedback">{errors.DoB}</span>}
                         <label htmlFor="gender">Identité de genre</label>
