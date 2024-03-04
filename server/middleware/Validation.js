@@ -16,7 +16,7 @@ const ValidateSignup = async (req, res, next) => {
     if (age < 18)
         return res.send({status: "error", message: "Age invalide"});
         
-    if ((userData.password === "" || userData.password_confirm === "") || (userData.password != userData.password_confirm))
+    if ((userData.password === "" || userData.password_confirm === "") || (userData.password !== userData.password_confirm))
         return res.send({status: "error", message: "Les mots de passe ne correspondent pas"});
 
     if (userData.email === "")

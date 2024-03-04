@@ -26,8 +26,7 @@ const Login = (req, res, next) => {
             loadedUser = user;
             console.log(loadedUser.password, password);
 
-            return loadedUser.password === password;
-            // return bcrypt.compare(password, loadedUser.password);
+            return bcrypt.compare(password, loadedUser.password);
         })
         .then(isEqual => {
             if (!isEqual) {
