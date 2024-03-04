@@ -1,11 +1,18 @@
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import Footer from "../../components/Footer";
 import ShowcaseHeader from "../../components/ShowcaseHeader";
 import {useEffect} from "react";
 
 const Account = () => {
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-        document.title = "GroundR Web | GroundR"
+        document.title = "GroundR Web | GroundR";
+        const token = JSON.parse(localStorage.getItem("usertoken"));
+        if (token) {
+            navigate('/home');
+        }
     }, []);
 
     return(

@@ -12,8 +12,15 @@ const InterestsOptions = require('../../data/Interests.json')
 
 
 const SignupBox = () => {
+    const navigate = useNavigate();
+
     useEffect(() => {
-        document.title = "Créer un compte | GroundR"
+        document.title = "Créer un compte | GroundR";
+
+        const token = JSON.parse(localStorage.getItem("usertoken"));
+        if (token) {
+            navigate('/home');
+        }
     }, []);
 
     const regExpString = '^[a-zA-Z]+$'
@@ -37,11 +44,11 @@ const SignupBox = () => {
 
 
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
 
     function handleFileChange(event) {
         setFile(event.target.files[0])
     }
+
 
     const handleSubmit = (e) => {
         e.preventDefault()

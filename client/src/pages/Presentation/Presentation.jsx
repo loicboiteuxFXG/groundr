@@ -9,9 +9,7 @@ const Presentation = () => {
         document.title = "GroundR | Site de rencontre"
     }, []);
 
-
     return(
-
         <>
             <ShowcaseHeader/>
             <div className="container">
@@ -19,7 +17,6 @@ const Presentation = () => {
             </div>
             <Footer/>
         </>
-
     );
 }
 

@@ -2,7 +2,7 @@
 const { ClientHandler } = require('./ClientHandler')
 
 const  GetUser = async (query) => {
-    const client = await ClientHandler()
+    const client = await ClientHandler();
 
     let returnData = {};
 

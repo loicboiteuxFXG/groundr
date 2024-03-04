@@ -2,7 +2,7 @@
 const { ClientHandler } = require('./ClientHandler')
 
 const  GetAllUsers = async () => {
-    const client = await ClientHandler()
+    const client = await ClientHandler();
 
     let returnData = [];
 

@@ -1,22 +1,27 @@
-import {useQuery} from "react-query";
-import {fetchDemo} from "../../utils/FetchUtils";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const HomeChatbox = () => {
+    const [fact, setFact] = useState("");
 
-    const { data, status } = useQuery('test', fetchDemo, {cacheTime: 0})
-
-    if (status === 'loading') {
-        return <p>Loading...</p>
-    }
-
-    if (status === 'error') {
-        return <p>Something went wrong :(</p>
-    }
+    useEffect(() => {
+        axios.get('http://localhost:3001/get', {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+            }
+        })
+        .then((response) => {
+            console.log(response);
+            setFact(response.data.fact);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+    }, []);
 
 
     return(
-        <p>{data['fact']}</p>
+        <p>{fact}</p>
     )
 }
 
