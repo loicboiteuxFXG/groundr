@@ -32,7 +32,7 @@ const SignupBox = () => {
     const [orientation, setOrientation] = useState("M");
     const [DoB, setDoB] = useState(Date());
     const [interests, setInterests] = useState([]);
-    const [file, setFile] = useState()
+    const [file, setFile] = useState();
 
 
 
@@ -70,9 +70,9 @@ const SignupBox = () => {
 
                 axios.post('http://localhost:3001/auth/register', userData)
                     .then((response) => {
-                        console.log(response.data)
+                        console.log(response.data);
                         if (response.data.status !== "error") {
-                            navigate('/home')
+                            navigate('/home');
                         } else {
                             setLoading(false);
                         }

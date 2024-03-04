@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { GetUser, CreateUser } = require('../utils/MongoUtils')
+const { GetUser, CreateUser } = require('../utils/MongoUtils');
 
 
 const Login = (req, res, next) => {
@@ -57,9 +57,6 @@ const Login = (req, res, next) => {
 
 
 const Register = (req, res) => {
-    // console.info(ValidateSignup(req.body))
-    // return
-    console.log("back to route")
 
 
     CreateUser(req.body)
@@ -73,4 +70,4 @@ const Register = (req, res) => {
 }
 
 
-module.exports = { Login, Register }
+module.exports = { Login, Register };

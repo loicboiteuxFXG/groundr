@@ -4,18 +4,17 @@ import '../../styles.css'
 import { useEffect } from "react";
 
 const HomeLayout = () => {
+    const navigate = useNavigate();
+
+
     useEffect(() => {
-        document.title = "Accueil | GroundR"
+        document.title = "Accueil | GroundR";
 
         const token = JSON.parse(localStorage.getItem("usertoken"));
         if (!token) {
             navigate('/account/login');
         }
     }, []);
-
-
-    const navigate = useNavigate();
-
 
     const LogoutButton = () => {
 

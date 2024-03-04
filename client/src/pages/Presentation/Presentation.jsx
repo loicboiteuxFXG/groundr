@@ -9,10 +9,7 @@ const Presentation = () => {
         document.title = "GroundR | Site de rencontre"
     }, []);
 
-    console.log(JSON.parse(localStorage.getItem('usertoken')))
-
     return(
-
         <>
             <ShowcaseHeader/>
             <div className="container">
@@ -20,7 +17,6 @@ const Presentation = () => {
             </div>
             <Footer/>
         </>
-
     );
 }
 
