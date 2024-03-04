@@ -33,7 +33,7 @@ const ValidateSignup = async (req, res, next) => {
             // return res.send({status: "error", message: "Un utilisateur existe déja"});
     }
 
-    if(errors)
+    if(Object.keys(errors).length !== 0)
         return res.status(400).send(errors)
 
     next()

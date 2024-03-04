@@ -56,8 +56,6 @@ const Login = (req, res, next) => {
 
 
 const Register = (req, res) => {
-
-
     CreateUser(req.body)
         .then(user => {
             return res.send({ status: "OK", message: "Compte créé" })
