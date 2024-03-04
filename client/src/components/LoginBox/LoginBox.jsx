@@ -7,8 +7,15 @@ import "../../styles.css"
 import { useNavigate } from "react-router-dom";
 
 const LoginBox = () => {
+    const navigate = useNavigate();
+    
     useEffect(() => {
         document.title = 'Connexion | GroundR';
+
+        const token = JSON.parse(localStorage.getItem("usertoken"));
+        if (token) {
+            navigate('/home');
+        }
     }, []);
 
 
@@ -16,7 +23,6 @@ const LoginBox = () => {
     const [email, setEmail] = useState("");
 
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();

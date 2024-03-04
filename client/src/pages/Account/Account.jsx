@@ -8,7 +8,7 @@ const Account = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "GroundR Web | GroundR"
+        document.title = "GroundR Web | GroundR";
         const token = JSON.parse(localStorage.getItem("usertoken"));
         if (token) {
             navigate('/home');

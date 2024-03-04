@@ -8,12 +8,19 @@ import Footer from "../Footer";
 import "../../styles.css"
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
-const InterestsOptions = require('../../data/Interests.json');
+const InterestsOptions = require('../../data/Interests.json'); // A CHANGER
 
 
 const SignupBox = () => {
+    const navigate = useNavigate();
+
     useEffect(() => {
-        document.title = "Créer un compte | GroundR"
+        document.title = "Créer un compte | GroundR";
+
+        const token = JSON.parse(localStorage.getItem("usertoken"));
+        if (token) {
+            navigate('/home');
+        }
     }, []);
 
     const [firstName, setFirstName] = useState("");
@@ -30,7 +37,6 @@ const SignupBox = () => {
 
 
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     function handleFileChange(event) {
         setFile(event.target.files[0])
