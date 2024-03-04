@@ -16,12 +16,12 @@ const LoginBox = () => {
                 <div className="login-card">
                     <form>
                         <div>
-                            <label for="password">Adresse Courriel</label>
+                            <label htmlFor="password">Adresse Courriel</label>
                             <input className="form-control" type="email" name="email" id="email" value="" />
                         </div>
 
                         <div>
-                            <label for="password">Mot de passe</label>
+                            <label htmlFor="password">Mot de passe</label>
                             <input className="form-control" type="password" name="password" id="password" value="" />
                         </div>
                         <input value="Connexion" type="submit" className="custom-btn"/>

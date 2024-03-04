@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Select from 'react-select';
-import { trackPromise } from 'react-promise-tracker';
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from 'react'
+import axios from 'axios'
+import Select from 'react-select'
+import {useNavigate} from 'react-router-dom'
+import bcrypt from 'bcrypt'
 
-import ShowcaseHeader from "../ShowcaseHeader";
-import Footer from "../Footer";
+import ShowcaseHeader from "../ShowcaseHeader"
+import Footer from "../Footer"
 import "../../styles.css"
-import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
-
-const InterestsOptions = require('../../data/Interests.json');
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator"
+const InterestsOptions = require('../../data/Interests.json')
 
 
 const SignupBox = () => {
@@ -17,17 +16,24 @@ const SignupBox = () => {
         document.title = "Créer un compte | GroundR"
     }, []);
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [password, setPwd] = useState("");
-    const [password_confirm, setPwdConf] = useState("")
-    const [email, setEmail] = useState("");
-    const [gender, setGender] = useState("M");
-    const [orientation, setOrientation] = useState("M");
-    const [DoB, setDoB] = useState(Date());
-    const [interests, setInterests] = useState([]);
-    const [file, setFile] = useState()
+    const regExpString = '^[a-zA-Z]+$'
+    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
+    const [file, setFile] = useState()
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        password_confirm: '',
+        gender: 'M',
+        orientation: 'M',
+        DoB: '',
+    });
+    const [interests, setInterests] = useState([]);
+
+    const [errors, setErrors] = useState({})
 
 
     const [loading, setLoading] = useState(false);
@@ -37,142 +43,191 @@ const SignupBox = () => {
         setFile(event.target.files[0])
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setLoading(true);
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
-        const formData = new FormData();
-        formData.append('file', file);
+        const validationErrors = {}
 
-        let interestsToSend = interests.map(i => i.value);
+        if (!formData.firstName.trim()) {
+            validationErrors.firstName = 'Ce champ est requis.'
+        } else if (!formData.firstName.trim().match(regExpString)) {
+            validationErrors.firstName = 'Le champ contient des caractères invalides.'
+        }
 
-        let filename = ""
-        axios.post('http://localhost:3001/file/upload', formData)
-            .then((response) => {
-                filename = response.data.filename;
-                let userData = {
-                    "firstName": firstName,
-                    "lastName": lastName,
-                    "email": email,
-                    "password": password,
-                    "password_confirm": password_confirm,
-                    "gender": gender,
-                    "orientation": orientation,
-                    "DoB": DoB,
-                    "interests": interestsToSend,
-                    "pfpURL": filename
-                }
+        if (!formData.lastName.trim()) {
+            validationErrors.lastName = 'Ce champ est requis.'
+        } else if (!formData.lastName.trim().match(regExpString)) {
+            validationErrors.lastName = 'Le champ contient des caractères invalides.'
+        }
 
-                axios.post('http://localhost:3001/user/create', userData)
-                    .then((response) => {
-                        console.log(response.data)
-                        if (response.data.status !== "error") {
-                            navigate('/home')
-                        } else {
-                            setLoading(false);
-                        }
+        if (!formData.email.trim()) {
+            validationErrors.email = 'Ce champ est requis.'
+        } else if (!formData.email.trim().match(regExpEmail)) {
+            validationErrors.email = 'L\'adresse courriel est invalide.'
+        }
 
-                    })
-                    .catch((error) => {
-                        setLoading(false);
-                        console.log(error);
-                    })
-            })
-            .catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
+        if (!formData.password.trim()) {
+            validationErrors.password = 'Ce champ est requis.'
+        } else if (!formData.password.trim().match(regExpPassword)) {
+            validationErrors.password = 'Le mot de passe est invalide. Il doit contenir au moins 8' +
+                ' caractères dont au moins une lettre minuscule, une lettre majuscule et un chiffre.'
+        }
+
+        if (!formData.password_confirm.trim()) {
+            validationErrors.password_confirm = 'Ce champ est requis.'
+        } else if (!(formData.password_confirm.trim() === formData.password.trim())) {
+            validationErrors.password_confirm = 'Les mots de passe ne correspondent pas.'
+        }
+
+        if (!formData.DoB) {
+            validationErrors.DoB = 'Ce champ est requis.'
+        }
+
+        if (!interests || interests.length < 3) {
+            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
+        }
+
+        setErrors(validationErrors)
+
+        if(Object.keys(validationErrors).length === 0){
+            setLoading(true)
+
+            const formData = new FormData();
+            formData.append('file', file)
+
+            let interestsToSend = formData.interests.map(i => i.value);
+
+            let filename = ""
+
+            axios.post('http://localhost:3001/file/upload', formData)
+                .then((response) => {
+                    filename = response.data.filename
+                })
+                .catch((error) => {
+                    filename = "default-user.png"
+                })
+
+            let hashedPassword = bcrypt.hash(formData.password, 69)
+            let hashedPassword2 = bcrypt.hash(formData.password_confirm, 69)
+
+            let userData = {
+                "firstName": formData.firstName,
+                "lastName": formData.lastName,
+                "email": formData.email,
+                "password": hashedPassword,
+                "password_confirm": hashedPassword2,
+                "gender": formData.gender,
+                "orientation": formData.orientation,
+                "DoB": formData.DoB,
+                "interests": interestsToSend,
+                "pfpURL": filename
+            }
+
+
+            axios.post('http://localhost:3001/user/create', userData)
+                .then((response) => {
+                    console.log(response.data)
+                    if (response.data.status !== "error") {
+                        navigate('/home')
+                    } else {
+                        setLoading(false)
+                    }
+
+                })
+                .catch((error) => {
+                    setLoading(false)
+                    console.log(error)
+                })
+        }
     };
+
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setFormData({
+            ...formData, [name]: value
+        })
+    }
 
 
     return (
         <>
-            <ShowcaseHeader />
+            <ShowcaseHeader/>
             <div className="container signup-layout">
                 <h2 className="golden">Créer un compte</h2>
                 <div className="signup-card">
-                    <form onSubmit={handleSubmit}>
-                        <label for="firstname">Prénom</label>
+                    <form onSubmit={handleSubmit} noValidate>
+                        <label htmlFor="firstname">Prénom</label>
                         <input
                             id="firstname"
-                            className="form-control"
+                            className={errors.firstName ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="firstName"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
+                            onChange={handleChange}
                         />
-
-                        <label for="lastname">Nom</label>
+                        {errors.firstName && <span className="invalid-feedback">{errors.firstName}</span>}
+                        <label htmlFor="lastname">Nom</label>
                         <input
                             id="lastname"
-                            className="form-control"
+                            className={errors.lastName ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="lastName"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-
-                        <label for="email">Adresse courriel</label>
+                            onChange={handleChange}/>
+                        {errors.lastName && <span className="invalid-feedback">{errors.lastName}</span>}
+                        <label htmlFor="email">Adresse courriel</label>
                         <input
                             id="email"
-                            className="form-control"
+                            className={errors.email ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-
-                        <label for="password">Créez un mot de passe</label>
+                            onChange={handleChange}/>
+                        {errors.email && <span className="invalid-feedback">{errors.email}</span>}
+                        <label htmlFor="password">Créez un mot de passe</label>
                         <input
                             id="password"
-                            className="form-control"
+                            className={errors.password ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password"
-                            value={password}
-                            onChange={(e) => setPwd(e.target.value)}
-                        />
-
-                        <label for="password_confirm">Confirmez votre mot de passe</label>
+                            onChange={handleChange}/>
+                        {errors.password && <span className="invalid-feedback">{errors.password}</span>}
+                        <label htmlFor="password_confirm">Confirmez votre mot de passe</label>
                         <input
                             id="password_confirm"
-                            className="form-control"
+                            className={errors.password_confirm ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password_confirm"
-                            value={password_confirm}
-                            onChange={(e) => setPwdConf(e.target.value)}
-                        />
-
-                        <label for="birthdate">Date de naissance</label>
-                        <input id="birthdate" className="form-control" type='date' onChange={e => setDoB(e.target.value)} value={DoB} />
-
-                        <label for="gender">Identité de genre</label>
-                        <select id="gender" className="form-select" name="gender" value={gender}
-                            onChange={e => setGender(e.target.value)}>
+                            onChange={handleChange}/>
+                        {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
+                        <label htmlFor="birthdate">Date de naissance</label>
+                        <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"} type='date'
+                               onChange={handleChange}/>
+                        {errors.DoB && <span className="invalid-feedback">{errors.DoB}</span>}
+                        <label htmlFor="gender">Identité de genre</label>
+                        <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"} name="gender"
+                                onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
                         </select>
-
-                        <label for="orientation">Je recherche</label>
-                        <select id="orientation" className="form-select" name="orientation" value={orientation}
-                            onChange={e => setOrientation(e.target.value)}>
+                        {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
+                        <label htmlFor="orientation">Je recherche</label>
+                        <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"} name="orientation"
+                                onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="B">Les deux</option>
                             <option value="A">Tout</option>
                         </select>
-
-                        <label for="interests">Mes intérêts</label>
+                        {errors.orientation && <span className="invalid-feedback">{errors.orientation}</span>}
+                        <label htmlFor="interests">Mes intérêts</label>
                         <Select
                             id="interests"
-                            defaultValue={interests}
                             isMulti
                             name="interests"
                             options={InterestsOptions}
                             className="basic-multi-select"
                             classNamePrefix="select"
+                            value={interests}
                             onChange={setInterests}
-
                             theme={(theme) => ({
                                 ...theme,
                                 borderRadius: 5,
@@ -226,15 +281,17 @@ const SignupBox = () => {
                                 })
                             }}
                         />
-
-                        <label for="profilepicture">Ajoutez une photo de profil</label>
-                        <input id="profilepicture" type="file" className="form-control" accept="image/png, image/jpg, image/jpeg"
-                            onChange={handleFileChange} />
-                        {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Créer un compte" />}
+                        {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
+                        <label htmlFor="profilepicture">Ajoutez une photo de profil</label>
+                        <input id="profilepicture" type="file" className="form-control"
+                               accept="image/png, image/jpg, image/jpeg"
+                               onChange={handleFileChange}/>
+                        {loading ? <LoadingIndicator/> :
+                            <input type="submit" className="custom-btn" value="Créer un compte"/>}
                     </form>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 }
