@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ShowcaseHeader from "../ShowcaseHeader";
+import LoadingIndicator from "../LoadingIndicator"
 import Footer from "../Footer";
 import "../../styles.css"
+import { useNavigate } from "react-router-dom";
 
 const LoginBox = () => {
     useEffect(() => {
@@ -14,6 +16,7 @@ const LoginBox = () => {
     const [email, setEmail] = useState("");
 
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -24,19 +27,26 @@ const LoginBox = () => {
             "password": password
         }
 
+        if (email === "" || password === "") {
+            setLoading(false);
+            return console.log("No :gigachad:");
+        }
 
         axios.post('http://localhost:3001/auth/login', userData)
             .then((response) => {
                 console.log(response);
+                if (response.data.token) {
+                    localStorage.setItem("usertoken", JSON.stringify(response.data.token));
+                    navigate('/home');
+                } else {
+                    throw Error(":C")
+                }
             })
             .catch((error) => {
                 setLoading(false);
                 console.log(error);
             })
     };
-
-
-
 
     return (
         <>
@@ -58,7 +68,7 @@ const LoginBox = () => {
                         </div>
 
                         <div>
-                            <label for="password">Mot de passe</label>
+                            <label htmlFor="password">Mot de passe</label>
                             <input 
                             className="form-control" 
                             type="password" 
@@ -69,7 +79,7 @@ const LoginBox = () => {
 
                             />
                         </div>
-                        <input value="Connexion" type="submit" className="custom-btn"/>
+                        {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Créer un compte" />}
                     </form>
                 </div>
             </div>

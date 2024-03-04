@@ -9,6 +9,7 @@ const Presentation = () => {
         document.title = "GroundR | Site de rencontre"
     }, []);
 
+    console.log(JSON.parse(localStorage.getItem('usertoken')))
 
     return(
 

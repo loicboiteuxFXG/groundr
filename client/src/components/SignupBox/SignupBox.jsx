@@ -30,7 +30,7 @@ const SignupBox = () => {
 
 
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     function handleFileChange(event) {
         setFile(event.target.files[0])
