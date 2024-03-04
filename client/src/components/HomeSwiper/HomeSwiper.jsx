@@ -1,21 +1,28 @@
-import {useQuery} from "react-query";
-import {fetchUser} from "../../utils/FetchUtils";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const HomeSwiper = () => {
 
-    const { data, status } = useQuery('test', fetchUser, {cacheTime: 0})
+    const [matches, setMatches] = useState([]);
 
-    if (status === 'loading') {
-        return <p>Loading...</p>
-    }
-
-    if (status === 'error') {
-        return <p>Something went wrong :(</p>
-    }
+    useEffect(() => {
+        axios.get('http://localhost:3001/swipe/get-matches', {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+            }
+        })
+        .then((response) => {
+            console.log(response);
+            setMatches(response.data.matches);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+    }, []);
 
 
     return(
-        <p>{JSON.stringify(data)}</p>
+        <p>{JSON.stringify(matches)}</p>
     )
 }
 

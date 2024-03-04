@@ -25,11 +25,12 @@ app.use((req, res, next) => {
 const userRoutes = require('./routes/user');
 const fileRoutes = require('./routes/file');
 const authRoutes = require('./routes/auth');
+const swipeRoutes = require('./routes/swipe');
 
 app.use('/user', userRoutes);
 app.use('/file', fileRoutes);
 app.use('/auth', authRoutes);
-
+app.use('/swipe', swipeRoutes);
 
 
 
