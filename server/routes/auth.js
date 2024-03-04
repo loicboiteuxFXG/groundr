@@ -3,7 +3,7 @@
 const express = require('express');
 
 const authController = require('../controllers/authController.js');
-const { ValidateSignup } = require('../middleware/Validation.js');
+const { ValidateSignup } = require('../middleware/validation.js');
 
 const router = express.Router();
 

@@ -2,14 +2,12 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import {useNavigate} from 'react-router-dom'
-import bcrypt from 'bcrypt'
-
 import ShowcaseHeader from "../ShowcaseHeader"
 import Footer from "../Footer"
 import "../../styles.css"
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator"
 const InterestsOptions = require('../../data/Interests.json')
-
+const bcrypt = require('bcryptjs')
 
 const SignupBox = () => {
     const navigate = useNavigate();
