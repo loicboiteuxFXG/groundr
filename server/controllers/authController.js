@@ -56,9 +56,9 @@ const Login = (req, res, next) => {
 
 
 const Register = (req, res) => {
-
-
-    CreateUser(req.body)
+    const userData = req.body
+    delete userData.password_confirm
+    CreateUser(userData)
         .then(user => {
             return res.send({ status: "OK", message: "Compte créé" })
         })

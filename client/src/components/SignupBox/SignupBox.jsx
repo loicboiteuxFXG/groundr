@@ -48,7 +48,7 @@ const SignupBox = () => {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(formData.DoB)
         const validationErrors = {}
@@ -104,7 +104,7 @@ const SignupBox = () => {
 
             var filename = ""
 
-            axios.post('http://localhost:3001/file/upload', data)
+            await axios.post('http://localhost:3001/file/upload', data)
                 .then((response) => {
                     filename = response.data.filename
                 })
@@ -112,6 +112,7 @@ const SignupBox = () => {
                     console.error(error)
                 })
 
+            console.log(filename)
             let hashedPassword = sha256.sha256(formData.password)
             let hashedPassword2 = sha256.sha256(formData.password_confirm)
 
