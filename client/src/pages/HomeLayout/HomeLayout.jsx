@@ -7,9 +7,20 @@ const { checkIfValidToken } = require('../../utils/check-token')
 const HomeLayout = () => {
     const navigate = useNavigate();
 
+
     useEffect(() => {
         document.title = "Accueil | GroundR";
     }, []);
+
+    useEffect(() => { // fuck react
+        async function check() {
+            if (!(await checkIfValidToken())) {
+                localStorage.removeItem('usertoken');
+                navigate('/account');
+            }
+        }
+        check()
+    })
 
 
     const LogoutButton = () => {
