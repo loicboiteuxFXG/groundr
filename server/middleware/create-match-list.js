@@ -6,16 +6,16 @@ const createMatchList = async (req, res, next) => {
     let matchedUsers;
 
     // Only get appropriate users
-    if (connectedUser.orientation === "A") {
-        matchedUsers = await GetAllUsers();
+    if (connectedUser.orientation !== "A") {
+        matchedUsers = await GetAllUsers({gender: connectedUser.orientation}, 10);
     } else {
-        matchedUsers = await GetAllUsers({gender: connectedUser.orientation});
+        matchedUsers = await GetAllUsers({}, 10);
     }
 
     // Remove connected user
-    matchedUsers = matchedUsers.splice(matchedUsers.indexOf(connectedUser), 1);
-
-
+    matchedUsers = matchedUsers.filter((user) => {
+        return user !== connectedUser;
+    });
 
 
     matchedUsers.forEach(user => {

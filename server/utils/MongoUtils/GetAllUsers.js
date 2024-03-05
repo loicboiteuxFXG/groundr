@@ -1,7 +1,7 @@
 'use strict'
 const { ClientHandler } = require('./ClientHandler')
 
-const  GetAllUsers = async (query, limit=0) => {
+const  GetAllUsers = async (query, limit=500) => {
     const client = await ClientHandler();
 
     let returnData = [];

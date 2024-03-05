@@ -33,6 +33,8 @@ app.use('/auth', authRoutes);
 app.use('/swipe', swipeRoutes);
 
 
+app.use('/media', express.static(__dirname + '/media'));
+
 
 app.get('/get', isAuth, async (req, res) => {
     console.log("requested cat fact");
@@ -48,6 +50,7 @@ app.get('/db', async (req, res) => {
     console.dir(body);
     res.send(body);
 });
+
 
 
 app.listen(port, () => {
