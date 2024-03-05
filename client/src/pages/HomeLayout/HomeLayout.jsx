@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
 import { useEffect } from "react";
+const { checkIfValidToken } = require('../../utils/check-token')
 
 const HomeLayout = () => {
     const navigate = useNavigate();
@@ -9,12 +10,18 @@ const HomeLayout = () => {
 
     useEffect(() => {
         document.title = "Accueil | GroundR";
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (!token) {
-            navigate('/account/login');
-        }
     }, []);
+
+    useEffect(() => { // fuck react
+        async function check() {
+            if (!(await checkIfValidToken())) {
+                localStorage.removeItem('usertoken');
+                navigate('/account');
+            }
+        }
+        check()
+    })
+
 
     const LogoutButton = () => {
 
@@ -42,7 +49,7 @@ const HomeLayout = () => {
                     </div>
                     <div>
                         <Link to="settings">Settings</Link>
-                        <LogoutButton/>
+                        <LogoutButton />
                     </div>
                 </div>
                 <div className="content">
