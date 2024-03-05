@@ -40,7 +40,6 @@ const LoginBox = () => {
 
         axios.post('http://localhost:3001/auth/login', userData)
             .then((response) => {
-                console.log(response);
                 if (response.data.token) {
                     localStorage.setItem("usertoken", JSON.stringify(response.data.token));
                     navigate('/home');

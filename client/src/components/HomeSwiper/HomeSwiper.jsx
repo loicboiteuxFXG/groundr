@@ -21,7 +21,7 @@ const HomeSwiper = () => {
             }
         })
             .then((response) => {
-                setMatches(response.data.matches);
+                setMatches(response.data.recommendations);
                 setLoading(false)
             })
             .catch((err) => {
