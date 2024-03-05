@@ -1,7 +1,7 @@
 'use strict'
 
 const jwt = require('jsonwebtoken');
-const sha256 = require('js-sha256').sha256;
+const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -26,7 +26,7 @@ const Login = (req, res, next) => {
             loadedUser = user;
             console.log(loadedUser.password, password);
 
-            return sha256(password) === loadedUser.password;
+            return bcrypt.compare(password, loadedUser.password);
         })
         .then(isEqual => {
             if (!isEqual) {
