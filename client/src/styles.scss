@@ -4,11 +4,21 @@ $dark-color: #232020;
 $dark-color2: #2f2c2c;
 $pink-color: #b33f62;
 
+::selection {
+  background-color: #e4c14d;
+  color: $dark-color2;
+}
+
 .golden {
   background-color: #926129;
   background: -webkit-linear-gradient(0deg, #926129 0%, #f2e797 50%, #926129 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  &::selection {
+    background: #e4c14d;
+    -webkit-text-fill-color: $dark-color2;
+  }
 }
 
 body {
