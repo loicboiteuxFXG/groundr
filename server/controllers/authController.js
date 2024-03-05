@@ -44,7 +44,7 @@ const Login = (req, res, next) => {
                 },
                 // Utilise la clé secrète qui est dans le fichier .env
                 process.env.SECRET_JWT,
-                { expiresIn: '1h' }
+                { expiresIn: '10s' }
             );
             res.status(200).json({ token: token });
         })

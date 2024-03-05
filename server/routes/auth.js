@@ -12,6 +12,4 @@ router.post('/login', authController.Login);
 
 router.post('/register', ValidateSignup, authController.Register);
 
-router.post('/check-token', isAuth);
-
 module.exports = router;
