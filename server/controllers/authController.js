@@ -24,8 +24,6 @@ const Login = (req, res, next) => {
                 return res.status(404).send(error);
             }
             loadedUser = user;
-            console.log(loadedUser.password, password);
-
             return sha256(password) === loadedUser.password;
         })
         .then(isEqual => {

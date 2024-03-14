@@ -15,8 +15,6 @@ const createMatchList = async (req, res, next) => {
     const interestedUsersIDs = grounds.map(x => x.sender).filter(id => !(id.equals(connectedUser._id)));
     const interestedUsers = await GetAllUsers({ _id: { $in: interestedUsersIDs } });
 
-    console.log(interestedUsers)
-
     const excludedUsersIDs = likedUsersIDs.concat(interestedUsersIDs);
     // Only get appropriate users according to gender and orientation
     let query = {
