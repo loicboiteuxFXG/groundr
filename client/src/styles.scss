@@ -126,19 +126,19 @@ header {
     border-radius: 30px;
     background-color: $dark-color2;
     input {
-      margin-bottom: 10px;
       background-color: $dark-color;
       border-color: #e3a256;
       color: white;
     }
     input[type=submit] {
-        margin: 0 auto;
+        margin: 20px auto 0;
         width: 200px;
         color: $dark-color;
     }
     label {
       color: white;
       font-family: 'Montserrat', sans-serif;
+      margin-top: 20px;
     }
 
   }
@@ -171,10 +171,10 @@ footer {
     max-width: 700px;
     background-color: $dark-color2;
     padding: 40px;
-    margin: 0 auto;
     border: 2px solid #e3a256;
     border-radius: 30px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
+
     label{
       color: white;
       font-family: Montserrat, sans-serif;
