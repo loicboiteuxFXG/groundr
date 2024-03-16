@@ -11,17 +11,18 @@ const swipeUser = async (req, res, next) => {
             status: { $not: { $eq: "accepted" } }
         });
 
+
     if (!fetchedGround[0]){
         // First swipe
         if (swipeStatus !== "dislike") {
             console.log("Création d'un Ground.");
-/*         await CreateGround({
+         await CreateGround({
                 sender: req.user._id,
                 receiver: swipedUser._id,
                 status: swipeStatus
-            });*/
+            });
         }
-    } else if (fetchedGround[0].sender.equals(swipedUser._id)) {
+    } else if (fetchedGround[0].sender._id.equals(swipedUser._id)) {
         // Ground commun
         if (swipeStatus !== "dislike") {
             console.log("MATCH! Mise à jour du Ground.");

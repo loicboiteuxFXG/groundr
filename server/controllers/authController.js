@@ -35,6 +35,7 @@ const Login = (req, res, next) => {
             // Création du token JWT
             const token = jwt.sign(
                 {
+                    _id: loadedUser._id,
                     email: loadedUser.email,
                     firstname: loadedUser.firstname,
                     lastname: loadedUser.lastname,
