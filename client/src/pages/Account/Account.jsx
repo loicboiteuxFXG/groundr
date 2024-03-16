@@ -26,7 +26,6 @@ const Account = () => {
                     <Link to="login" className="btnGround">Se connecter</Link>
                     <Link to="signup" className="btnGround">Créer un compte</Link>
                 </div>
-
             </div>
             <Footer/>
         </>

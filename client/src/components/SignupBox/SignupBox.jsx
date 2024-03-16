@@ -52,6 +52,7 @@ const SignupBox = () => {
         console.log(formData.DoB)
         const validationErrors = {}
 
+
         if (!formData.firstName.trim()) {
             validationErrors.firstName = 'Ce champ est requis.'
         } else if (!formData.firstName.trim().match(regExpString)) {
@@ -127,7 +128,6 @@ const SignupBox = () => {
                 "interests": interestsToSend,
                 "pfpURL": filename
             }
-
 
             axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {

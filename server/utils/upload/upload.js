@@ -1,3 +1,5 @@
+'use strict'
+
 const multer = require('multer');
 
 // Set up storage for uploaded files
