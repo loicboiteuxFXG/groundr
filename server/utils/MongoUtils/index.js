@@ -2,6 +2,9 @@
 
 const { GetAllUsers } = require('./GetAllUsers');
 const { CreateUser } = require('./CreateUser');
-const { GetUser } = require('./GetUser')
+const { GetUser } = require('./GetUser');
 
-module.exports = { CreateUser, GetAllUsers, GetUser };
+const { GetAllGrounds } = require('./GetAllGrounds');
+const { CreateGround } = require('./CreateGround')
+
+module.exports = { CreateUser, GetAllUsers, GetUser, GetAllGrounds, CreateGround };

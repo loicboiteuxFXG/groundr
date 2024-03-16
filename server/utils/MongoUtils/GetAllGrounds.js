@@ -1,7 +1,7 @@
 'use strict'
 const { ClientHandler } = require('./ClientHandler')
 
-const  GetAllUsers = async (query, projection={}, limit=500) => {
+const  GetAllGrounds = async (query, projection={}, limit=500) => {
     const client = await ClientHandler();
 
     let returnData = [];
@@ -10,7 +10,7 @@ const  GetAllUsers = async (query, projection={}, limit=500) => {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
         // Send a ping to confirm a successful connection
-        const cursor = await client.db("GroundR").collection("Users").find(query).project(projection).limit(limit);
+        const cursor = await client.db("GroundR").collection("Grounds").find(query).project(projection).limit(limit);
         // Print returned documents
 
         for await (const doc of cursor) {
@@ -26,4 +26,4 @@ const  GetAllUsers = async (query, projection={}, limit=500) => {
     return returnData;
 }
 
-module.exports = { GetAllUsers };
+module.exports = { GetAllGrounds };

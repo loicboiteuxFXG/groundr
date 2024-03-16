@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import ShowcaseHeader from "../ShowcaseHeader";
 import LoadingIndicator from "../LoadingIndicator"
@@ -18,41 +18,61 @@ const LoginBox = () => {
         }
     }, []);
 
-
-    const [password, setPwd] = useState("")
-    const [email, setEmail] = useState("");
-
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    })
+    const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setLoading(true);
+        const validationErrors = {}
 
-        let userData = {
-            "email": email,
-            "password": password
+        if (formData.email === "") {
+            validationErrors.email = 'Ce champ est requis.'
         }
 
-        if (email === "" || password === "") {
-            setLoading(false);
-            return console.log("No :gigachad:");
+        if (formData.password === "") {
+            validationErrors.password = 'Ce champ est requis'
         }
 
-        axios.post('http://localhost:3001/auth/login', userData)
-            .then((response) => {
-                console.log(response);
-                if (response.data.token) {
-                    localStorage.setItem("usertoken", JSON.stringify(response.data.token));
-                    navigate('/home');
-                } else {
-                    throw Error(":C")
-                }
-            })
-            .catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
-    };
+        setErrors(validationErrors)
+
+        if (Object.keys(validationErrors).length === 0) {
+            setLoading(true);
+
+            let userData = {
+                "email": formData.email,
+                "password": formData.password
+            }
+
+            axios.post('http://localhost:3001/auth/login', userData)
+                .then((response) => {
+                    if (response.data.token) {
+                        localStorage.setItem("usertoken", JSON.stringify(response.data.token));
+                        navigate('/home');
+                    } else {
+                        throw Error()
+                    }
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    const errors = {
+                        email: "L'adresse courriel ou le mot de passe est incorrect.",
+                        password: "L'adresse courriel ou le mot de passe est incorrect."
+                    }
+                    setErrors(errors)
+                })
+        }
+    }
+
+    const handleChange = (e) => {
+        const {name, value} = e.target
+        setFormData({
+            ...formData, [name]: value
+        })
+    }
 
     return (
         <>
@@ -60,31 +80,29 @@ const LoginBox = () => {
             <div className="container login-layout">
                 <h2 className="golden">Connexion</h2>
                 <div className="login-card">
-                    <form onSubmit={handleSubmit} method="POST">
-                        <div>
-                            <label htmlFor="email">Adresse Courriel</label>
-                            <input
-                                className="form-control"
-                                type="email"
-                                name="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
 
-                        <div>
-                            <label htmlFor="password">Mot de passe</label>
-                            <input
-                                className="form-control"
-                                type="password"
-                                name="password"
-                                id="password"
-                                value={password}
-                                onChange={(e) => setPwd(e.target.value)}
-                            />
+                    <form onSubmit={handleSubmit} method="POST" noValidate>
+                        <label htmlFor="email">Adresse Courriel</label>
+                        <input
+                            className={errors.email ? "is-invalid form-control" : "form-control"}
+                            type="email"
+                            name="email"
+                            id="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        {errors.email && <span className="invalid-feedback">{errors.email}</span>}
+                        <label htmlFor="password">Mot de passe</label>
+                        <input
+                            className={errors.password ? "is-invalid form-control" : "form-control"}
+                            type="password"
+                            name="password"
+                            id="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                        {errors.password && <span className="invalid-feedback">{errors.password}</span>}
 
-                        </div>
                         {loading ? <LoadingIndicator/> :
                             <input type="submit" className="custom-btn" value="Se connecter"/>}
                     </form>

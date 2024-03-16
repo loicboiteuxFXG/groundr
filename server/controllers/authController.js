@@ -1,7 +1,7 @@
 'use strict'
 
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const sha256 = require('js-sha256').sha256;
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -19,24 +19,23 @@ const Login = (req, res, next) => {
             // Les méthodes findOne, findById ... peuvent retourner null
             // Il faut gérer le cas où user est null
             if (!user) {
-                const error = new Error('Utilisateur non trouvée');
-                error.statusCode = 404;
-                return res.status(404).send(error);
+                const error = new Error()
+                error.statusCode = 404
+                return res.status(404).send(error)
             }
             loadedUser = user;
-            console.log(loadedUser.password, password);
-
-            return bcrypt.compare(password, loadedUser.password);
+            return sha256(password) === loadedUser.password;
         })
         .then(isEqual => {
             if (!isEqual) {
-                const error = new Error('Mauvais mot de passe!');
-                error.statusCode = 401;
-                throw error;
+                const error = new Error()
+                error.statusCode = 401
+                throw error
             }
             // Création du token JWT
             const token = jwt.sign(
                 {
+                    _id: loadedUser._id,
                     email: loadedUser.email,
                     firstname: loadedUser.firstname,
                     lastname: loadedUser.lastname,
