@@ -1,23 +1,16 @@
 'use strict'
 const { ClientHandler } = require('./ClientHandler')
 
-const  GetAllUsers = async () => {
+const  GetUser = async (query) => {
     const client = await ClientHandler();
 
-    let returnData = [];
+    let returnData = {};
 
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
         // Send a ping to confirm a successful connection
-        const cursor = await client.db("GroundR").collection("Users").find({});
-        // Print returned documents
-
-        for await (const doc of cursor) {
-
-            returnData.push(doc);
-
-        }
+        returnData = await client.db("GroundR").collection("Users").findOne(query);
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close(); 
@@ -26,4 +19,4 @@ const  GetAllUsers = async () => {
     return returnData;
 }
 
-module.exports = { GetAllUsers };
+module.exports = { GetUser };

@@ -1,8 +1,9 @@
 'use strict';
 
 const express = require('express');
-const MongoUtils = require('../utils/MongoUtils');
+const { GetUser } = require('../utils/MongoUtils');
 const router = express.Router();
+
 const { upload } = require('express-fileupload');
 
 const { ValidateSignup } = require('../utils/Validation')
@@ -17,8 +18,7 @@ router.post('/create', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    console.log(req.params.id);
+    return res.send({})
 })
-
 
 module.exports = router;

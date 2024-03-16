@@ -1,17 +1,22 @@
 import ShowcaseHeader from "../../components/ShowcaseHeader";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-const Presentation = () => {
-    return(
+import React, {useEffect} from "react";
 
+
+const Presentation = () => {
+    useEffect(() => {
+        document.title = "GroundR | Site de rencontre"
+    }, []);
+
+    return(
         <>
             <ShowcaseHeader/>
             <div className="container">
-                <h1>Page vitrine</h1>
+                <h1 className="golden">Page vitrine</h1>
             </div>
             <Footer/>
         </>
-
     );
 }
 

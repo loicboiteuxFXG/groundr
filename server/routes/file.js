@@ -1,13 +1,16 @@
 'use strict';
 
 const express = require('express');
-const app = express();
 const router = express.Router();
 const upload = require('../utils/upload/upload');
 
 router.post('/upload', upload.single('file'), (req, res) => {
     // Handle the uploaded file
-    res.json({ filename: req.file.filename });
+    if(typeof req.file !== 'undefined'){
+        res.json({ filename: req.file.filename });
+    }else{
+        res.json({filename: "default-user.png"})
+    }
 });
 
 

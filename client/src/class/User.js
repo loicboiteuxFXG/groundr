@@ -1,4 +1,4 @@
-export class User {
+module.exports = class User {
     firstName;
     lastName;
     password;
