@@ -53,6 +53,18 @@ const SignupBox = () => {
         console.log(formData.DoB)
         const validationErrors = {}
 
+        let today =  new Date();
+        let birthDate = new Date(formData.DoB)
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        if (age < 18) {
+            validationErrors.DoB = "Vous devez avoir au moins 18 ans pour utiliser GroundR."
+        }
+
         if (!formData.firstName.trim()) {
             validationErrors.firstName = 'Ce champ est requis.'
         } else if (!formData.firstName.trim().match(regExpString)) {
@@ -133,7 +145,7 @@ const SignupBox = () => {
             axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {
                     if (response.data.status !== "error") {
-                        navigate('/home')
+                        navigate('/account')
                     } else {
                         setLoading(false)
                     }
