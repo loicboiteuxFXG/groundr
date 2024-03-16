@@ -42,6 +42,7 @@ const SignupBox = () => {
 
     const [loading, setLoading] = useState(false)
 
+
     function handleFileChange(event) {
         setFile(event.target.files[0])
     }
@@ -50,6 +51,7 @@ const SignupBox = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const validationErrors = {}
+
 
         let today =  new Date();
         let birthDate = new Date(formData.DoB)
@@ -62,6 +64,7 @@ const SignupBox = () => {
         if (age < 18) {
             validationErrors.DoB = "Vous devez avoir au moins 18 ans pour utiliser GroundR."
         }
+      
 
         if (!formData.firstName.trim()) {
             validationErrors.firstName = 'Ce champ est requis.'
@@ -137,7 +140,6 @@ const SignupBox = () => {
                 "interests": interestsToSend,
                 "pfpURL": filename
             }
-
 
             axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {

@@ -80,6 +80,7 @@ const LoginBox = () => {
             <div className="container login-layout">
                 <h2 className="golden">Connexion</h2>
                 <div className="login-card">
+
                     <form onSubmit={handleSubmit} method="POST" noValidate>
                         <label htmlFor="email">Adresse Courriel</label>
                         <input
@@ -101,6 +102,7 @@ const LoginBox = () => {
                             onChange={handleChange}
                         />
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
+
                         {loading ? <LoadingIndicator/> :
                             <input type="submit" className="custom-btn" value="Se connecter"/>}
                     </form>
