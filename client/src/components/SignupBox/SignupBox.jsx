@@ -10,16 +10,16 @@ const InterestsOptions = require('../../data/Interests.json')
 const sha256 = require('js-sha256')
 
 const SignupBox = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     useEffect(() => {
-        document.title = "Créer un compte | GroundR";
+        document.title = "Créer un compte | GroundR"
 
-        const token = JSON.parse(localStorage.getItem("usertoken"));
+        const token = JSON.parse(localStorage.getItem("usertoken"))
         if (token) {
-            navigate('/home');
+            navigate('/home')
         }
-    }, []);
+    }, [])
 
     const regExpString = '^[a-zA-Z]+$'
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
@@ -35,13 +35,12 @@ const SignupBox = () => {
         gender: 'M',
         orientation: 'M',
         DoB: '',
-    });
-    const [interests, setInterests] = useState([]);
+    })
+    const [interests, setInterests] = useState([])
 
     const [errors, setErrors] = useState({})
 
-
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     function handleFileChange(event) {
         setFile(event.target.files[0])
@@ -50,7 +49,6 @@ const SignupBox = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(formData.DoB)
         const validationErrors = {}
 
         let today =  new Date();
@@ -109,10 +107,10 @@ const SignupBox = () => {
         if(Object.keys(validationErrors).length === 0){
             setLoading(true)
 
-            const data = new FormData();
+            const data = new FormData()
             data.append('file', file)
 
-            let interestsToSend = interests.map(i => i.value);
+            let interestsToSend = interests.map(i => i.value)
 
             var filename = ""
 
@@ -124,7 +122,6 @@ const SignupBox = () => {
                     console.error(error)
                 })
 
-            console.log(filename)
             let hashedPassword = sha256.sha256(formData.password)
             let hashedPassword2 = sha256.sha256(formData.password_confirm)
 
@@ -157,7 +154,7 @@ const SignupBox = () => {
                     setErrors(errors)
                 })
         }
-    };
+    }
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -311,7 +308,7 @@ const SignupBox = () => {
             </div>
             <Footer/>
         </>
-    );
+    )
 }
 
-export default SignupBox;
+export default SignupBox
