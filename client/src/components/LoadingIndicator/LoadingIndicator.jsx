@@ -1,7 +1,9 @@
 const LoadingIndicator = () => {
 
     return (
-        <h1 className="golden">LOADING</h1>
+        <div className="puslingheart-wrapper">
+            <div className="pulsingheart"></div>
+        </div>
     );
 
 }
