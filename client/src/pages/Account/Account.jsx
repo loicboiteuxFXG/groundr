@@ -19,10 +19,10 @@ const Account = () => {
         <>
             <ShowcaseHeader/>
             <div className="container">
-                <h2 className="text-center"><img src={require('../../images/logo_web.png')}/></h2>
+                <h2 className="text-center"><img className="limit-center" src={require('../../images/logo_web.png')} alt="GroundR Web"/></h2>
 
                 <h3 className="golden">Bienvenue sur GroundR Web</h3>
-                <div>
+                <div className="limit-center">
                     <Link to="login" className="btnGround">Se connecter</Link>
                     <Link to="signup" className="btnGround">Créer un compte</Link>
                 </div>

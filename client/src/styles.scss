@@ -25,6 +25,7 @@ h1, h2, h3{
 
 .presTitle {
   width: 20%;
+  margin-bottom: 0;
 }
 
 h1 img {
@@ -73,6 +74,12 @@ h1 img {
     background-position-x: -15px;
     transition: 250ms;
   }
+}
+
+.limit-center{
+  margin: 0 auto;
+  width: 50%;
+  max-width: 600px;
 }
 
 header {

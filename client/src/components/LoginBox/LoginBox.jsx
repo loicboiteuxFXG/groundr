@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import ShowcaseHeader from "../ShowcaseHeader";
 import LoadingIndicator from "../LoadingIndicator"
 import Footer from "../Footer";
 import "../../styles.css"
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const LoginBox = () => {
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         document.title = 'Connexion | GroundR';
 
@@ -56,40 +56,41 @@ const LoginBox = () => {
 
     return (
         <>
-            <ShowcaseHeader />
+            <ShowcaseHeader/>
             <div className="container login-layout">
                 <h2 className="golden">Connexion</h2>
                 <div className="login-card">
                     <form onSubmit={handleSubmit} method="POST">
                         <div>
                             <label htmlFor="email">Adresse Courriel</label>
-                            <input 
-                            className="form-control" 
-                            type="email" 
-                            name="email" 
-                            id="email" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                            <input
+                                className="form-control"
+                                type="email"
+                                name="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
 
                         <div>
                             <label htmlFor="password">Mot de passe</label>
-                            <input 
-                            className="form-control" 
-                            type="password" 
-                            name="password" 
-                            id="password" 
-                            value={password} 
-                            onChange={(e) => setPwd(e.target.value)} 
+                            <input
+                                className="form-control"
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPwd(e.target.value)}
                             />
 
                         </div>
-                        {loading ? <LoadingIndicator /> : <input type="submit" className="custom-btn" value="Se connecter" />}
+                        {loading ? <LoadingIndicator/> :
+                            <input type="submit" className="custom-btn" value="Se connecter"/>}
                     </form>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 }

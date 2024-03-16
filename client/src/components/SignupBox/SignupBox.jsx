@@ -40,7 +40,6 @@ const SignupBox = () => {
 
     const [errors, setErrors] = useState({})
 
-
     const [loading, setLoading] = useState(false);
 
     function handleFileChange(event) {

@@ -1,6 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
 import '../../styles.css';
-import { useNavigate } from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
 
 const ShowcaseHeader = () => {
@@ -13,7 +13,7 @@ const ShowcaseHeader = () => {
     }
     const Button = ({text, onClick}) => {
 
-        return(
+        return (
             <button type="button" className="custom-btn" onClick={onClick}>
                 {text}
             </button>
@@ -22,10 +22,13 @@ const ShowcaseHeader = () => {
     return (
         <>
             <header>
-                <div className="container header-layout">
-                    <h1 className="presTitle"><Link to={'/'}><img src={require('../../images/logo_nobackground.png')}/></Link>
-                    </h1>
-                    <Button text={"GroundR Web"} onClick={handleClick}/>
+                <div className="container">
+                    <div className="header-layout">
+                        <h1 className="presTitle"><Link to={'/'}><img
+                            src={require('../../images/logo_nobackground.png')} alt='GroundR'/></Link>
+                        </h1>
+                        <Button text={"GroundR Web"} onClick={handleClick}/>
+                    </div>
                 </div>
             </header>
         </>
