@@ -1,7 +1,7 @@
 'use strict'
 const { ClientHandler } = require('./ClientHandler')
 
-const  GetAllGrounds = async (query, projection={}, limit=500) => {
+const  GetAllGrounds = async (query, projection={_id: true, sender: true, receiver: true, status: true}, limit=500) => {
     const client = await ClientHandler();
 
     let returnData = [];

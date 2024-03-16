@@ -1,19 +1,15 @@
 'use strict'
 const { ClientHandler } = require('./ClientHandler')
-const {ObjectId} = require("mongodb");
 
-const  CreateGround = async (senderID, receiverID, status) => {
+const  UpdateGround = async (id, data) => {
     const client = await ClientHandler();
-
-    const groundSender = new ObjectId(senderID);
-    const groundReceiver = new ObjectId(receiverID);
 
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
         // Send a ping to confirm a successful connection
 
-        await client.db("GroundR").collection("Grounds").insertOne({sender: groundSender, receiver: groundReceiver, status: status});
+        await client.db("GroundR").collection("Grounds").updateOne({_id: id}, {$set: data});
 
     } finally {
         // Ensures that the client will close when you finish/error
@@ -21,4 +17,4 @@ const  CreateGround = async (senderID, receiverID, status) => {
     }
 }
 
-module.exports = { CreateGround };
+module.exports = { UpdateGround };
