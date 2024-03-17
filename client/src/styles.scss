@@ -304,6 +304,24 @@ footer {
   }
 }
 
+.profileLayout{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  > div{
+    width: 49%;
+    text-align: center;
+    img{
+      width: 40%;
+      margin-bottom: 20px;
+    }
+    h3{
+      margin-bottom: 20px;
+    }
+  }
+}
+
 .centerHeart{
   display: flex;
   justify-content: center;

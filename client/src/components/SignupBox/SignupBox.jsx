@@ -19,7 +19,7 @@ const SignupBox = () => {
         if (token) {
             navigate('/home')
         }
-    }, [])
+    }, [navigate])
 
     const regExpString = '^[a-zA-Z]+$'
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'

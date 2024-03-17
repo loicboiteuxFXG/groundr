@@ -1,6 +1,6 @@
 'use strict'
 
-const {GetUser} = require('../utils/MongoUtils')
+const {GetUser, UpdateUserPfp} = require('../utils/MongoUtils')
 
 const GetUserToken = (req, res) => {
     const user = req.user
@@ -11,4 +11,14 @@ const GetUserToken = (req, res) => {
         .catch(err => console.log(err))
 }
 
-module.exports = {GetUserToken}
+const UpdatePfp = async (req, res) => {
+    try{
+        await UpdateUserPfp(req.userId, req.filename)
+    } catch (err){
+        console.error(err)
+    } finally {
+        res.status(200).send("Ok")
+    }
+}
+
+module.exports = {GetUserToken, UpdatePfp}

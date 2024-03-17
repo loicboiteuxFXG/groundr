@@ -1,4 +1,4 @@
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Footer from "../../components/Footer";
 import ShowcaseHeader from "../../components/ShowcaseHeader";
 import {useEffect} from "react";
@@ -13,7 +13,7 @@ const Account = () => {
         if (token) {
             navigate('/home');
         }
-    }, []);
+    }, [navigate]);
 
     return(
         <>
