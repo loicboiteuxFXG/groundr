@@ -95,10 +95,13 @@ const HomeSwiper = () => {
     };
 
     return (
-        <div>
-            <SwiperCard />
-        </div>
+        <>
+            {loading ?  <div className="centerHeart"><LoadingIndicator/></div> :
+                <div>
+                    <SwiperCard />
+                </div>}
+        </>
     );
-};
+}
 
 export default HomeSwiper;
