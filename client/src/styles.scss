@@ -1,376 +1,434 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 $dark-color: #232020;
 $dark-color2: #2f2c2c;
 $pink-color: #b33f62;
 
 ::selection {
-  background-color: #e4c14d;
-  color: $dark-color2;
+    background-color: #e4c14d;
+    color: $dark-color2;
 }
 
 .golden {
-  background-color: #926129;
-  background: -webkit-linear-gradient(0deg, #926129 0%, #f2e797 50%, #926129 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background-color: #926129;
+    background: -webkit-linear-gradient(
+        0deg,
+        #926129 0%,
+        #f2e797 50%,
+        #926129 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
-  &::selection {
-    background: #e4c14d;
-    -webkit-text-fill-color: $dark-color2;
-  }
+    &::selection {
+        background: #e4c14d;
+        -webkit-text-fill-color: $dark-color2;
+    }
 }
 
 body {
-  margin: 0;
-  background-color: $dark-color;
+    margin: 0;
+    background-color: $dark-color;
 }
 
-h1, h2, h3{
-  font-family: Montserrat, sans-serif;
-  font-size: 3.5rem;
-  margin-bottom: 15px;
-  text-align: center;
+h1,
+h2,
+h3 {
+    font-family: Montserrat, sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .presTitle {
-  width: 20%;
-  margin-bottom: 0;
+    width: 20%;
+    margin-bottom: 0;
 }
 
 h1 img {
-  width: 100%;
+    width: 100%;
 }
 
 .page-layout {
-  display: flex;
-  justify-content: space-between;
-  background-color: $dark-color;
-
-  .sidebar {
-    width: 20%;
-    height: 90vh;
-    padding: 20px;
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
-  }
+    background-color: $dark-color;
 
-  .content {
-    margin-top: 15px;
-    width: 80%;
-    height: 85vh;
-    background-color: $dark-color2;
-    border-radius: 40px 0 0 40px;
-    padding: 30px;
-  }
+    .sidebar {
+        width: 20%;
+        height: 90vh;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .content {
+        margin-top: 15px;
+        width: 80%;
+        height: 85vh;
+        background-color: $dark-color2;
+        border-radius: 40px 0 0 40px;
+        padding: 30px;
+    }
 }
 
 .btnGround {
-  display: block;
-  background-image: url("images/gold.jpg");
-  background-size: 125%;
-  background-position: center;
-  color: $dark-color;
-  padding: 15px;
-  border-radius: 20px;
-  text-align: center;
-  font-family: Montserrat, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-decoration: none;
-  margin-bottom: 20px;
+    display: block;
+    background-image: url("images/gold.jpg");
+    background-size: 125%;
+    background-position: center;
+    color: $dark-color;
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 20px;
 
-  &:hover {
-    background-position-x: -15px;
-    transition: 250ms;
-  }
+    &:hover {
+        background-position-x: -15px;
+        transition: 250ms;
+    }
 }
 
-.limit-center{
-  margin: 0 auto;
-  width: 50%;
-  max-width: 600px;
+.limit-center {
+    margin: 0 auto;
+    width: 50%;
+    max-width: 600px;
 }
 
 header {
-  padding: 20px;
-  background-color: $dark-color2;
-  height: 15vh;
+    padding: 20px;
+    background-color: $dark-color2;
+    height: 15vh;
 }
 
 .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .header-layout {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.custom-btn {
-  display: block;
-  background-image: url("images/gold.jpg");
-  background-size: 125%;
-  background-position: center;
-  color: $dark-color;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-family: Montserrat, sans-serif;
-  font-size: 1.2rem;
-  text-decoration: none;
-  border: none;
-
-  &:hover {
-    background-position-x: -20px;
-    transition: 250ms;
-  }
-}
-
-
-
-.login-layout {
-  height: 75vh;
-  .login-card {
-    max-width: 500px;
-    padding: 40px;
-    margin: 0 auto;
-    border: 2px solid #e3a256;
-    border-radius: 30px;
-    background-color: $dark-color2;
-    input {
-      background-color: $dark-color;
-      border-color: #e3a256;
-      color: white;
-    }
-    input[type=submit] {
-        margin: 20px auto 0;
-        width: 200px;
-        color: $dark-color;
-    }
-    label {
-      color: white;
-      font-family: 'Montserrat', sans-serif;
-      margin-top: 20px;
-    }
-
-  }
-}
-
-
-footer {
-  background-color: $dark-color2;
-  bottom: 0;
-  width: 100%;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-
-  .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 400px;
-
-    div {
-      margin: 0 8px;
-      color: white;
-    }
-  }
 }
 
-.signup-layout{
-  .signup-card{
-    max-width: 700px;
+.custom-btn {
+    display: block;
+    background-image: url("images/gold.jpg");
+    background-size: 125%;
+    background-position: center;
+    color: $dark-color;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: none;
+
+    &:hover {
+        background-position-x: -20px;
+        transition: 250ms;
+    }
+}
+
+.login-layout {
+    height: 75vh;
+    .login-card {
+        max-width: 500px;
+        padding: 40px;
+        margin: 0 auto;
+        border: 2px solid #e3a256;
+        border-radius: 30px;
+        background-color: $dark-color2;
+        input {
+            background-color: $dark-color;
+            border-color: #e3a256;
+            color: white;
+        }
+        input[type="submit"] {
+            margin: 20px auto 0;
+            width: 200px;
+            color: $dark-color;
+        }
+        label {
+            color: white;
+            font-family: "Montserrat", sans-serif;
+            margin-top: 20px;
+        }
+    }
+}
+
+footer {
     background-color: $dark-color2;
-    padding: 40px;
-    border: 2px solid #e3a256;
-    border-radius: 30px;
-    margin: 0 auto 20px;
+    bottom: 0;
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
 
-    label{
-      color: white;
-      font-family: Montserrat, sans-serif;
-      margin-top: 20px;
-    }
-    input, select{
-      color: white;
-      background-color: $dark-color;
-      border: 1px solid #e3a256;
-    }
-    input[type="submit"]{
-      border: none;
-      color: $dark-color;
-      text-align: center;
-      margin: 20px auto 0 auto
-    }
-    input::file-selector-button{
-      background-color: $dark-color;
-      color: white;
-    }
-    input:focus{
-      box-shadow: none;
-    }
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 400px;
 
-    .css-es2p3j-control, .css-sg40b7-control {
-      margin-bottom: 0;
-      &:focus{
-        margin-bottom: 0;
-      }
+        div {
+            margin: 0 8px;
+            color: white;
+        }
     }
-  }
 }
 
-.account-content{
-  height: 75vh;
-  h3{
-    font-family: "Montserrat", sans-serif;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2rem;
-  }
-  div{
-    margin: 0 auto;
-    width: 90%;
-    max-width: 550px;
-  }
-}
+.signup-layout {
+    .signup-card {
+        max-width: 700px;
+        background-color: $dark-color2;
+        padding: 40px;
+        border: 2px solid #e3a256;
+        border-radius: 30px;
+        margin: 0 auto 20px;
 
-.account-content{
-  height: 75vh;
-  p{
-    font-family: "Montserrat", sans-serif;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2rem;
-  }
-  div{
-    margin: 0 auto;
-    width: 90%;
-    max-width: 550px;
-  }
-}
+        label {
+            color: white;
+            font-family: Montserrat, sans-serif;
+            margin-top: 20px;
+        }
+        input,
+        select {
+            color: white;
+            background-color: $dark-color;
+            border: 1px solid #e3a256;
+        }
+        input[type="submit"] {
+            border: none;
+            color: $dark-color;
+            text-align: center;
+            margin: 20px auto 0 auto;
+        }
+        input::file-selector-button {
+            background-color: $dark-color;
+            color: white;
+        }
+        input:focus {
+            box-shadow: none;
+        }
 
-  
-.profileButton{
-  margin-bottom: 20px;
-  cursor: pointer;
-  background-color: $dark-color2;
-  border-radius: 20px;
-  padding: 12px 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .profileIcon{
-    position: relative;
-    width: 20%;
-    height: 0;
-    padding-bottom: 20%;
-    img{
-      width: 100%;
+        .css-es2p3j-control,
+        .css-sg40b7-control {
+            margin-bottom: 0;
+            &:focus {
+                margin-bottom: 0;
+            }
+        }
     }
-  }
-  .profileButtonContent{
+}
+
+.account-content {
+    height: 75vh;
+    h3 {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
+    div {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 550px;
+    }
+}
+
+.account-content {
+    height: 75vh;
+    p {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
+    div {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 550px;
+    }
+}
+
+.profileButton {
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: $dark-color2;
+    border-radius: 20px;
+    padding: 12px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .profileIcon {
+        position: relative;
+        width: 20%;
+        height: 0;
+        padding-bottom: 20%;
+        img {
+            width: 100%;
+        }
+    }
+    .profileButtonContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 75%;
+        h4 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.3rem;
+            color: #e4c14d;
+            margin-bottom: 0;
+        }
+        p {
+            font-size: 0.7rem;
+            text-decoration: underline;
+            color: #e3a256;
+            margin-bottom: 0;
+        }
+    }
+    &:hover {
+        background-color: #363636;
+        transition: 250ms;
+    }
+}
+
+// Carte pour toutes les pages. Positionnement, taille, etc
+.homecard {
+  height: 650px;
+  position: relative;
+  bottom: 0;
+  margin-top: auto;
+  border: 2px solid white;
+}
+
+// Contenu de la card pour le swiper
+.swipercard {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 75%;
-    h4{
-      font-family: "Montserrat", sans-serif;
-      font-size: 1.3rem;
-      color: #e4c14d;
-      margin-bottom: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    img {
+        max-width: 100px;
+        max-height: 100px;
     }
-    p{
-      font-size: 0.7rem;
-      text-decoration: underline;
-      color: #e3a256;
-      margin-bottom: 0;
+
+    .swipercard-buttons {
+        max-width: 300px;
+        display: flex;
+        justify-content: space-around;
+        button {
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            width: 75px;
+            height: 75px;
+            border-radius: 35%;
+            margin: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                max-width: 48px;
+                max-height: 48px;
+            }
+
+            &#like {
+                background-color: #926129;
+                background: linear-gradient(
+                    22deg,
+                    #926129 0%,
+                    #b9932b 25%,
+                    #f2e797 100%
+                );
+            }
+            &#superlike {
+                background: rgb(12, 6, 108);
+                background: linear-gradient(
+                    22deg,
+                    rgba(12, 6, 108, 1) 0%,
+                    rgba(11, 11, 195, 1) 25%,
+                    rgba(0, 212, 255, 1) 100%
+                );
+            }
+            &#dislike {
+                background: rgb(94, 0, 163);
+                background: linear-gradient(
+                    22deg,
+                    rgba(94, 0, 163, 1) 0%,
+                    rgba(195, 11, 189, 1) 48%,
+                    rgba(255, 0, 251, 1) 100%
+                );
+            }
+        }
     }
-  }
-  &:hover{
-    background-color: #363636;
-    transition: 250ms;
-  }
 }
 
-
-.homecard {
-  margin-top: auto;
-  border: 2px solid #232020;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  img {
-    max-width: 100px;
-    max-height: 100px;
-  }
-
-  .homecard-buttons {
-    max-width: 300px;
+.centerHeart {
     display: flex;
-    justify-content: space-around;
-  }
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
-
-.centerHeart{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-
 
 .puslingheart-wrapper {
-  position: absolute;
-  margin-left: 50px;
-  margin-top: 50px;
-  animation:pulse 1s infinite;
-
-  .pulsingheart {
-    position: relative;
-    width: 100px;
-    height: 90px;
-  }
-  .pulsingheart:before, .pulsingheart:after {
     position: absolute;
-    content: "";
-    left: 50px;
-    top: 0;
-    width: 50px;
-    height: 80px;
-    background: #d9913d;
-    border-radius: 50px 50px 0 0;
-    transform: rotate(-45deg);
-    transform-origin: 0 100%;
-    animation:pulsecolor 1s infinite;
-  }
+    margin-left: 50px;
+    margin-top: 50px;
+    animation: pulse 1s infinite;
 
-  .pulsingheart:after {
-    left: 0;
-    transform: rotate(45deg);
-    transform-origin :100% 100%;
-    animation:pulsecolor 1s infinite;
-  }
+    .pulsingheart {
+        position: relative;
+        width: 100px;
+        height: 90px;
+    }
+    .pulsingheart:before,
+    .pulsingheart:after {
+        position: absolute;
+        content: "";
+        left: 50px;
+        top: 0;
+        width: 50px;
+        height: 80px;
+        background: #d9913d;
+        border-radius: 50px 50px 0 0;
+        transform: rotate(-45deg);
+        transform-origin: 0 100%;
+        animation: pulsecolor 1s infinite;
+    }
 
+    .pulsingheart:after {
+        left: 0;
+        transform: rotate(45deg);
+        transform-origin: 100% 100%;
+        animation: pulsecolor 1s infinite;
+    }
 }
 
-
 @keyframes pulse {
-  10% {transform: scale(1.1)}
+    10% {
+        transform: scale(1.1);
+    }
 }
 
 @keyframes pulsecolor {
-  10% {
-    background: #e3a256
-  }
+    10% {
+        background: #e3a256;
+    }
 }
-

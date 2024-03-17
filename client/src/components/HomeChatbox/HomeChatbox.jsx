@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const HomeChatbox = () => {
     const [fact, setFact] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://localhost:3001/get', {
@@ -15,7 +18,11 @@ const HomeChatbox = () => {
             setFact(response.data.fact);
         })
         .catch((err) => {
-            console.error(err);
+            console.error(err.response)
+            if (err.response.status === 401) {
+                localStorage.removeItem("usertoken");
+                navigate('/');
+            }
         })
     }, []);
 
