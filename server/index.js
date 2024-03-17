@@ -52,6 +52,12 @@ app.get('/db', async (req, res) => {
 });
 
 
+const DATA = require('./MOCK_DATA(2).json')
+app.get('/add', async (req, res) => {
+    await MongoUtils.CreateUser(DATA)
+    res.send("OK")
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

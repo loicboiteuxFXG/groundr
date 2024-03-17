@@ -7,7 +7,6 @@ const router = express.Router();
 
 const { upload } = require('express-fileupload');
 
-const { ValidateSignup } = require('../utils/Validation')
 const {isArray} = require("util");
 const userController = require("../controllers/userController")
 const {isAuth} = require("../middleware");
