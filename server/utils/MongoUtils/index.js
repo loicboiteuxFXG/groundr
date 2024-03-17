@@ -1,12 +1,6 @@
 'use strict'
 
-const { GetAllUsers } = require('./GetAllUsers');
-const { CreateUser } = require('./CreateUser');
-const { GetUser } = require('./GetUser');
-
-const { GetAllGrounds } = require('./GetAllGrounds');
-const { CreateGround } = require('./CreateGround');
-const { UpdateGround } = require('./UpdateGround');
-const { DeleteGround } = require('./DeleteGround');
+const { GetUser, GetAllUsers, CreateUser } = require('./User');
+const { GetAllGrounds, CreateGround, UpdateGround, DeleteGround } = require('./Ground');
 
 module.exports = { CreateUser, GetAllUsers, GetUser, GetAllGrounds, CreateGround, UpdateGround, DeleteGround };
