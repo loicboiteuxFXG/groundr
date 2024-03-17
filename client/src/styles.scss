@@ -302,17 +302,13 @@ footer {
     }
 }
 
-// Carte pour toutes les pages. Positionnement, taille, etc
-.homecard {
+
+.swiperLayout {
     height: 650px;
     position: relative;
     bottom: 0;
     margin-top: auto;
     border: 2px solid white;
-}
-
-// Contenu de la card pour le swiper
-.swipercard {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -324,7 +320,7 @@ footer {
         max-height: 300px;
     }
 
-    .swipercard-buttons {
+    .swiperLayout-buttons {
         max-width: 300px;
         display: flex;
         justify-content: space-around;

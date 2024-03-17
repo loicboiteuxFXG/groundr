@@ -75,12 +75,12 @@ const HomeSwiper = () => {
 
     const SwiperCard = () => {
         return (
-            <div className="homecard swipercard">
+            <div className="swiperLayout">
                 <img src={loading ? "http://localhost:3001/media/default-user.png" : `http://localhost:3001/media/${currentMatch.pfpURL}`} alt="pfp" />
                 <h2>{loading ? "Chargement..." : currentMatch.firstName}</h2>
                 <p>{loading ? "Chargement..." : currentMatch.bio}</p>
                 {loading ? <LoadingIndicator /> :
-                    <div className="swipercard-buttons">
+                    <div className="swiperLayout-buttons">
                         <div>
                             <form method="POST" onSubmit={handleSubmit}>
                                 <input type="hidden" name="swipeStatus" value="like" />
@@ -115,13 +115,11 @@ const HomeSwiper = () => {
         <>
             {
                 loading ?
-                    <div className="homecard">
-                        <div className="centerHeart">
-                            <LoadingIndicator />
-                        </div>
+                    <div className="centerHeart">
+                        <LoadingIndicator/>
                     </div>
                     :
-                    <SwiperCard />
+                    <SwiperCard/>
             }
         </>
     );
