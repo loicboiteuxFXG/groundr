@@ -72,7 +72,7 @@ h1 img {
   background-position: center;
   color: $dark-color;
   padding: 15px;
-  border-radius: 40px;
+  border-radius: 20px;
   text-align: center;
   font-family: Montserrat, sans-serif;
   font-size: 1.5rem;
@@ -252,5 +252,47 @@ footer {
     margin: 0 auto;
     width: 90%;
     max-width: 550px;
+  }
+}
+
+.profileButton{
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: $dark-color2;
+  border-radius: 20px;
+  padding: 12px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .profileIcon{
+    position: relative;
+    width: 20%;
+    height: 0;
+    padding-bottom: 20%;
+    img{
+      width: 100%;
+    }
+  }
+  .profileButtonContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    h4{
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.3rem;
+      color: #e4c14d;
+      margin-bottom: 0;
+    }
+    p{
+      font-size: 0.7rem;
+      text-decoration: underline;
+      color: #e3a256;
+      margin-bottom: 0;
+    }
+  }
+  &:hover{
+    background-color: #363636;
+    transition: 250ms;
   }
 }
