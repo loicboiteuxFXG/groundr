@@ -78,6 +78,7 @@ const HomeSwiper = () => {
             <div className="homecard swipercard">
                 <img src={loading ? "http://localhost:3001/media/default-user.png" : `http://localhost:3001/media/${currentMatch.pfpURL}`} alt="pfp" />
                 <h2>{loading ? "Chargement..." : currentMatch.firstName}</h2>
+                <p>{loading ? "Chargement..." : currentMatch.bio}</p>
                 {loading ? <LoadingIndicator /> :
                     <div className="swipercard-buttons">
                         <div>
