@@ -4,6 +4,7 @@ const express = require('express');
 const { GetUser, CreateUser} = require('../utils/MongoUtils');
 const router = express.Router();
 
+
 const { upload } = require('express-fileupload');
 
 const { ValidateSignup } = require('../utils/Validation')
@@ -13,7 +14,8 @@ const {isAuth} = require("../middleware");
 
 router.get('/get-user-token', isAuth, userController.GetUserToken)
 
-router.get('/:id', (req, res) => {
+
+router.get('/get/:id', (req, res) => {
     return res.send({})
 })
 

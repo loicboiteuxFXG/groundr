@@ -27,5 +27,6 @@ module.exports = (req, res, next) => {
 
   // Passe le token décodé dans la requête pour pouvoir l'utiliser ailleurs
   req.user = decodedToken;
+  console.dir(req.user)
   next();
 };
