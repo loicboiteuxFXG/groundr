@@ -16,6 +16,12 @@ const createMatchList = async (req, res, next) => {
             status: "superlike"
         });
 
+    const excludedGrounds = await GetAllGrounds(
+        {
+            $or: [{ sender: connectedUser._id }, { receiver: connectedUser._id }],
+            status: {$in: ["dislike", "common"]}
+        });
+
     const likedUsersIDs = grounds.map(ground => ground.receiver).filter(id => !(id.equals(connectedUser._id)));
     const superlikedUsersIDs = superGrounds.map(ground => ground.receiver).filter(id => !(id.equals(connectedUser._id)));
 
@@ -26,12 +32,19 @@ const createMatchList = async (req, res, next) => {
     const superinterestedUsers = await GetAllUsers({ _id: { $in: superinterestedUsersIDs } }, { password: false });
 
 
-    console.table(superinterestedUsers)
+    const excludedUsersIDs = [];
+    excludedGrounds.forEach(ground => {
+       if (!ground.receiver.equals(connectedUser._id)) {
+            excludedUsersIDs.push(ground.receiver);
+       } else {
+           excludedUsersIDs.push(ground.sender);
+       }
+    });
 
-    const excludedUsersIDs = likedUsersIDs.concat(superlikedUsersIDs, interestedUsersIDs, superinterestedUsersIDs);
+    const excludedUsersIDsQuery = likedUsersIDs.concat(superlikedUsersIDs, interestedUsersIDs, superinterestedUsersIDs, excludedUsersIDs);
     // Only get appropriate users according to gender and orientation
     let query = {
-        "_id": { $not: { $in: excludedUsersIDs } },
+        "_id": { $not: { $in: excludedUsersIDsQuery } },
         "email": { $not: { $eq: connectedUser.email } },
         "orientation": { $in: ["A", connectedUser.gender] },
         "interests": { $in: connectedUser.interests }
