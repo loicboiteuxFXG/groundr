@@ -4,14 +4,16 @@ const express = require('express');
 const { GetUser, CreateUser} = require('../utils/MongoUtils');
 const router = express.Router();
 
-router.post('/create', (req, res) => {
-    
-    //console.info(ValidateSignup(req.body))
-    // return
-    CreateUser(req.body)
-        .then(user => {console.dir(user)})
-        .catch(err => console.error(err));
-});
+
+const { upload } = require('express-fileupload');
+
+const { ValidateSignup } = require('../utils/Validation')
+const {isArray} = require("util");
+const userController = require("../controllers/userController")
+const {isAuth} = require("../middleware");
+
+router.get('/get-user-token', isAuth, userController.GetUserToken)
+
 
 router.get('/get/:id', (req, res) => {
     return res.send({})

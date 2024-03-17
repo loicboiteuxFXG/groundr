@@ -4,11 +4,21 @@ $dark-color: #232020;
 $dark-color2: #2f2c2c;
 $pink-color: #b33f62;
 
+::selection {
+  background-color: #e4c14d;
+  color: $dark-color2;
+}
+
 .golden {
   background-color: #926129;
   background: -webkit-linear-gradient(0deg, #926129 0%, #f2e797 50%, #926129 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  &::selection {
+    background: #e4c14d;
+    -webkit-text-fill-color: $dark-color2;
+  }
 }
 
 body {
@@ -62,7 +72,7 @@ h1 img {
   background-position: center;
   color: $dark-color;
   padding: 15px;
-  border-radius: 40px;
+  border-radius: 20px;
   text-align: center;
   font-family: Montserrat, sans-serif;
   font-size: 1.5rem;
@@ -245,6 +255,48 @@ footer {
   }
 }
 
+  
+.profileButton{
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: $dark-color2;
+  border-radius: 20px;
+  padding: 12px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .profileIcon{
+    position: relative;
+    width: 20%;
+    height: 0;
+    padding-bottom: 20%;
+    img{
+      width: 100%;
+    }
+  }
+  .profileButtonContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+    h4{
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.3rem;
+      color: #e4c14d;
+      margin-bottom: 0;
+    }
+    p{
+      font-size: 0.7rem;
+      text-decoration: underline;
+      color: #e3a256;
+      margin-bottom: 0;
+    }
+  }
+  &:hover{
+    background-color: #363636;
+    transition: 250ms;
+  }
+
 
 
 .puslingheart-wrapper {
@@ -288,4 +340,4 @@ footer {
 
 @keyframes pulsecolor {
   10% {background: #e3a256}
-}
+
