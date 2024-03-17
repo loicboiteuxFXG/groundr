@@ -1,17 +1,23 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-import {createContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import axios from "axios";
 
-export const ConnectedUserContext = createContext({});
+export const ConnectedUserContext = createContext({
+    firstName: 'Chargement',
+    lastName: '',
+    bio: '',
+    pfpURL: 'default-user.png'
+});
 const HomeLayout = () => {
     const navigate = useNavigate();
 
     const [connectedUser, setConnectedUser] = useState({
         firstName: 'Chargement',
         lastName: '',
+        bio: '',
         pfpURL: 'default-user.png'
     })
 
@@ -56,8 +62,7 @@ const HomeLayout = () => {
     }
 
     return (
-        // eslint-disable-next-line react/jsx-no-undef
-        <ConnectedUserContext.Provider value={connectedUser}>
+        <ConnectedUserContext.Provider value={[connectedUser, setConnectedUser]}>
             <div className="page-layout">
                 <div className='sidebar'>
                     <div>
@@ -72,7 +77,7 @@ const HomeLayout = () => {
                     </div>
                 </div>
                 <div className="content">
-                    <Outlet user={connectedUser} />
+                    <Outlet/>
                 </div>
             </div>
             <Footer />

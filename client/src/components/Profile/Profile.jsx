@@ -7,6 +7,9 @@ import {ConnectedUserContext} from '../../pages/HomeLayout'
 const Profile = () => {
     const navigate = useNavigate()
 
+    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
+    const [file, setFile] = useState(null)
+
     useEffect(() => {
         document.title = "Votre profil | GroundR"
 
@@ -14,42 +17,49 @@ const Profile = () => {
         if (!token) {
             navigate('/account/login')
         }
-    }, [navigate])
 
-    let [user, setUser] = useState(useContext(ConnectedUserContext))
-    const [file, setFile] = useState(null)
+        console.log(connectedUser)
+    }, [])
+
+
+
 
     const handleImageClick = () => {
         document.getElementById('fileInput').click();
     };
 
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
         const data = new FormData()
         data.append('file', selectedFile)
-        data.append('user', user)
-        let filename
-        axios.post('http://localhost:3001/file/upload-new', data)
+        data.append('user', connectedUser)
+        var filename = ""
+        await axios.post('http://localhost:3001/file/upload-new', data)
             .then((response) => {
                 filename = response.data.filename;
+                console.log(filename)
             })
             .catch(err => console.error(err))
 
+        console.log(filename)
 
         const data2 = new FormData()
         data2.append('filename', filename)
-        data2.append('userId', user._id)
-        axios.post('http://localhost:3001/user/update-pfp', data2)
+        await axios.post('http://localhost:3001/user/update-pfp', {filename: filename}, {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+            }
+        })
             .then(response => {
-                console.log(response)
+                setConnectedUser(response.data)
             })
             .catch(err => console.error(err))
-        console.log(user)
+        console.log(connectedUser)
     };
 
-    const pfpURL = `http://localhost:3001/media/${user.pfpURL}`
-    const fullname = user.firstName + " " + user.lastName
+    const pfpURL = `http://localhost:3001/media/${connectedUser.pfpURL}`
+    const fullname = connectedUser.firstName + " " + connectedUser.lastName
 
     return (
         <div className="profileLayout">

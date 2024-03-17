@@ -3,12 +3,12 @@ import {ConnectedUserContext} from "../../pages/HomeLayout";
 import {useContext} from "react";
 
 const ProfileButton = () => {
-    const user = useContext(ConnectedUserContext)
+    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
 
     const navigate = useNavigate()
 
-    const fullName = user.firstName + " " + user.lastName
-    const pfp = `http://localhost:3001/media/${user.pfpURL}`
+    const fullName = connectedUser.firstName + " " + connectedUser.lastName
+    const pfp = `http://localhost:3001/media/${connectedUser.pfpURL}`
 
     const handleCLick = () => {
         navigate('profile')
