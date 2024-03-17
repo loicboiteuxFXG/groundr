@@ -70,10 +70,10 @@ const HomeSwiper = () => {
     }
 
     return (
-        <div>
-            {loading ? <LoadingIndicator/> :
+        <>
+            {loading ? <div className="centerHeart"><LoadingIndicator/></div> :
                 <SwiperButtons/>}
-        </div>
+        </>
     )
 }
 
