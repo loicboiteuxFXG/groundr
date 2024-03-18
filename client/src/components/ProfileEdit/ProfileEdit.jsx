@@ -1,15 +1,15 @@
 import Select from "react-select";
-import InterestsOptions from "../../data/Interests.json";
 import LoadingIndicator from "../LoadingIndicator";
 import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
-import sha256 from "js-sha256";
 import {useNavigate} from "react-router-dom";
 import {ConnectedUserContext} from "../../pages/HomeLayout";
 
 
 const ProfileEdit = () => {
     const navigate = useNavigate()
+
+    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
 
     useEffect(() => {
         document.title = "Modifier votre profil | GroundR"
@@ -20,53 +20,62 @@ const ProfileEdit = () => {
         }
     }, [navigate])
 
-    const user = useContext(ConnectedUserContext)
 
-    const regExpString = '^[a-zA-Z]+$'
+    const regExpString = '^[a-zA-Z\ ]+$'
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
-    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
     const [formData, setFormData] = useState({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        gender: user.gender,
-        orientation: user.orientation,
-        DoB: user.DoB,
+        email: connectedUser.email,
+        gender: connectedUser.gender,
+        orientation: connectedUser.orientation,
     })
-    const [interests, setInterests] = useState(user.interests)
+    const [interests, setInterests] = useState(connectedUser.interests)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+    const [isChanged, setIsChanged] = useState(false)
+    const [interestList, setInterestList] = useState([])
+
+
+
+
+    useEffect(() => {
+        async function fetchData() {
+            setLoading(true)
+            axios.get('http://localhost:3001/user/get-interests')
+                .then((response) => {
+                    setInterestList(response.data)
+                    setLoading(false)
+                })
+                .catch((error) => {
+                    setLoading(false)
+                })
+        }
+        fetchData()
+    }, [])
+
+
+    useEffect(() => {
+        setInterests(connectedUser.interests)
+        setFormData({
+            bio: connectedUser.bio,
+            email: connectedUser.email,
+            gender: connectedUser.gender,
+            orientation: connectedUser.orientation
+        })
+
+        let temp = []
+        interestList.forEach(i => {
+            if (connectedUser.interests.includes(i.value)) {
+                temp.push(i);
+            }
+        })
+        setInterests(temp)
+    }, [connectedUser])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         const validationErrors = {}
-
-
-        let today =  new Date();
-        let birthDate = new Date(formData.DoB)
-        let age = today.getFullYear() - birthDate.getFullYear();
-        let m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-
-        if (age < 18) {
-            validationErrors.DoB = "Vous devez avoir au moins 18 ans pour utiliser GroundR."
-        }
-
-
-        if (!formData.firstName.trim()) {
-            validationErrors.firstName = 'Ce champ est requis.'
-        } else if (!formData.firstName.trim().match(regExpString)) {
-            validationErrors.firstName = 'Le champ contient des caractères invalides.'
-        }
-
-        if (!formData.lastName.trim()) {
-            validationErrors.lastName = 'Ce champ est requis.'
-        } else if (!formData.lastName.trim().match(regExpString)) {
-            validationErrors.lastName = 'Le champ contient des caractères invalides.'
-        }
 
         if (!formData.email.trim()) {
             validationErrors.email = 'Ce champ est requis.'
@@ -74,21 +83,8 @@ const ProfileEdit = () => {
             validationErrors.email = 'L\'adresse courriel est invalide.'
         }
 
-        if (!formData.password.trim()) {
-            validationErrors.password = 'Ce champ est requis.'
-        } else if (!formData.password.trim().match(regExpPassword)) {
-            validationErrors.password = 'Le mot de passe est invalide. Il doit contenir au moins 8' +
-                ' caractères dont au moins une lettre minuscule, une lettre majuscule et un chiffre.'
-        }
-
-        if (!formData.password_confirm.trim()) {
-            validationErrors.password_confirm = 'Ce champ est requis.'
-        } else if (!(formData.password_confirm.trim() === formData.password.trim())) {
-            validationErrors.password_confirm = 'Les mots de passe ne correspondent pas.'
-        }
-
-        if (!formData.DoB) {
-            validationErrors.DoB = 'Ce champ est requis.'
+        if (!formData.bio.match(regExpString)) {
+            validationErrors.bio = 'La bio est invalide.'
         }
 
         if (!interests || interests.length < 3) {
@@ -102,34 +98,32 @@ const ProfileEdit = () => {
 
             let interestsToSend = interests.map(i => i.value)
 
-            let hashedPassword = sha256.sha256(formData.password)
-            let hashedPassword2 = sha256.sha256(formData.password_confirm)
-
             let userData = {
-                "firstName": formData.firstName,
-                "lastName": formData.lastName,
+                "bio": formData.bio,
                 "email": formData.email,
-                "password": hashedPassword,
-                "password_confirm": hashedPassword2,
                 "gender": formData.gender,
                 "orientation": formData.orientation,
-                "DoB": formData.DoB,
                 "interests": interestsToSend,
             }
 
-            axios.post('http://localhost:3001/auth/register', userData)
+            axios.post('http://localhost:3001/user/update', userData, {
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                }
+            })
                 .then((response) => {
-                    if (response.data.status !== "error") {
-                        navigate('/account')
-                    } else {
-                        setLoading(false)
-                    }
-
-                })
-                .catch((error) => {
+                    setConnectedUser(response.data)
                     setLoading(false)
-                    const errors = error.response.data
+                    setIsChanged(false)
+                })
+                .catch((err) => {
+                    setLoading(false)
+                    const errors = err.response.data
                     setErrors(errors)
+                    if (err.response.status === 401) {
+                        localStorage.removeItem("usertoken");
+                        navigate('/');
+                    }
                 })
         }
     }
@@ -139,63 +133,44 @@ const ProfileEdit = () => {
         setFormData({
             ...formData, [name]: value
         })
+        setIsChanged(true)
+    }
+
+    const handleInterestChange = (e) => {
+        setInterests(e)
+        setIsChanged(true)
     }
 
     return(
         <div className="container signup-layout">
-            <h2 className="golden">Créer un compte</h2>
+            <h2 className="golden">Modifier le compte</h2>
             <div className="signup-card">
                 <form onSubmit={handleSubmit} noValidate>
-                    <label htmlFor="firstname">Prénom</label>
-                    <input
-                        id="firstname"
-                        className={errors.firstName ? "is-invalid form-control" : "form-control"}
-                        type="text"
-                        name="firstName"
-                        onChange={handleChange}
-                    />
-                    {errors.firstName && <span className="invalid-feedback">{errors.firstName}</span>}
-                    <label htmlFor="lastname">Nom</label>
-                    <input
-                        id="lastname"
-                        className={errors.lastName ? "is-invalid form-control" : "form-control"}
-                        type="text"
-                        name="lastName"
-                        onChange={handleChange}/>
-                    {errors.lastName && <span className="invalid-feedback">{errors.lastName}</span>}
+
                     <label htmlFor="email">Adresse courriel</label>
                     <input
                         id="email"
                         className={errors.email ? "is-invalid form-control" : "form-control"}
                         type="text"
                         name="email"
-                        onChange={handleChange}/>
+                        onChange={handleChange}
+                        value={formData.email}
+                    />
                     {errors.email && <span className="invalid-feedback">{errors.email}</span>}
-                    <label htmlFor="password">Créez un mot de passe</label>
-                    <input
-                        id="password"
-                        className={errors.password ? "is-invalid form-control" : "form-control"}
-                        type="password"
-                        name="password"
-                        onChange={handleChange}/>
-                    {errors.password && <span className="invalid-feedback">{errors.password}</span>}
-                    <label htmlFor="password_confirm">Confirmez votre mot de passe</label>
-                    <input
-                        id="password_confirm"
-                        className={errors.password_confirm ? "is-invalid form-control" : "form-control"}
-                        type="password"
-                        name="password_confirm"
-                        onChange={handleChange}/>
-                    {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
-                    <label htmlFor="birthdate">Date de naissance</label>
-                    <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"}
-                           type='date' name="DoB"
-                           onChange={handleChange}/>
-                    {errors.DoB && <span className="invalid-feedback">{errors.DoB}</span>}
+                    <label htmlFor="bio">Bio</label>
+                    <textarea
+                        id="bio"
+                        className={errors.bio ? "is-invalid form-control" : "form-control"}
+                        name="bio"
+                        onChange={handleChange}
+                        value={formData.bio}
+                    />
+                    {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
                     <label htmlFor="gender">Identité de genre</label>
                     <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
                             name="gender"
-                            onChange={handleChange}>
+                            onChange={handleChange}
+                            value={formData.gender}>
                         <option value="M">Homme</option>
                         <option value="F">Femme</option>
                         <option value="O">Autre</option>
@@ -204,7 +179,8 @@ const ProfileEdit = () => {
                     <label htmlFor="orientation">Je recherche</label>
                     <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"}
                             name="orientation"
-                            onChange={handleChange}>
+                            onChange={handleChange}
+                            value={formData.orientation}>
                         <option value="M">Homme</option>
                         <option value="F">Femme</option>
                         <option value="B">Les deux</option>
@@ -216,11 +192,11 @@ const ProfileEdit = () => {
                         id="interests"
                         isMulti
                         name="interests"
-                        options={InterestsOptions}
+                        options={interestList}
                         className="basic-multi-select"
                         classNamePrefix="select"
                         value={interests}
-                        onChange={setInterests}
+                        onChange={handleInterestChange}
                         theme={(theme) => ({
                             ...theme,
                             borderRadius: 5,
@@ -275,8 +251,11 @@ const ProfileEdit = () => {
                         }}
                     />
                     {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
-                    {loading ? <LoadingIndicator/> :
-                        <input type="submit" className="custom-btn" value="Créer un compte"/>}
+                    {
+                        isChanged ? <> { loading ? <LoadingIndicator/> : <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
+                             : <></>
+
+                    }
                 </form>
             </div>
         </div>

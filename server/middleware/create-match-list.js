@@ -1,12 +1,13 @@
 const { GetUser, GetAllUsers, GetAllGrounds } = require('../utils/MongoUtils');
+const {ObjectId} = require("mongodb");
 
 const createMatchList = async (req, res, next) => {
 
-    const connectedUser = await GetUser({ email: req.user.email });
+    const connectedUser = await GetUser({ _id: new ObjectId(req.user._id) });
 
     const grounds = await GetAllGrounds(
         {
-            $or: [{ sender: connectedUser._id }, { receiver: connectedUser._id }],
+            $or: [{ sender: new ObjectId(connectedUser._id) }, { receiver: new ObjectId(connectedUser._id) }],
             status: "like"
         });
 

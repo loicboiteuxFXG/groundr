@@ -35,7 +35,9 @@ const Profile = () => {
         data.append('file', selectedFile)
         data.append('user', connectedUser)
         var filename = ""
-        await axios.post('http://localhost:3001/file/upload-new', data)
+        await axios.post('http://localhost:3001/file/upload-new', data, {
+
+        })
             .then((response) => {
                 filename = response.data.filename;
                 console.log(filename)
@@ -54,7 +56,12 @@ const Profile = () => {
             .then(response => {
                 setConnectedUser(response.data)
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                if (err.response.status === 401) {
+                    localStorage.removeItem("usertoken");
+                    navigate('/');
+                }
+            })
         console.log(connectedUser)
     };
 

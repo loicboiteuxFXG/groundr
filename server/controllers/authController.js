@@ -11,8 +11,9 @@ const { GetUser, CreateUser } = require('../utils/MongoUtils');
 const Login = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-
+    console.log(`Login requested for ${email}`)
     let loadedUser;
+
     GetUser({ email: email })
         .then(user => {
             console.dir(user);
@@ -24,6 +25,7 @@ const Login = (req, res, next) => {
                 return res.status(404).send(error)
             }
             loadedUser = user;
+            console.log(user)
             return sha256(password) === loadedUser.password;
         })
         .then(isEqual => {
@@ -56,6 +58,7 @@ const Login = (req, res, next) => {
 
 const Register = (req, res) => {
     const userData = req.body
+    console.log(`Register requested from ${userData.email}`)
     delete userData.password_confirm
     CreateUser(userData)
         .then(user => {
