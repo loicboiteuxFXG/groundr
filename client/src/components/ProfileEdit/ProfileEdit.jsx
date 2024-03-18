@@ -83,7 +83,7 @@ const ProfileEdit = () => {
             validationErrors.email = 'L\'adresse courriel est invalide.'
         }
 
-        if (!formData.bio.trim().match(regExpString)) {
+        if (!formData.bio.match(regExpString)) {
             validationErrors.bio = 'La bio est invalide.'
         }
 
@@ -157,10 +157,10 @@ const ProfileEdit = () => {
                         value={formData.email}
                     />
                     {errors.email && <span className="invalid-feedback">{errors.email}</span>}
-                    <label htmlFor="email">Bio</label>
+                    <label htmlFor="bio">Bio</label>
                     <textarea
                         id="bio"
-                        className={errors.email ? "is-invalid form-control" : "form-control"}
+                        className={errors.bio ? "is-invalid form-control" : "form-control"}
                         name="bio"
                         onChange={handleChange}
                         value={formData.bio}

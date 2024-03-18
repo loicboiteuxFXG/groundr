@@ -19,7 +19,7 @@ const UpdatePfp = async (req, res) => {
         console.error(err)
     }
     const newUser = await GetUser({_id: new ObjectId(req.user._id)})
-    res.status(200).send(newUser)
+    res.send(newUser)
 }
 
 const UpdateUserData = async (req, res) => {
@@ -32,4 +32,13 @@ const UpdateUserData = async (req, res) => {
     res.send(newUser)
 }
 
-module.exports = {GetUserToken, UpdatePfp, UpdateUserData}
+const UpdateUserPassword = async (req, res) => {
+    try{
+        await UpdateUser(new ObjectId(req.user._id), {password: req.body.password})
+    } catch (err){
+        console.error(err)
+    }
+    res.send("OK")
+}
+
+module.exports = {GetUserToken, UpdatePfp, UpdateUserData, UpdateUserPassword}

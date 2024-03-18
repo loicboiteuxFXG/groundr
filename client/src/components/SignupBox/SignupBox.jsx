@@ -1,32 +1,32 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import Select from 'react-select'
-import {useNavigate} from 'react-router-dom'
-import ShowcaseHeader from "../ShowcaseHeader"
-import Footer from "../Footer"
-import "../../styles.css"
-import LoadingIndicator from "../LoadingIndicator/LoadingIndicator"
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
+import ShowcaseHeader from "../ShowcaseHeader";
+import Footer from "../Footer";
+import "../../styles.css";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
-const InterestsOptions = require('../../data/Interests.json')
-const sha256 = require('js-sha256')
+const InterestsOptions = require('../../data/Interests.json');
+const sha256 = require('js-sha256');
 
 const SignupBox = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "Créer un compte | GroundR"
+        document.title = "Créer un compte | GroundR";
 
-        const token = JSON.parse(localStorage.getItem("usertoken"))
+        const token = JSON.parse(localStorage.getItem("usertoken"));
         if (token) {
-            navigate('/home')
+            navigate('/home');
         }
-    }, [navigate])
+    }, [navigate]);
 
-    const regExpString = '^[a-zA-Z]+$'
-    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
-    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
+    const regExpString = '^[a-zA-Z]+$';
+    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
+    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
-    const [file, setFile] = useState()
+    const [file, setFile] = useState();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -36,27 +36,27 @@ const SignupBox = () => {
         gender: 'M',
         orientation: 'M',
         DoB: '',
-        Bio: ''
-    })
-    const [interests, setInterests] = useState([])
+        bio: ''
+    });
+    const [interests, setInterests] = useState([]);
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
 
     function handleFileChange(event) {
-        setFile(event.target.files[0])
+        setFile(event.target.files[0]);
     }
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        const validationErrors = {}
+        e.preventDefault();
+        const validationErrors = {};
 
 
         let today = new Date();
-        let birthDate = new Date(formData.DoB)
+        let birthDate = new Date(formData.DoB);
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -64,75 +64,77 @@ const SignupBox = () => {
         }
 
         if (age < 18) {
-            validationErrors.DoB = "Vous devez avoir au moins 18 ans pour utiliser GroundR."
+            validationErrors.DoB = "Vous devez avoir au moins 18 ans pour utiliser GroundR.";
         }
 
 
         if (!formData.firstName.trim()) {
-            validationErrors.firstName = 'Ce champ est requis.'
+            validationErrors.firstName = 'Ce champ est requis.';
         } else if (!formData.firstName.trim().match(regExpString)) {
-            validationErrors.firstName = 'Le champ contient des caractères invalides.'
+            validationErrors.firstName = 'Le champ contient des caractères invalides.';
         }
 
         if (!formData.lastName.trim()) {
-            validationErrors.lastName = 'Ce champ est requis.'
+            validationErrors.lastName = 'Ce champ est requis.';
         } else if (!formData.lastName.trim().match(regExpString)) {
-            validationErrors.lastName = 'Le champ contient des caractères invalides.'
+            validationErrors.lastName = 'Le champ contient des caractères invalides.';
         }
 
         if (!formData.email.trim()) {
-            validationErrors.email = 'Ce champ est requis.'
+            validationErrors.email = 'Ce champ est requis.';
         } else if (!formData.email.trim().match(regExpEmail)) {
-            validationErrors.email = 'L\'adresse courriel est invalide.'
+            validationErrors.email = 'L\'adresse courriel est invalide.';
         }
 
         if (!formData.password.trim()) {
-            validationErrors.password = 'Ce champ est requis.'
+            validationErrors.password = 'Ce champ est requis.';
         } else if (!formData.password.trim().match(regExpPassword)) {
             validationErrors.password = 'Le mot de passe est invalide. Il doit contenir au moins 8' +
-                ' caractères dont au moins une lettre minuscule, une lettre majuscule et un chiffre.'
+                ' caractères dont au moins une lettre minuscule, une lettre majuscule et un chiffre.';
         }
 
         if (!formData.password_confirm.trim()) {
-            validationErrors.password_confirm = 'Ce champ est requis.'
+            validationErrors.password_confirm = 'Ce champ est requis.';
         } else if (!(formData.password_confirm.trim() === formData.password.trim())) {
-            validationErrors.password_confirm = 'Les mots de passe ne correspondent pas.'
+            validationErrors.password_confirm = 'Les mots de passe ne correspondent pas.';
         }
 
         if (!formData.DoB) {
-            validationErrors.DoB = 'Ce champ est requis.'
+            validationErrors.DoB = 'Ce champ est requis.';
         }
 
         if (!interests || interests.length < 3) {
-            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
+            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.';
         }
 
-        if (!formData.Bio.trim()) {
-            validationErrors.Bio = 'Ce champ est requis.'
+        if (!formData.bio.trim()) {
+            validationErrors.bio = 'Ce champ est requis.';
+        } else if (!formData.bio.match(regExpString)) {
+            validationErrors.bio = 'La bio contient des données invalides';
         }
 
-        setErrors(validationErrors)
+        setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            setLoading(true)
+            setLoading(true);
 
-            const data = new FormData()
-            data.append('file', file)
+            const data = new FormData();
+            data.append('file', file);
 
-            let interestsToSend = interests.map(i => i.value)
+            let interestsToSend = interests.map(i => i.value);
 
-            var filename = ""
+            var filename = "";
 
             await axios.post('http://localhost:3001/file/upload', data)
                 .then((response) => {
-                    filename = response.data.filename
+                    filename = response.data.filename;
                 })
                 .catch((error) => {
-                    console.error(error)
-                })
+                    console.error(error);
+                });
 
-            let hashedPassword = sha256.sha256(formData.password)
-            let hashedPassword2 = sha256.sha256(formData.password_confirm)
+            let hashedPassword = sha256.sha256(formData.password);
+            let hashedPassword2 = sha256.sha256(formData.password_confirm);
 
             let userData = {
                 "firstName": formData.firstName,
@@ -143,39 +145,39 @@ const SignupBox = () => {
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "DoB": formData.DoB,
-                "Bio": formData.Bio,
+                "bio": formData.bio,
                 "interests": interestsToSend,
                 "pfpURL": filename
-            }
+            };
 
             axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {
                     if (response.data.status !== "error") {
-                        navigate('/account')
+                        navigate('/account');
                     } else {
-                        setLoading(false)
+                        setLoading(false);
                     }
 
                 })
                 .catch((error) => {
-                    setLoading(false)
-                    const errors = error.response.data
-                    setErrors(errors)
-                })
+                    setLoading(false);
+                    const errors = error.response.data;
+                    setErrors(errors);
+                });
         }
-    }
+    };
 
     const handleChange = (e) => {
-        const {name, value} = e.target
+        const { name, value } = e.target;
         setFormData({
             ...formData, [name]: value
-        })
-    }
+        });
+    };
 
 
     return (
         <>
-            <ShowcaseHeader/>
+            <ShowcaseHeader />
             <div className="container signup-layout">
                 <h2 className="golden">Créer un compte</h2>
                 <div className="signup-card">
@@ -195,7 +197,7 @@ const SignupBox = () => {
                             className={errors.lastName ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="lastName"
-                            onChange={handleChange}/>
+                            onChange={handleChange} />
                         {errors.lastName && <span className="invalid-feedback">{errors.lastName}</span>}
                         <label htmlFor="email">Adresse courriel</label>
                         <input
@@ -203,7 +205,7 @@ const SignupBox = () => {
                             className={errors.email ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="email"
-                            onChange={handleChange}/>
+                            onChange={handleChange} />
                         {errors.email && <span className="invalid-feedback">{errors.email}</span>}
                         <label htmlFor="password">Créez un mot de passe</label>
                         <input
@@ -211,7 +213,7 @@ const SignupBox = () => {
                             className={errors.password ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password"
-                            onChange={handleChange}/>
+                            onChange={handleChange} />
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
                         <label htmlFor="password_confirm">Confirmez votre mot de passe</label>
                         <input
@@ -219,17 +221,17 @@ const SignupBox = () => {
                             className={errors.password_confirm ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password_confirm"
-                            onChange={handleChange}/>
+                            onChange={handleChange} />
                         {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
                         <label htmlFor="birthdate">Date de naissance</label>
                         <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"}
-                               type='date' name="DoB"
-                               onChange={handleChange}/>
+                            type='date' name="DoB"
+                            onChange={handleChange} />
                         {errors.DoB && <span className="invalid-feedback">{errors.DoB}</span>}
                         <label htmlFor="gender">Identité de genre</label>
                         <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
-                                name="gender"
-                                onChange={handleChange}>
+                            name="gender"
+                            onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
@@ -237,9 +239,9 @@ const SignupBox = () => {
                         {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
                         <label htmlFor="orientation">Je recherche</label>
                         <select id="orientation"
-                                className={errors.orientation ? "is-invalid form-control" : "form-control"}
-                                name="orientation"
-                                onChange={handleChange}>
+                            className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                            name="orientation"
+                            onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="B">Les deux</option>
@@ -312,24 +314,24 @@ const SignupBox = () => {
                         {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
                         <label htmlFor="profilepicture">Ajoutez une photo de profil</label>
                         <input id="profilepicture" type="file" className="form-control"
-                               accept="image/png, image/jpg, image/jpeg"
-                               onChange={handleFileChange}/>
+                            accept="image/png, image/jpg, image/jpeg"
+                            onChange={handleFileChange} />
                         <label htmlFor="bio">Ajoutez une bio pour votre profil</label>
-                        <textarea id="bio"
-                                  name="Bio"
-                                  rows="4"
-                                  className={errors.Bio ? "is-invalid form-control" : "form-control"}
-                                  onChange={handleChange}>
-                        </textarea>
-                        {errors.Bio && <span className="invalid-feedback">{errors.Bio}</span>}
-                        {loading ? <LoadingIndicator/> :
-                            <input type="submit" className="custom-btn" value="Créer un compte"/>}
+                        <textarea
+                            id="bio"
+                            className={errors.bio ? "is-invalid form-control" : "form-control"}
+                            name="bio"
+                            onChange={handleChange}
+                            value={formData.bio}/>
+                        {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
+                        {loading ? <LoadingIndicator /> :
+                            <input type="submit" className="custom-btn" value="Créer un compte" />}
                     </form>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
-    )
-}
+    );
+};
 
-export default SignupBox
+export default SignupBox;
