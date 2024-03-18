@@ -79,7 +79,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <h2>{fullname}</h2>
-                <p>{connectedUser.Bio}</p>
+                <p>{connectedUser.bio}</p>
             </div>
             <div>
                 <Link to="edit" className="btnGround">Modifier le profil</Link>
