@@ -6,6 +6,7 @@ import ShowcaseHeader from "../ShowcaseHeader"
 import Footer from "../Footer"
 import "../../styles.css"
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator"
+
 const InterestsOptions = require('../../data/Interests.json')
 const sha256 = require('js-sha256')
 
@@ -35,6 +36,7 @@ const SignupBox = () => {
         gender: 'M',
         orientation: 'M',
         DoB: '',
+        Bio: ''
     })
     const [interests, setInterests] = useState([])
 
@@ -53,7 +55,7 @@ const SignupBox = () => {
         const validationErrors = {}
 
 
-        let today =  new Date();
+        let today = new Date();
         let birthDate = new Date(formData.DoB)
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
@@ -64,7 +66,7 @@ const SignupBox = () => {
         if (age < 18) {
             validationErrors.DoB = "Vous devez avoir au moins 18 ans pour utiliser GroundR."
         }
-      
+
 
         if (!formData.firstName.trim()) {
             validationErrors.firstName = 'Ce champ est requis.'
@@ -105,9 +107,13 @@ const SignupBox = () => {
             validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
         }
 
+        if (!formData.Bio.trim()) {
+            validationErrors.Bio = 'Ce champ est requis.'
+        }
+
         setErrors(validationErrors)
 
-        if(Object.keys(validationErrors).length === 0){
+        if (Object.keys(validationErrors).length === 0) {
             setLoading(true)
 
             const data = new FormData()
@@ -137,6 +143,7 @@ const SignupBox = () => {
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "DoB": formData.DoB,
+                "Bio": formData.Bio,
                 "interests": interestsToSend,
                 "pfpURL": filename
             }
@@ -215,11 +222,13 @@ const SignupBox = () => {
                             onChange={handleChange}/>
                         {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
                         <label htmlFor="birthdate">Date de naissance</label>
-                        <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"} type='date' name="DoB"
+                        <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"}
+                               type='date' name="DoB"
                                onChange={handleChange}/>
                         {errors.DoB && <span className="invalid-feedback">{errors.DoB}</span>}
                         <label htmlFor="gender">Identité de genre</label>
-                        <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"} name="gender"
+                        <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
+                                name="gender"
                                 onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
@@ -227,7 +236,9 @@ const SignupBox = () => {
                         </select>
                         {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
                         <label htmlFor="orientation">Je recherche</label>
-                        <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"} name="orientation"
+                        <select id="orientation"
+                                className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                                name="orientation"
                                 onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
@@ -303,6 +314,14 @@ const SignupBox = () => {
                         <input id="profilepicture" type="file" className="form-control"
                                accept="image/png, image/jpg, image/jpeg"
                                onChange={handleFileChange}/>
+                        <label htmlFor="bio">Ajoutez une bio pour votre profil</label>
+                        <textarea id="bio"
+                                  name="Bio"
+                                  rows="4"
+                                  className={errors.Bio ? "is-invalid form-control" : "form-control"}
+                                  onChange={handleChange}>
+                        </textarea>
+                        {errors.Bio && <span className="invalid-feedback">{errors.Bio}</span>}
                         {loading ? <LoadingIndicator/> :
                             <input type="submit" className="custom-btn" value="Créer un compte"/>}
                     </form>
