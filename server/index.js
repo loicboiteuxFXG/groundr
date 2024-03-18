@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const port = 3001
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 3001;
 
-const MongoUtils = require('./utils/MongoUtils')
+const MongoUtils = require('./utils/MongoUtils');
 const isAuth = require('./middleware/is-auth');
 
 app.use(express.urlencoded({ extended: false }));
@@ -15,12 +15,12 @@ app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
-      'Access-Control-Allow-Methods',
-      'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+        'Access-Control-Allow-Methods',
+        'OPTIONS, GET, POST, PUT, PATCH, DELETE'
     );
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
-  });
+});
 
 const userRoutes = require('./routes/user');
 const fileRoutes = require('./routes/file');
@@ -52,7 +52,13 @@ app.get('/db', async (req, res) => {
 });
 
 
+/* const DATA = require('./MOCK_DATA.json')
+app.get('/add', async (req, res) => {
+    await MongoUtils.CreateUser(DATA)
+    res.send("OK")
+}) */
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
-})
+});

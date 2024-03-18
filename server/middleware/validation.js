@@ -50,6 +50,10 @@ const ValidateSignup = async (req, res, next) => {
         errors.DoB = 'Ce champ est requis.'
     }
 
+    if (!userData.Bio.trim()){
+        errors.password_confirm = 'Ce champ est requis.'
+    }
+
     if (!userData.interests || userData.interests.length < 3) {
         errors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
     }

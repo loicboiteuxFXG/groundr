@@ -1,4 +1,5 @@
 const {ClientHandler} = require("./ClientHandler");
+const {ObjectId} = require("mongodb");
 
 const  GetUser = async (query) => {
     const client = await ClientHandler();
@@ -34,7 +35,30 @@ const  CreateUser = async (data) => {
     }
 }
 
-const  GetAllUsers = async (query, projection={_id: true}, limit=500) => {
+const UpdateUser = async (data) => {
+    const client = await ClientHandler();
+
+    try{
+        await client.connect()
+
+        await client.db("GroundR").collection("Users").replaceOne({_id: data._id}, data)
+    } finally {
+        await client.close()
+    }
+}
+
+const UpdateUserPfp = async (userId, filename) => {
+    const client = await ClientHandler();
+
+    try {
+        await client.connect();
+        await client.db("GroundR").collection("Users").updateOne({ _id: userId }, { $set: { pfpURL: filename } });
+    } finally {
+        await client.close();
+    }
+}
+
+const  GetAllUsers = async (query, projection={}, limit=500) => {
     const client = await ClientHandler();
 
     let returnData = [];
@@ -60,4 +84,4 @@ const  GetAllUsers = async (query, projection={_id: true}, limit=500) => {
 }
 
 
-module.exports = { CreateUser, GetAllUsers, GetUser }
+module.exports = { CreateUser, GetAllUsers, GetUser, UpdateUser, UpdateUserPfp }

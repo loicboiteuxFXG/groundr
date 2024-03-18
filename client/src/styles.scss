@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Qwitcher+Grypen:wght@400;700&display=swap');
 
 $dark-color: #232020;
 $dark-color2: #2f2c2c;
@@ -11,7 +12,12 @@ $pink-color: #b33f62;
 
 .golden {
   background-color: #926129;
-  background: -webkit-linear-gradient(0deg, #926129 0%, #f2e797 50%, #926129 100%);
+  background: -webkit-linear-gradient(
+                  0deg,
+                  #926129 0%,
+                  #f2e797 50%,
+                  #926129 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
@@ -26,7 +32,9 @@ body {
   background-color: $dark-color;
 }
 
-h1, h2, h3{
+h1,
+h2,
+h3 {
   font-family: Montserrat, sans-serif;
   font-size: 3.5rem;
   margin-bottom: 15px;
@@ -87,7 +95,7 @@ h1 img {
   }
 }
 
-.limit-center{
+.limit-center {
   margin: 0 auto;
   width: 50%;
   max-width: 600px;
@@ -126,15 +134,14 @@ header {
   border: none;
 
   &:hover {
-    background-position-x: -20px;
+    background-position-x: -5px;
     transition: 250ms;
   }
 }
 
-
-
 .login-layout {
   height: 75vh;
+
   .login-card {
     max-width: 500px;
     padding: 40px;
@@ -142,25 +149,26 @@ header {
     border: 2px solid #e3a256;
     border-radius: 30px;
     background-color: $dark-color2;
+
     input {
       background-color: $dark-color;
       border-color: #e3a256;
       color: white;
     }
-    input[type=submit] {
-        margin: 20px auto 0;
-        width: 200px;
-        color: $dark-color;
+
+    input[type="submit"] {
+      margin: 20px auto 0;
+      width: 200px;
+      color: $dark-color;
     }
+
     label {
       color: white;
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
       margin-top: 20px;
     }
-
   }
 }
-
 
 footer {
   background-color: $dark-color2;
@@ -183,8 +191,9 @@ footer {
   }
 }
 
-.signup-layout{
-  .signup-card{
+
+.signup-layout {
+  .signup-card {
     max-width: 700px;
     background-color: $dark-color2;
     padding: 40px;
@@ -192,70 +201,80 @@ footer {
     border-radius: 30px;
     margin: 0 auto 20px;
 
-    label{
+    label {
       color: white;
       font-family: Montserrat, sans-serif;
       margin-top: 20px;
     }
-    input, select{
+
+    input, select, textarea {
       color: white;
       background-color: $dark-color;
       border: 1px solid #e3a256;
     }
-    input[type="submit"]{
+
+    input[type="submit"] {
       border: none;
       color: $dark-color;
       text-align: center;
       margin: 20px auto 0 auto
     }
-    input::file-selector-button{
+
+    input::file-selector-button {
       background-color: $dark-color;
       color: white;
     }
-    input:focus{
+
+    input:focus {
       box-shadow: none;
     }
 
-    .css-es2p3j-control, .css-sg40b7-control {
+    .css-es2p3j-control,
+    .css-sg40b7-control {
       margin-bottom: 0;
-      &:focus{
+
+      &:focus {
         margin-bottom: 0;
       }
     }
+
   }
 }
 
-.account-content{
+.account-content {
   height: 75vh;
-  h3{
+
+  h3 {
     font-family: "Montserrat", sans-serif;
     text-align: center;
     margin-bottom: 30px;
     font-size: 2rem;
   }
-  div{
+
+  div {
     margin: 0 auto;
     width: 90%;
     max-width: 550px;
   }
 }
 
-.account-content{
+.account-content {
   height: 75vh;
-  p{
+
+  p {
     font-family: "Montserrat", sans-serif;
     text-align: center;
     margin-bottom: 30px;
     font-size: 2rem;
   }
-  div{
+
+  div {
     margin: 0 auto;
     width: 90%;
     max-width: 550px;
   }
 }
 
-  
 .profileButton {
   margin-bottom: 20px;
   cursor: pointer;
@@ -304,7 +323,113 @@ footer {
   }
 }
 
-.centerHeart{
+
+.swiperLayout {
+  height: 100%;
+  position: relative;
+  bottom: 0;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  h2{
+    font-size: 2.3rem;
+    span{
+      color: #adadad;
+      font-style: italic;
+    }
+  }
+
+  > img {
+    width: 250px;
+    margin-bottom: 20px;
+  }
+
+  .swiperLayout-buttons {
+    max-width: 300px;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      width: 75px;
+      height: 75px;
+      border-radius: 35%;
+      margin: 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition-duration: 0.4s;
+
+      img {
+        border: none;
+        max-width: 48px;
+        max-height: 48px;
+      }
+
+      &#like {
+        background: rgb(185, 147, 43) linear-gradient(
+                        22deg,
+                        rgba(146, 97, 41, 1) 0%,
+                        rgba(185, 147, 43, 1) 25%,
+                        rgba(242, 231, 151, 1) 100%
+        );
+      }
+
+      &#superlike {
+        background: rgb(12, 6, 108);
+        background: linear-gradient(
+                        22deg,
+                        rgba(12, 6, 108, 1) 0%,
+                        rgba(11, 11, 195, 1) 25%,
+                        rgba(0, 212, 255, 1) 100%
+        );
+      }
+
+      &#dislike {
+        background: rgb(121, 11, 201);
+        background: linear-gradient(
+                        22deg,
+                        rgba(121, 11, 201, 1) 0%,
+                        rgba(152, 11, 195, 1) 25%,
+                        rgba(255, 0, 251, 1) 100%
+        );
+      }
+    }
+  }
+}
+
+.profileLayout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  > div {
+    width: 49%;
+    text-align: center;
+
+    img {
+      width: 40%;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.centerHeart {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -312,19 +437,18 @@ footer {
   height: 100%;
 }
 
-
 .puslingheart-wrapper {
   position: absolute;
-  margin-left: 50px;
-  margin-top: 50px;
-  animation:pulse 1s infinite;
+  animation: pulse 1s infinite;
 
   .pulsingheart {
     position: relative;
     width: 100px;
     height: 90px;
   }
-  .pulsingheart:before, .pulsingheart:after {
+
+  .pulsingheart:before,
+  .pulsingheart:after {
     position: absolute;
     content: "";
     left: 50px;
@@ -335,26 +459,209 @@ footer {
     border-radius: 50px 50px 0 0;
     transform: rotate(-45deg);
     transform-origin: 0 100%;
-    animation:pulsecolor 1s infinite;
+    animation: pulsecolor 1s infinite;
   }
 
   .pulsingheart:after {
     left: 0;
     transform: rotate(45deg);
-    transform-origin :100% 100%;
-    animation:pulsecolor 1s infinite;
+    transform-origin: 100% 100%;
+    animation: pulsecolor 1s infinite;
   }
-
 }
 
-
 @keyframes pulse {
-  10% {transform: scale(1.1)}
+  10% {
+    transform: scale(1.1);
+  }
 }
 
 @keyframes pulsecolor {
   10% {
-    background: #e3a256
+    background: #e3a256;
   }
 }
 
+/* ----------------------------------------------
+  Generated by AnimatiSS
+  Licensed under FreeBSD License
+  URL: https://xsgames.co/animatiss
+  Twitter: @xsgames_
+---------------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-modal-text{
+  font-family: Montserrat, sans-serif;
+  font-size: 3.5rem;
+}
+
+.custom-modal-text-p{
+  font-family: Montserrat, sans-serif;
+  font-size: 2rem;
+}
+
+.custom-modal {
+  position: fixed; /* Ensure it's fixed position */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the modal */
+  background-color: $dark-color2;
+  padding: 30px;
+  width: 40vw;
+  height: 40vh;
+  text-align: center;
+  color: #e4c14d;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999; /* Ensure it's above other content */
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+// ===================
+// Fireworks animation
+// ===================
+
+$particles: 50;
+$width: 500;
+$height: 500;
+
+// Create the explosion...
+$box-shadow: ();
+$box-shadow2: ();
+@for $i from 0 through $particles {
+  $box-shadow: $box-shadow,
+  random($width)-$width / 2 + px
+  random($height)-$height / 1.2 + px
+  hsl(random(360), 100, 50);
+  $box-shadow2: $box-shadow2, 0 0 #fff
+}
+@mixin keyframes ($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+
+  @-ms-keyframes #{$animationName} {
+    @content;
+  }
+
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+@mixin animation-delay ($settings) {
+  -moz-animation-delay: $settings;
+  -webkit-animation-delay: $settings;
+  -o-animation-delay: $settings;
+  -ms-animation-delay: $settings;
+  animation-delay: $settings;
+}
+
+@mixin animation-duration ($settings) {
+  -moz-animation-duration: $settings;
+  -webkit-animation-duration: $settings;
+  -o-animation-duration: $settings;
+  -ms-animation-duration: $settings;
+  animation-duration: $settings;
+}
+
+@mixin animation ($settings) {
+  -moz-animation: $settings;
+  -webkit-animation: $settings;
+  -o-animation: $settings;
+  -ms-animation: $settings;
+  animation: $settings;
+}
+
+@mixin transform ($settings) {
+  transform: $settings;
+  -moz-transform: $settings;
+  -webkit-transform: $settings;
+  -o-transform: $settings;
+  -ms-transform: $settings;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background: #000;
+  overflow: hidden;
+}
+
+.pyro > .before, .pyro > .after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: $box-shadow2;
+  @include animation((1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards));
+}
+
+.pyro > .after {
+  @include animation-delay((1.25s, 1.25s, 1.25s));
+  @include animation-duration((1.25s, 1.25s, 6.25s));
+}
+
+@include keyframes(bang) {
+  to {
+    box-shadow:$box-shadow;
+  }
+}
+
+@include keyframes(gravity)  {
+  to {
+    @include transform(translateY(200px));
+    opacity: 0;
+  }
+}
+
+@include keyframes(position) {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%;
+  }
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%;
+  }
+  40%, 59.9% {
+    margin-top: 20%;
+    margin-left: 70%
+  }
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
+}
+
+// ===================
+// ===================
+// ===================
