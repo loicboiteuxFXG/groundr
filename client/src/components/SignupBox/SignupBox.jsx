@@ -7,7 +7,6 @@ import Footer from "../Footer";
 import "../../styles.css";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
-const InterestsOptions = require('../../data/Interests.json');
 const sha256 = require('js-sha256');
 
 const SignupBox = () => {
@@ -22,7 +21,7 @@ const SignupBox = () => {
         }
     }, [navigate]);
 
-    const regExpString = '^[a-zA-Z]+$';
+    const regExpString = '^[a-zA-Z\ ]+$'
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
     const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
@@ -39,10 +38,24 @@ const SignupBox = () => {
         bio: ''
     });
     const [interests, setInterests] = useState([]);
-
     const [errors, setErrors] = useState({});
-
     const [loading, setLoading] = useState(false);
+    const [interestList, setInterestList] = useState([])
+
+    useEffect(() => {
+        async function fetchData() {
+            setLoading(true)
+            axios.get('http://localhost:3001/user/get-interests')
+                .then((response) => {
+                    setInterestList(response.data)
+                    setLoading(false)
+                })
+                .catch((error) => {
+                    setLoading(false)
+                })
+        }
+        fetchData()
+    }, [])
 
 
     function handleFileChange(event) {
@@ -253,7 +266,7 @@ const SignupBox = () => {
                             id="interests"
                             isMulti
                             name="interests"
-                            options={InterestsOptions}
+                            options={interestList}
                             className="basic-multi-select"
                             classNamePrefix="select"
                             value={interests}
