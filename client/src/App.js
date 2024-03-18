@@ -11,6 +11,8 @@ import HomeSwiper from "./components/HomeSwiper";
 import Account from "./pages/Account";
 import LoginBox from "./components/LoginBox";
 import SignupBox from "./components/SignupBox";
+import Profile from "./components/Profile";
+import ProfileEdit from "./components/ProfileEdit/ProfileEdit";
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,6 +28,8 @@ const App = () => {
                     <Route path="chat" element={<HomeChatbox/>}/>
                     <Route path="settings" element={<HomeSettings/>}/>
                     <Route path="swipe" element={<HomeSwiper/>}/>
+                    <Route path="profile" element={<Profile/>}/>
+                    <Route path="profile/edit" element={<ProfileEdit/>}/>
                 </Route>
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/account/login" element={<LoginBox/>}/>

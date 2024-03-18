@@ -1,21 +1,25 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-import {useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import axios from "axios";
 
+export const ConnectedUserContext = createContext({
+    firstName: 'Chargement',
+    lastName: '',
+    bio: '',
+    pfpURL: 'default-user.png'
+});
 const HomeLayout = () => {
     const navigate = useNavigate();
 
     const [connectedUser, setConnectedUser] = useState({
         firstName: 'Chargement',
         lastName: '',
+        bio: '',
         pfpURL: 'default-user.png'
     })
-
-    let fullname
-    let pfp
 
     useEffect(() => {
         document.title = "Accueil | GroundR";
@@ -39,16 +43,14 @@ const HomeLayout = () => {
         if (!token) {
             navigate('/account/login');
         }
-    }, []);
-
-    fullname = connectedUser.firstName + " " + connectedUser.lastName
-    pfp = connectedUser.pfpURL
+    }, [navigate]);
 
     const LogoutButton = () => {
 
         const handleSubmit = (event) => {
             event.preventDefault();
             localStorage.removeItem("usertoken");
+            setConnectedUser({})
             navigate('/');
         }
 
@@ -60,12 +62,12 @@ const HomeLayout = () => {
     }
 
     return (
-        <>
+        <ConnectedUserContext.Provider value={[connectedUser, setConnectedUser]}>
             <div className="page-layout">
                 <div className='sidebar'>
                     <div>
                         <h1 className="homeTitle"><img src={require('../../images/logo_nobackground.png')} alt="GroundR" /></h1>
-                        <ProfileButton name={fullname} pfp={pfp}/>
+                        <ProfileButton/>
                         <Link to="swipe" className="btnGround">Let's Ground!</Link>
                         <Link to="chat">Chat</Link>
                     </div>
@@ -75,12 +77,11 @@ const HomeLayout = () => {
                     </div>
                 </div>
                 <div className="content">
-                    <Outlet />
+                    <Outlet/>
                 </div>
             </div>
             <Footer />
-        </>
+        </ConnectedUserContext.Provider>
     );
 }
-
 export default HomeLayout;
