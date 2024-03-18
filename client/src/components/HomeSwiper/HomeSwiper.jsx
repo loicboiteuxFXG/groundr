@@ -158,8 +158,10 @@ const HomeSwiper = () => {
                     <div className="before"></div>
                     <div className="after"></div>
                 </div>
-                <h2 className="custom-modal-text">You have a Common Ground!</h2>
-                <p className="custom-modal-text-p">Vous avez matché avec {matchedUsername}!</p>
+                <div className="center-text">
+                    <h2 className="custom-modal-text">You have a Common Ground!</h2>
+                    <p className="custom-modal-text-p">Vous avez matché avec {matchedUsername}!</p>
+                </div>
             </Modal>
         </>
     );
