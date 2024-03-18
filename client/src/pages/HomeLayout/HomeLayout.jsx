@@ -4,7 +4,7 @@ import '../../styles.css'
 import {createContext, useContext, useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import axios from "axios";
-import MatchModal from "../../components/MatchModal";
+import Modal from "../../components/Modal";
 
 export const ConnectedUserContext = createContext({
     firstName: 'Chargement',
@@ -90,10 +90,10 @@ const HomeLayout = () => {
                     <Outlet/>
                 </div>
             </div>
-            <MatchModal isOpen={isModalOpen} onClose={closeModal}>
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <h2>Match</h2>
                 <p>You can put any content here.</p>
-            </MatchModal>
+            </Modal>
             <Footer />
         </ConnectedUserContext.Provider>
     );
