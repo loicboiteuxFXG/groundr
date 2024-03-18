@@ -21,7 +21,7 @@ const SignupBox = () => {
         }
     }, [navigate]);
 
-    const regExpString = '^[a-zA-Z\ ]+$';
+    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
     const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 

@@ -21,7 +21,7 @@ const ProfileEdit = () => {
     }, [navigate]);
 
 
-    const regExpString = '^[a-zA-Z\ ]+$';
+    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({

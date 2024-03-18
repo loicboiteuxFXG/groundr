@@ -3,7 +3,7 @@
 const { GetUser } = require('../utils/MongoUtils');
 const {ObjectId} = require("mongodb");
 
-const regExpString = '^[a-zA-Z\ ]+$'
+const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
 const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
 
 const ValidateSignup = async (req, res, next) => {
