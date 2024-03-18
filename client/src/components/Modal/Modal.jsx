@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-const MatchModal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -31,10 +31,10 @@ const MatchModal = ({ isOpen, onClose, children }) => {
     ) : null;
 };
 
-MatchModal.propTypes = {
+Modal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
 };
 
-export default MatchModal;
+export default Modal;

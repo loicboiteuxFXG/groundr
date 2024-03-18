@@ -3,7 +3,7 @@ import axios from "axios";
 
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
-import MatchModal from "../MatchModal";
+import Modal from "../Modal";
 
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
@@ -153,14 +153,14 @@ const HomeSwiper = () => {
                     <SwiperCard />
 
             }
-            <MatchModal isOpen={isModalOpen} onClose={closeModal}>
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <div className="pyro">
                     <div className="before"></div>
                     <div className="after"></div>
                 </div>
                 <h2 className="custom-modal-text">You have a Common Ground!</h2>
                 <p className="custom-modal-text-p">Vous avez matché avec {matchedUsername}!</p>
-            </MatchModal>
+            </Modal>
         </>
     );
 };

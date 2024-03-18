@@ -1,102 +1,111 @@
 import Select from "react-select";
 import LoadingIndicator from "../LoadingIndicator";
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
-import {ConnectedUserContext} from "../../pages/HomeLayout";
-
+import { useNavigate } from "react-router-dom";
+import { ConnectedUserContext } from "../../pages/HomeLayout";
+import Modal from "../Modal";
 
 const ProfileEdit = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
+    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext);
 
     useEffect(() => {
-        document.title = "Modifier votre profil | GroundR"
+        document.title = "Modifier votre profil | GroundR";
 
-        const token = JSON.parse(localStorage.getItem("usertoken"))
+        const token = JSON.parse(localStorage.getItem("usertoken"));
         if (!token) {
-            navigate('/account/login')
+            navigate('/account/login');
         }
-    }, [navigate])
+    }, [navigate]);
 
 
-    const regExpString = '^[a-zA-Z\ ]+$'
-    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+    const regExpString = '^[a-zA-Z\ ]+$';
+    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({
         email: connectedUser.email,
         gender: connectedUser.gender,
         orientation: connectedUser.orientation,
-    })
-    const [interests, setInterests] = useState(connectedUser.interests)
-    const [errors, setErrors] = useState({})
-    const [loading, setLoading] = useState(false)
-    const [isChanged, setIsChanged] = useState(false)
-    const [interestList, setInterestList] = useState([])
+    });
+    const [interests, setInterests] = useState(connectedUser.interests);
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [isChanged, setIsChanged] = useState(false);
+    const [interestList, setInterestList] = useState([]);
 
 
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
     useEffect(() => {
         async function fetchData() {
-            setLoading(true)
+            setLoading(true);
             axios.get('http://localhost:3001/user/get-interests')
                 .then((response) => {
-                    setInterestList(response.data)
-                    setLoading(false)
+                    setInterestList(response.data);
+                    setLoading(false);
                 })
                 .catch((error) => {
-                    setLoading(false)
-                })
+                    setLoading(false);
+                });
         }
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
 
 
     useEffect(() => {
-        setInterests(connectedUser.interests)
+        setInterests(connectedUser.interests);
         setFormData({
             bio: connectedUser.bio,
             email: connectedUser.email,
             gender: connectedUser.gender,
             orientation: connectedUser.orientation
-        })
+        });
 
-        let temp = []
+        let temp = [];
         interestList.forEach(i => {
             if (connectedUser.interests.includes(i.value)) {
                 temp.push(i);
             }
-        })
-        setInterests(temp)
-    }, [connectedUser])
+        });
+        setInterests(temp);
+    }, [connectedUser]);
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        const validationErrors = {}
+        e.preventDefault();
+        const validationErrors = {};
 
         if (!formData.email.trim()) {
-            validationErrors.email = 'Ce champ est requis.'
+            validationErrors.email = 'Ce champ est requis.';
         } else if (!formData.email.trim().match(regExpEmail)) {
-            validationErrors.email = 'L\'adresse courriel est invalide.'
+            validationErrors.email = 'L\'adresse courriel est invalide.';
         }
 
         if (!formData.bio.match(regExpString)) {
-            validationErrors.bio = 'La bio est invalide.'
+            validationErrors.bio = 'La bio est invalide.';
         }
 
         if (!interests || interests.length < 3) {
-            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
+            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.';
         }
 
-        setErrors(validationErrors)
+        setErrors(validationErrors);
 
-        if(Object.keys(validationErrors).length === 0){
-            setLoading(true)
+        if (Object.keys(validationErrors).length === 0) {
+            setLoading(true);
 
-            let interestsToSend = interests.map(i => i.value)
+            let interestsToSend = interests.map(i => i.value);
 
             let userData = {
                 "bio": formData.bio,
@@ -104,7 +113,7 @@ const ProfileEdit = () => {
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "interests": interestsToSend,
-            }
+            };
 
             axios.post('http://localhost:3001/user/update', userData, {
                 headers: {
@@ -112,154 +121,162 @@ const ProfileEdit = () => {
                 }
             })
                 .then((response) => {
-                    setConnectedUser(response.data)
-                    setLoading(false)
-                    setIsChanged(false)
+                    setConnectedUser(response.data);
+                    setLoading(false);
+                    setIsChanged(false);
+                    openModal();
                 })
                 .catch((err) => {
-                    setLoading(false)
-                    const errors = err.response.data
-                    setErrors(errors)
+                    setLoading(false);
+                    const errors = err.response.data;
+                    setErrors(errors);
                     if (err.response.status === 401) {
                         localStorage.removeItem("usertoken");
                         navigate('/');
                     }
-                })
+                });
         }
-    }
+    };
 
     const handleChange = (e) => {
-        const {name, value} = e.target
+        const { name, value } = e.target;
         setFormData({
             ...formData, [name]: value
-        })
-        setIsChanged(true)
-    }
+        });
+        setIsChanged(true);
+    };
 
     const handleInterestChange = (e) => {
-        setInterests(e)
-        setIsChanged(true)
-    }
+        setInterests(e);
+        setIsChanged(true);
+    };
 
-    return(
-        <div className="container signup-layout">
-            <h2 className="golden">Modifier le compte</h2>
-            <div className="signup-card">
-                <form onSubmit={handleSubmit} noValidate>
+    return (
+        <>
+            <div className="container signup-layout">
+                <h2 className="golden">Modifier le compte</h2>
+                <div className="signup-card">
+                    <form onSubmit={handleSubmit} noValidate>
 
-                    <label htmlFor="email">Adresse courriel</label>
-                    <input
-                        id="email"
-                        className={errors.email ? "is-invalid form-control" : "form-control"}
-                        type="text"
-                        name="email"
-                        onChange={handleChange}
-                        value={formData.email}
-                    />
-                    {errors.email && <span className="invalid-feedback">{errors.email}</span>}
-                    <label htmlFor="bio">Bio</label>
-                    <textarea
-                        id="bio"
-                        className={errors.bio ? "is-invalid form-control" : "form-control"}
-                        name="bio"
-                        onChange={handleChange}
-                        value={formData.bio}
-                    />
-                    {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
-                    <label htmlFor="gender">Identité de genre</label>
-                    <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
+                        <label htmlFor="email">Adresse courriel</label>
+                        <input
+                            id="email"
+                            className={errors.email ? "is-invalid form-control" : "form-control"}
+                            type="text"
+                            name="email"
+                            onChange={handleChange}
+                            value={formData.email}
+                        />
+                        {errors.email && <span className="invalid-feedback">{errors.email}</span>}
+                        <label htmlFor="bio">Bio</label>
+                        <textarea
+                            id="bio"
+                            className={errors.bio ? "is-invalid form-control" : "form-control"}
+                            name="bio"
+                            onChange={handleChange}
+                            value={formData.bio}
+                        />
+                        {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
+                        <label htmlFor="gender">Identité de genre</label>
+                        <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
                             name="gender"
                             onChange={handleChange}
                             value={formData.gender}>
-                        <option value="M">Homme</option>
-                        <option value="F">Femme</option>
-                        <option value="O">Autre</option>
-                    </select>
-                    {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
-                    <label htmlFor="orientation">Je recherche</label>
-                    <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="O">Autre</option>
+                        </select>
+                        {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
+                        <label htmlFor="orientation">Je recherche</label>
+                        <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"}
                             name="orientation"
                             onChange={handleChange}
                             value={formData.orientation}>
-                        <option value="M">Homme</option>
-                        <option value="F">Femme</option>
-                        <option value="B">Les deux</option>
-                        <option value="A">Tout</option>
-                    </select>
-                    {errors.orientation && <span className="invalid-feedback">{errors.orientation}</span>}
-                    <label htmlFor="interests">Mes intérêts</label>
-                    <Select
-                        id="interests"
-                        isMulti
-                        name="interests"
-                        options={interestList}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        value={interests}
-                        onChange={handleInterestChange}
-                        theme={(theme) => ({
-                            ...theme,
-                            borderRadius: 5,
-                            colors: {
-                                ...theme.colors,
-                                primary25: 'DarkGoldenRod',
-                                primary: 'DarkGoldenRod',
-                            }
-                        })}
-                        styles={{
-                            input: (baseStyles, state) => ({
-                                ...baseStyles,
-                                color: "lightgrey"
-                            }),
-                            control: (baseStyles, state) => ({
-                                ...baseStyles,
-                                backgroundColor: "#232020",
-                                color: "white",
-                                borderColor: "#e3a256",
-                                borderRadius: "5px",
-                                marginBottom: "20px"
-                            }),
-                            menu: (baseStyles, state) => ({
-                                ...baseStyles,
-                                backgroundColor: "#232020",
-                                borderRadius: "5px",
-                                color: "white"
-                            }),
-                            menuList: (baseStyles, state) => ({
-                                ...baseStyles,
-                                borderRadius: "5px",
-                                color: "white",
-                            }),
-                            multiValue: (baseStyles, state) => ({
-                                ...baseStyles,
-                                borderRadius: "5px",
-                                color: "white",
-                                backgroundColor: "DarkGoldenRod"
-                            }),
-                            multiValueLabel: (baseStyles, state) => ({
-                                ...baseStyles,
-                                color: "white"
-                            }),
-                            multiValueRemove: (baseStyles, state) => ({
-                                ...baseStyles,
-                                borderRadius: "5px",
-                                color: "white",
-                                ":hover": {
-                                    backgroundColor: "goldenrod"
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="B">Les deux</option>
+                            <option value="A">Tout</option>
+                        </select>
+                        {errors.orientation && <span className="invalid-feedback">{errors.orientation}</span>}
+                        <label htmlFor="interests">Mes intérêts</label>
+                        <Select
+                            id="interests"
+                            isMulti
+                            name="interests"
+                            options={interestList}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            value={interests}
+                            onChange={handleInterestChange}
+                            theme={(theme) => ({
+                                ...theme,
+                                borderRadius: 5,
+                                colors: {
+                                    ...theme.colors,
+                                    primary25: 'DarkGoldenRod',
+                                    primary: 'DarkGoldenRod',
                                 }
-                            })
-                        }}
-                    />
-                    {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
-                    {
-                        isChanged ? <> { loading ? <div className="centerHeart"><LoadingIndicator/></div> : <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
-                             : <></>
+                            })}
+                            styles={{
+                                input: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    color: "lightgrey"
+                                }),
+                                control: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    backgroundColor: "#232020",
+                                    color: "white",
+                                    borderColor: "#e3a256",
+                                    borderRadius: "5px",
+                                    marginBottom: "20px"
+                                }),
+                                menu: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    backgroundColor: "#232020",
+                                    borderRadius: "5px",
+                                    color: "white"
+                                }),
+                                menuList: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: "5px",
+                                    color: "white",
+                                }),
+                                multiValue: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: "5px",
+                                    color: "white",
+                                    backgroundColor: "DarkGoldenRod"
+                                }),
+                                multiValueLabel: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    color: "white"
+                                }),
+                                multiValueRemove: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: "5px",
+                                    color: "white",
+                                    ":hover": {
+                                        backgroundColor: "goldenrod"
+                                    }
+                                })
+                            }}
+                        />
+                        {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
+                        {
+                            isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> : <input type="submit" className="custom-btn" value="Mettre à jour" />}</>
+                                : <></>
 
-                    }
-                </form>
+                        }
+                    </form>
+                </div>
             </div>
-        </div>
-    )
-}
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <div className="center-text">
+                    <h2 className="custom-modal-text">Paramètres mis à jour avec succès.</h2>
+                </div>
+            </Modal>
+        </>
+    );
+};
 
-export default ProfileEdit
+export default ProfileEdit;
