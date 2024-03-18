@@ -166,7 +166,7 @@ const SignupBox = () => {
             axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {
                     if (response.data.status !== "error") {
-                        axios.post('http://localhost:3001/auth/login',  {email: formData.email, password: formData.password})
+                        axios.post('http://localhost:3001/auth/login', { email: formData.email, password: formData.password })
                             .then((response) => {
                                 if (response.data.token) {
                                     localStorage.setItem("usertoken", JSON.stringify(response.data.token));
@@ -176,7 +176,7 @@ const SignupBox = () => {
                                 }
                             })
                             .catch((error) => {
-                                navigate('/account')
+                                navigate('/account');
                             });
                     } else {
                         setLoading(false);
@@ -348,7 +348,7 @@ const SignupBox = () => {
                             onChange={handleChange}
                             value={formData.bio} />
                         {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
-                        {loading ? <LoadingIndicator /> :
+                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> :
                             <input type="submit" className="custom-btn" value="Créer un compte" />}
                     </form>
                 </div>

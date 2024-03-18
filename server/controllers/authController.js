@@ -19,13 +19,12 @@ const Login = (req, res, next) => {
             console.dir(user);
             // Les méthodes findOne, findById ... peuvent retourner null
             // Il faut gérer le cas où user est null
-            if (!user) {
+            if (!user || user === null) {
                 const error = new Error()
                 error.statusCode = 404
-                return res.status(404).send(error)
+                throw error
             }
             loadedUser = user;
-            console.log(user)
             return sha256(password) === loadedUser.password;
         })
         .then(isEqual => {
@@ -50,6 +49,7 @@ const Login = (req, res, next) => {
             res.status(200).json({ token: token });
         })
         .catch(err => {
+            console.error("Login failed: " + err.message)
             if (!err.statusCode) err.statusCode = 500;
             res.status(err.statusCode).json({ message: err.message, statusCode: err.statusCode });
         });
@@ -65,7 +65,7 @@ const Register = (req, res) => {
             return res.send({ status: "OK", message: "Compte créé" })
         })
         .catch(err => {
-            console.error(err);
+            console.error("Register failed: " + err.message)
             res.send({ status: "error", message: err })
         });
 }
