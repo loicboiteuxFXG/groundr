@@ -58,7 +58,7 @@ const UpdateUserPfp = async (userId, filename) => {
     }
 }
 
-const  GetAllUsers = async (query, projection={_id: true}, limit=500) => {
+const  GetAllUsers = async (query, projection={}, limit=500) => {
     const client = await ClientHandler();
 
     let returnData = [];
