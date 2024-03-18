@@ -26,7 +26,7 @@ const swipeUser = async (req, res, next) => {
             // MATCH
             console.log("MATCH! Mise à jour du Ground.");
             await UpdateGround(fetchedGround._id, { status: "common" });
-            res.send({action: "update", match: true});
+            res.send({action: "update", match: true, user: swipedUser});
         } else {
             // DELETE
             console.log("Pas de match. Suppression du ground");

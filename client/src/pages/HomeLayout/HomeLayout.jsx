@@ -4,6 +4,7 @@ import '../../styles.css'
 import {createContext, useContext, useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import axios from "axios";
+import MatchModal from "../../components/MatchModal";
 
 export const ConnectedUserContext = createContext({
     firstName: 'Chargement',
@@ -20,6 +21,15 @@ const HomeLayout = () => {
         bio: '',
         pfpURL: 'default-user.png'
     })
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         document.title = "Accueil | GroundR";
@@ -80,6 +90,10 @@ const HomeLayout = () => {
                     <Outlet/>
                 </div>
             </div>
+            <MatchModal isOpen={isModalOpen} onClose={closeModal}>
+                <h2>Match</h2>
+                <p>You can put any content here.</p>
+            </MatchModal>
             <Footer />
         </ConnectedUserContext.Provider>
     );
