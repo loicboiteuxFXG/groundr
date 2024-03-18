@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { GetUser, CreateUser} = require('../utils/MongoUtils');
+const { GetUser, CreateUser, GetInterests} = require('../utils/MongoUtils');
 const router = express.Router();
 
 
@@ -15,8 +15,14 @@ router.get('/get-user-token', isAuth, userController.GetUserToken)
 
 router.post('/update-pfp', isAuth, userController.UpdatePfp)
 
-router.get('/get/:id', (req, res) => {
-    return res.send({})
+router.post('/update', isAuth, userController.UpdateUserData)
+
+router.get('/get-interests', async (req, res) => {
+    const interests = await GetInterests()
+    res.send(interests);
 })
+
+
+
 
 module.exports = router;

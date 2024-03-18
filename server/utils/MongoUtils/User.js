@@ -35,13 +35,13 @@ const  CreateUser = async (data) => {
     }
 }
 
-const UpdateUser = async (data) => {
+const UpdateUser = async (id, data) => {
     const client = await ClientHandler();
 
     try{
         await client.connect()
 
-        await client.db("GroundR").collection("Users").replaceOne({_id: data._id}, data)
+        await client.db("GroundR").collection("Users").updateOne({_id: id}, {$set: data})
     } finally {
         await client.close()
     }

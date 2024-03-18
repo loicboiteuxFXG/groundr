@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
     decodedToken = jwt.verify(token, process.env.SECRET_JWT);
   } catch (err) {
     err.statusCode = 401; 
-    return res.status(err.statusCode).send({error: err});   // TODO Implémenter l'expiration du token
+    return res.status(err.statusCode).send({error: err});
   }
   if (!decodedToken) {
     const error = new Error('Non authentifié.');
@@ -27,5 +27,6 @@ module.exports = (req, res, next) => {
 
   // Passe le token décodé dans la requête pour pouvoir l'utiliser ailleurs
   req.user = decodedToken;
+  console.log("Decoded token")
   next();
 };
