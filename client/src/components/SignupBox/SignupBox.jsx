@@ -21,7 +21,7 @@ const SignupBox = () => {
         }
     }, [navigate]);
 
-    const regExpString = '^[a-zA-Z\ ]+$'
+    const regExpString = '^[a-zA-Z\ ]+$';
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
     const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
@@ -40,22 +40,22 @@ const SignupBox = () => {
     const [interests, setInterests] = useState([]);
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-    const [interestList, setInterestList] = useState([])
+    const [interestList, setInterestList] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
-            setLoading(true)
+            setLoading(true);
             axios.get('http://localhost:3001/user/get-interests')
                 .then((response) => {
-                    setInterestList(response.data)
-                    setLoading(false)
+                    setInterestList(response.data);
+                    setLoading(false);
                 })
                 .catch((error) => {
-                    setLoading(false)
-                })
+                    setLoading(false);
+                });
         }
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
 
 
     function handleFileChange(event) {
@@ -166,7 +166,18 @@ const SignupBox = () => {
             axios.post('http://localhost:3001/auth/register', userData)
                 .then((response) => {
                     if (response.data.status !== "error") {
-                        navigate('/account');
+                        axios.post('http://localhost:3001/auth/login',  {email: formData.email, password: formData.password})
+                            .then((response) => {
+                                if (response.data.token) {
+                                    localStorage.setItem("usertoken", JSON.stringify(response.data.token));
+                                    navigate('/home');
+                                } else {
+                                    throw Error();
+                                }
+                            })
+                            .catch((error) => {
+                                navigate('/account')
+                            });
                     } else {
                         setLoading(false);
                     }
@@ -335,7 +346,7 @@ const SignupBox = () => {
                             className={errors.bio ? "is-invalid form-control" : "form-control"}
                             name="bio"
                             onChange={handleChange}
-                            value={formData.bio}/>
+                            value={formData.bio} />
                         {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
                         {loading ? <LoadingIndicator /> :
                             <input type="submit" className="custom-btn" value="Créer un compte" />}
