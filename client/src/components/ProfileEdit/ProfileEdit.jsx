@@ -252,7 +252,7 @@ const ProfileEdit = () => {
                     />
                     {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
                     {
-                        isChanged ? <> { loading ? <LoadingIndicator/> : <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
+                        isChanged ? <> { loading ? <div className="centerHeart"><LoadingIndicator/></div> : <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
                              : <></>
 
                     }

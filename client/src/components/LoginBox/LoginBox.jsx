@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ShowcaseHeader from "../ShowcaseHeader";
-import LoadingIndicator from "../LoadingIndicator"
+import LoadingIndicator from "../LoadingIndicator";
 import Footer from "../Footer";
-import "../../styles.css"
-import {useNavigate} from "react-router-dom";
+import "../../styles.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginBox = () => {
     const navigate = useNavigate();
@@ -21,23 +21,23 @@ const LoginBox = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
-    })
-    const [errors, setErrors] = useState({})
+    });
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const validationErrors = {}
+        const validationErrors = {};
 
         if (formData.email === "") {
-            validationErrors.email = 'Ce champ est requis.'
+            validationErrors.email = 'Ce champ est requis.';
         }
 
         if (formData.password === "") {
-            validationErrors.password = 'Ce champ est requis'
+            validationErrors.password = 'Ce champ est requis';
         }
 
-        setErrors(validationErrors)
+        setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
             setLoading(true);
@@ -45,7 +45,7 @@ const LoginBox = () => {
             let userData = {
                 "email": formData.email,
                 "password": formData.password
-            }
+            };
 
             axios.post('http://localhost:3001/auth/login', userData)
                 .then((response) => {
@@ -53,7 +53,7 @@ const LoginBox = () => {
                         localStorage.setItem("usertoken", JSON.stringify(response.data.token));
                         navigate('/home');
                     } else {
-                        throw Error()
+                        throw Error();
                     }
                 })
                 .catch((error) => {
@@ -61,22 +61,22 @@ const LoginBox = () => {
                     const errors = {
                         email: "L'adresse courriel ou le mot de passe est incorrect.",
                         password: "L'adresse courriel ou le mot de passe est incorrect."
-                    }
-                    setErrors(errors)
-                })
+                    };
+                    setErrors(errors);
+                });
         }
-    }
+    };
 
     const handleChange = (e) => {
-        const {name, value} = e.target
+        const { name, value } = e.target;
         setFormData({
             ...formData, [name]: value
-        })
-    }
+        });
+    };
 
     return (
         <>
-            <ShowcaseHeader/>
+            <ShowcaseHeader />
             <div className="container login-layout">
                 <h2 className="golden">Connexion</h2>
                 <div className="login-card">
@@ -103,14 +103,14 @@ const LoginBox = () => {
                         />
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
 
-                        {loading ? <LoadingIndicator/> :
-                            <input type="submit" className="custom-btn" value="Se connecter"/>}
+                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> :
+                            <input type="submit" className="custom-btn" value="Se connecter" />}
                     </form>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
-}
+};
 
 export default LoginBox;

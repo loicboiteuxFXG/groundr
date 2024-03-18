@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MatchModal from "../MatchModal";
 
 const HomeSwiper = () => {
@@ -10,8 +10,8 @@ const HomeSwiper = () => {
     const [currentMatch, setCurrentMatch] = useState({});
     const [loading, setLoading] = useState(false);
     const [inputEnabled, setInputEnabled] = useState(true);
-    const [matchedUsername, setMatchedUsername] = useState("")
-    const [noMoreMatches, setNoMoreMatches] = useState(false)
+    const [matchedUsername, setMatchedUsername] = useState("");
+    const [noMoreMatches, setNoMoreMatches] = useState(false);
 
     const navigate = useNavigate();
 
@@ -60,7 +60,7 @@ const HomeSwiper = () => {
         axios.post('http://localhost:3001/swipe/ground', {
             swipedUser: currentMatch,
             swipeStatus: e.target.swipeStatus.value,
-        }, {headers: {"Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`}})
+        }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}` } })
             .then((response) => {
                 console.log(response.data);
                 let temp = matches;
@@ -69,15 +69,15 @@ const HomeSwiper = () => {
                 if (matches === null || matches.length === 0) {
                     fetchData().then(() => {
                         if (matches === null || matches.length === 0) {
-                            setNoMoreMatches(true)
+                            setNoMoreMatches(true);
                         }
-                    })
+                    });
                 }
                 setInputEnabled(true);
 
                 if (response.data.match) {
-                    setMatchedUsername(response.data.user.firstName)
-                    openModal()
+                    setMatchedUsername(response.data.user.firstName);
+                    openModal();
                 }
             })
             .catch((err) => {
@@ -93,7 +93,7 @@ const HomeSwiper = () => {
 
     const SwiperCard = () => {
         let today = new Date();
-        let birthDate = new Date(currentMatch.DoB)
+        let birthDate = new Date(currentMatch.DoB);
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -106,33 +106,33 @@ const HomeSwiper = () => {
                 {noMoreMatches ? <h2>Désolé, nous n'avons plus de Grounds à vous proposer.</h2> :
                     <><img
                         src={loading ? "http://localhost:3001/media/default-user.png" : `http://localhost:3001/media/${currentMatch.pfpURL}`}
-                        alt="pfp"/>
+                        alt="pfp" />
                         <h2>{loading ? "Chargement" : `${currentMatch.firstName}, `}<span className="age">{age}</span>
                         </h2>
                         <p>{loading ? "Chargement" : currentMatch.bio}</p>
-                        {loading ? <LoadingIndicator/> :
+                        {loading ? <LoadingIndicator /> :
                             <div className="swiperLayout-buttons">
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="dislike"/>
+                                        <input type="hidden" name="swipeStatus" value="dislike" />
                                         <button id="dislike" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/dislike.png')} alt="dislike"/>
+                                            <img src={require('../../images/dislike.png')} alt="dislike" />
                                         </button>
                                     </form>
                                 </div>
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="superlike"/>
+                                        <input type="hidden" name="swipeStatus" value="superlike" />
                                         <button id="superlike" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/superlike.png')} alt="superlike"/>
+                                            <img src={require('../../images/superlike.png')} alt="superlike" />
                                         </button>
                                     </form>
                                 </div>
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="like"/>
+                                        <input type="hidden" name="swipeStatus" value="like" />
                                         <button id="like" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/like.png')} alt="like"/>
+                                            <img src={require('../../images/like.png')} alt="like" />
                                         </button>
                                     </form>
                                 </div>
@@ -148,11 +148,9 @@ const HomeSwiper = () => {
         <>
             {
                 loading ?
-                    <div className="centerHeart">
-                        <LoadingIndicator/>
-                    </div>
+                    <div className="centerHeart mt-5"><LoadingIndicator /></div>
                     :
-                    <SwiperCard/>
+                    <SwiperCard />
 
             }
             <MatchModal isOpen={isModalOpen} onClose={closeModal}>
