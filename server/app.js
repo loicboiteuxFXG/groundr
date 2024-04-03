@@ -2,6 +2,8 @@
 
 const express = require('express');
 const cors = require('cors');
+const mongoose = require("mongoose");
+
 const app = express();
 const port = 3001;
 
@@ -32,7 +34,6 @@ app.use('/file', fileRoutes);
 app.use('/auth', authRoutes);
 app.use('/swipe', swipeRoutes);
 
-
 app.use('/media', express.static(__dirname + '/media'));
 
 
@@ -58,7 +59,10 @@ app.get('/add', async (req, res) => {
     res.send("OK")
 }) */
 
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+const groundrDbURI = `mongodb+srv://cegep:QrL8EtGQ8OTz92fg@cluster0.dosk9nq.mongodb.net/?retryWrites=true&w=majority`;
+mongoose.connect(groundrDbURI)
+    .then(response => {
+        app.listen(port, () => {
+            console.log(`Example app listening on port ${port}`);
+        });
+    });
