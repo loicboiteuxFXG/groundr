@@ -47,6 +47,11 @@ const userSchema = new Schema({
         type: Schema.Types.Date,
         required: true
     },
+    bio: {
+        type: String,
+        required: true,
+        default: ""
+    },
     pfpURL: {
         type: String,
         required: true,

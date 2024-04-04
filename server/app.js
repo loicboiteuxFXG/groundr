@@ -59,10 +59,11 @@ app.get('/add', async (req, res) => {
     res.send("OK")
 }) */
 
-const groundrDbURI = `mongodb+srv://cegep:QrL8EtGQ8OTz92fg@cluster0.dosk9nq.mongodb.net/?retryWrites=true&w=majority`;
+const groundrDbURI = `mongodb+srv://cegep:QrL8EtGQ8OTz92fg@cluster0.dosk9nq.mongodb.net/GroundR?retryWrites=true&w=majority`;
 mongoose.connect(groundrDbURI)
     .then(response => {
         app.listen(port, () => {
             console.log(`Example app listening on port ${port}`);
         });
-    });
+    })
+

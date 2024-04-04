@@ -1,6 +1,6 @@
 'use strict';
 
-const { GetUser } = require('../utils/MongoUtils');
+const User = require("../models/user");
 const {ObjectId} = require("mongodb");
 
 const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
@@ -75,7 +75,7 @@ const ValidateSignup = async (req, res, next) => {
 
     }
 
-    let user = await GetUser({ "email": userData.email });
+    let user = await User.findOne({ email: userData.email });
 
     if (user != null) {
         if (Object.keys(user).length !== 0)
@@ -121,7 +121,7 @@ const ValidatePasswordChange = async (req, res, next) => {
 
     let passwords = req.body;
 
-    const user = await GetUser({_id: new ObjectId(req.user._id)})
+    const user = await User.findOne({_id: req.user._id})
 
     if (user.password !== passwords.password_previous) {
         errors.password_previous = "L'ancien mot de passe est incorrect.";
