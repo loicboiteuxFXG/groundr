@@ -17,7 +17,7 @@ router.post('/update-password', isAuth, validation.ValidatePasswordChange, userC
 
 router.get('/get-interests', interestController.getInterests)
 
-router.post('/subscribe', isAuth, userController.UpdateUserPremium);
+router.patch('/subscribe', isAuth, userController.UpdateUserPremium);
 
 
 

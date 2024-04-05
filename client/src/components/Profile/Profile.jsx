@@ -23,6 +23,21 @@ const Profile = () => {
 
 
 
+    const submitSubscribe = (e) => {
+        e.preventDefault()
+        axios.patch('http://localhost:3001/user/subscribe',{}, {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+            }
+        })
+            .then(response => {
+                console.log(response)
+                setConnectedUser(response.data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
 
     const handleImageClick = () => {
         document.getElementById('fileInput').click();
@@ -84,6 +99,9 @@ const Profile = () => {
             <div>
                 <Link to="edit" className="btnGround">Modifier le profil</Link>
                 <Link to="password/edit" className="btnGround">Modifier le mot de passe</Link>
+                {connectedUser.isPremium ? <> </> : <form onSubmit={submitSubscribe}>
+                    <input type="submit"/>
+                </form>}
             </div>
         </div>
     )
