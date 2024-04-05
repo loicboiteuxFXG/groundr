@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
+import {ConnectedUserContext} from "../../pages/HomeLayout";
 
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
     const [currentMatch, setCurrentMatch] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [inputEnabled, setInputEnabled] = useState(true);
     const [matchedUsername, setMatchedUsername] = useState("");
     const [noMoreMatches, setNoMoreMatches] = useState(false);
@@ -17,6 +18,7 @@ const HomeSwiper = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
+    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -114,25 +116,30 @@ const HomeSwiper = () => {
                             <div className="swiperLayout-buttons">
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="dislike" />
+                                        <input type="hidden" name="swipeStatus" value="dislike"/>
                                         <button id="dislike" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/dislike.png')} alt="dislike" />
+                                            <img src={require('../../images/dislike.png')} alt="dislike"/>
                                         </button>
                                     </form>
                                 </div>
+                                {connectedUser.isPremium ?
+                                    <div>
+                                        <form method="POST" onSubmit={handleSubmit}>
+                                            <input type="hidden" name="swipeStatus" value="superlike"/>
+                                            <button id="superlike" type="submit" disabled={!inputEnabled}>
+                                                <img src={require('../../images/superlike.png')} alt="superlike"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    :
+                                    <></>
+                                }
+
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="superlike" />
-                                        <button id="superlike" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/superlike.png')} alt="superlike" />
-                                        </button>
-                                    </form>
-                                </div>
-                                <div>
-                                    <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="like" />
+                                        <input type="hidden" name="swipeStatus" value="like"/>
                                         <button id="like" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/like.png')} alt="like" />
+                                            <img src={require('../../images/like.png')} alt="like"/>
                                         </button>
                                     </form>
                                 </div>
@@ -148,9 +155,9 @@ const HomeSwiper = () => {
         <>
             {
                 loading ?
-                    <div className="centerHeart mt-5"><LoadingIndicator /></div>
+                    <div className="centerHeart mt-5"><LoadingIndicator/></div>
                     :
-                    <SwiperCard />
+                    <SwiperCard/>
 
             }
             <Modal isOpen={isModalOpen} onClose={closeModal}>
