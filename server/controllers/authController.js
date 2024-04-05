@@ -5,7 +5,6 @@ const sha256 = require('js-sha256').sha256;
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { GetUser, CreateUser } = require('../utils/MongoUtils');
 const User = require("../models/user");
 
 const Login = async (req, res, next) => {
@@ -52,18 +51,18 @@ const Login = async (req, res, next) => {
 }
 
 
-const Register = (req, res) => {
+const Register = async (req, res) => {
     const userData = req.body
     console.log(`Register requested from ${userData.email}`)
     delete userData.password_confirm
-    CreateUser(userData)
-        .then(user => {
-            return res.send({ status: "OK", message: "Compte créé" })
-        })
-        .catch(err => {
-            console.error("Register failed: " + err.message)
-            res.send({ status: "error", message: err })
-        });
+    try {
+        const newUser = new User(userData);
+        await newUser.save();
+        return res.send({ status: "OK", message: "Compte créé" })
+    } catch (err) {
+        console.error("Register failed: " + err.message)
+        res.send({ status: "error", message: err })
+    }
 }
 
 
