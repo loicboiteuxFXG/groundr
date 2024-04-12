@@ -4,67 +4,25 @@ import ShowcaseHeader from "../ShowcaseHeader";
 import LoadingIndicator from "../LoadingIndicator";
 import Footer from "../Footer";
 import "../../styles.css";
-import { useNavigate } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const LoginBox = () => {
-    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = 'Connexion | GroundR';
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (token) {
-            navigate('/home');
-        }
     }, []);
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
-    const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (event) => {
+    const {errors, loading, login} = useLogin()
+
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const validationErrors = {};
-
-        if (formData.email === "") {
-            validationErrors.email = 'Ce champ est requis.';
-        }
-
-        if (formData.password === "") {
-            validationErrors.password = 'Ce champ est requis';
-        }
-
-        setErrors(validationErrors);
-
-        if (Object.keys(validationErrors).length === 0) {
-            setLoading(true);
-
-            let userData = {
-                "email": formData.email,
-                "password": formData.password
-            };
-
-            axios.post('http://localhost:3001/auth/login', userData)
-                .then((response) => {
-                    if (response.data.token) {
-                        localStorage.setItem("usertoken", JSON.stringify(response.data.token));
-                        navigate('/home');
-                    } else {
-                        throw Error();
-                    }
-                })
-                .catch((error) => {
-                    setLoading(false);
-                    const errors = {
-                        email: "L'adresse courriel ou le mot de passe est incorrect.",
-                        password: "L'adresse courriel ou le mot de passe est incorrect."
-                    };
-                    setErrors(errors);
-                });
-        }
+        await login(formData)
     };
 
     const handleChange = (e) => {

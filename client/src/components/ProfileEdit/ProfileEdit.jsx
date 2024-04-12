@@ -3,13 +3,13 @@ import LoadingIndicator from "../LoadingIndicator";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ConnectedUserContext } from "../../pages/HomeLayout";
 import Modal from "../Modal";
+import {useAuthContext} from "../../context/AuthContext";
 
 const ProfileEdit = () => {
     const navigate = useNavigate();
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext);
+    const {authUser, setAuthUser} = useAuthContext()
 
     useEffect(() => {
         document.title = "Modifier votre profil | GroundR";
@@ -25,11 +25,11 @@ const ProfileEdit = () => {
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({
-        email: connectedUser.email,
-        gender: connectedUser.gender,
-        orientation: connectedUser.orientation,
+        email: authUser.email,
+        gender: authUser.gender,
+        orientation: authUser.orientation,
     });
-    const [interests, setInterests] = useState(connectedUser.interests);
+    const [interests, setInterests] = useState(authUser.interests);
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
@@ -64,22 +64,22 @@ const ProfileEdit = () => {
 
 
     useEffect(() => {
-        setInterests(connectedUser.interests);
+        setInterests(authUser.interests);
         setFormData({
-            bio: connectedUser.bio,
-            email: connectedUser.email,
-            gender: connectedUser.gender,
-            orientation: connectedUser.orientation
+            bio: authUser.bio,
+            email: authUser.email,
+            gender: authUser.gender,
+            orientation: authUser.orientation
         });
 
         let temp = [];
         interestList.forEach(i => {
-            if (connectedUser.interests.includes(i.value)) {
+            if (authUser.interests.includes(i.value)) {
                 temp.push(i);
             }
         });
         setInterests(temp);
-    }, [connectedUser]);
+    }, [authUser]);
 
 
     const handleSubmit = async (e) => {
@@ -121,7 +121,7 @@ const ProfileEdit = () => {
                 }
             })
                 .then((response) => {
-                    setConnectedUser(response.data);
+                    setAuthUser(response.data);
                     setLoading(false);
                     setIsChanged(false);
                     openModal();

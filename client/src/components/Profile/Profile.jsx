@@ -2,12 +2,12 @@ import {Link, useNavigate} from "react-router-dom";
 import '../../styles.css'
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
-import {ConnectedUserContext} from '../../pages/HomeLayout'
+import {useAuthContext} from "../../context/AuthContext";
 
 const Profile = () => {
     const navigate = useNavigate()
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
+    const {authUser, setAuthUser} = useAuthContext()
     const [file, setFile] = useState(null)
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const Profile = () => {
             navigate('/account/login')
         }
 
-        console.log(connectedUser)
+        console.log(authUser)
     }, [])
 
 
@@ -33,7 +33,7 @@ const Profile = () => {
         setFile(selectedFile);
         const data = new FormData()
         data.append('file', selectedFile)
-        data.append('user', connectedUser)
+        data.append('user', authUser)
         var filename = ""
         await axios.post('http://localhost:3001/file/upload-new', data, {
 
@@ -54,7 +54,7 @@ const Profile = () => {
             }
         })
             .then(response => {
-                setConnectedUser(response.data)
+                setAuthUser(response.data)
             })
             .catch(err => {
                 if (err.response.status === 401) {
@@ -62,11 +62,11 @@ const Profile = () => {
                     navigate('/');
                 }
             })
-        console.log(connectedUser)
+        console.log(authUser)
     };
 
-    const pfpURL = `http://localhost:3001/media/${connectedUser.pfpURL}`
-    const fullname = connectedUser.firstName + " " + connectedUser.lastName
+    const pfpURL = `http://localhost:3001/media/${authUser.pfpURL}`
+    const fullname = authUser.firstName + " " + authUser.lastName
 
     return (
         <div className="profileLayout">
@@ -79,7 +79,7 @@ const Profile = () => {
                     </div>
                 </div>
                 <h2>{fullname}</h2>
-                <p>{connectedUser.bio}</p>
+                <p>{authUser.bio}</p>
             </div>
             <div>
                 <Link to="edit" className="btnGround">Modifier le profil</Link>
