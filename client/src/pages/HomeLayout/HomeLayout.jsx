@@ -1,35 +1,11 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-import {createContext, useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
-import axios from "axios";
-import Modal from "../../components/Modal";
-
-export const ConnectedUserContext = createContext({
-    firstName: 'Chargement',
-    lastName: '',
-    bio: '',
-    pfpURL: 'default-user.png'
-});
+import LoadingIndicator from "../../components/LoadingIndicator";
+import useLogout from "../../hooks/useLogout";
 const HomeLayout = () => {
-    const navigate = useNavigate();
-
-    const [connectedUser, setConnectedUser] = useState({
-        firstName: 'Chargement',
-        lastName: '',
-        bio: '',
-        pfpURL: 'default-user.png'
-    })
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     useEffect(() => {
         document.title = "Accueil | GroundR";
@@ -56,26 +32,28 @@ const HomeLayout = () => {
         if (!token) {
             navigate('/account/login');
         }
-    }, [navigate]);
+    }, []);
 
     const LogoutButton = () => {
-
-        const handleSubmit = (event) => {
+        const {loading, logout} = useLogout()
+        const handleSubmit = async (event) => {
             event.preventDefault();
-            localStorage.removeItem("usertoken");
-            setConnectedUser({})
-            navigate('/');
+            await logout()
         }
 
         return (
-            <form onSubmit={handleSubmit}>
-                <input type="submit" value="Logout" />
+            <form onSubmit={handleSubmit} method="post">
+                {!loading ? (
+                    <input type="submit" value="Logout" />
+                ) : (
+                    <LoadingIndicator />
+                )}
             </form>
         )
     }
 
     return (
-        <ConnectedUserContext.Provider value={[connectedUser, setConnectedUser]}>
+        <>
             <div className="page-layout">
                 <div className='sidebar'>
                     <div>
@@ -93,12 +71,8 @@ const HomeLayout = () => {
                     <Outlet/>
                 </div>
             </div>
-            <Modal isOpen={isModalOpen} onClose={closeModal}>
-                <h2>Match</h2>
-                <p>You can put any content here.</p>
-            </Modal>
             <Footer />
-        </ConnectedUserContext.Provider>
+        </>
     );
 }
 export default HomeLayout;

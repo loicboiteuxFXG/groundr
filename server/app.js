@@ -5,7 +5,8 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
+const groundrDbURI = process.env.MONGO_DB_URI
 
 const MongoUtils = require('./utils/MongoUtils');
 const isAuth = require('./middleware/is-auth');
@@ -28,11 +29,13 @@ const userRoutes = require('./routes/user');
 const fileRoutes = require('./routes/file');
 const authRoutes = require('./routes/auth');
 const swipeRoutes = require('./routes/swipe');
+const messageRoutes = require('./routes/message');
 
 app.use('/user', userRoutes);
 app.use('/file', fileRoutes);
 app.use('/auth', authRoutes);
 app.use('/swipe', swipeRoutes);
+app.use('/message', messageRoutes);
 
 app.use('/media', express.static(__dirname + '/media'));
 
@@ -52,14 +55,22 @@ app.get('/db', async (req, res) => {
     res.send(body);
 });
 
+app.use((err, req, res, next) => {
+
+    console.log("err", err)
+    if (!err.statusCode) {
+        err.statusCode = 500
+    }
+
+    res.status(err.statusCode).json({message: err.message, statusCode: err.statusCode})
+})
+
 
 /* const DATA = require('./MOCK_DATA.json')
 app.get('/add', async (req, res) => {
     await MongoUtils.CreateUser(DATA)
     res.send("OK")
 }) */
-
-const groundrDbURI = `mongodb+srv://cegep:QrL8EtGQ8OTz92fg@cluster0.dosk9nq.mongodb.net/GroundR?retryWrites=true&w=majority`;
 mongoose.connect(groundrDbURI)
     .then(response => {
         app.listen(port, () => {
