@@ -99,9 +99,7 @@ const Profile = () => {
             <div>
                 <Link to="edit" className="btnGround">Modifier le profil</Link>
                 <Link to="password/edit" className="btnGround">Modifier le mot de passe</Link>
-                {connectedUser.isPremium ? <> </> : <form onSubmit={submitSubscribe}>
-                    <input type="submit"/>
-                </form>}
+                {connectedUser.isPremium ? <> </> : <Link to="subscribe" className="btnGround">S'abonner à GroundR Max</Link>}
             </div>
         </div>
     )

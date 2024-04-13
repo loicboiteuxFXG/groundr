@@ -43,7 +43,10 @@ const HomeLayout = () => {
                 });
                 setConnectedUser(response.data);
             } catch (err) {
-                console.error(err);
+                if (err.response.status === 401) {
+                    localStorage.removeItem("usertoken");
+                    navigate('/');
+                }
             }
         };
 

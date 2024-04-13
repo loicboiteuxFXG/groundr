@@ -14,6 +14,7 @@ import SignupBox from "./components/SignupBox";
 import Profile from "./components/Profile";
 import ProfileEdit from "./components/ProfileEdit/ProfileEdit";
 import ProfilePassword from './components/ProfilePassword/ProfilePassword';
+import SubscribeBox from "./components/SubscribeBox";
 
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="profile" element={<Profile />} />
                     <Route path="profile/edit" element={<ProfileEdit />} />
                     <Route path="profile/password/edit" element={<ProfilePassword />} />
+                    <Route path="profile/subscribe" element={<SubscribeBox/>}/>
                 </Route>
                 <Route path="/account" element={<Account />} />
                 <Route path="/account/login" element={<LoginBox />} />
