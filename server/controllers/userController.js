@@ -43,8 +43,19 @@ const UpdateUserPassword = async (req, res) => {
         await User.updateOne({_id: userId}, {password: newPassword});
         res.status(200).send();
     } catch (err){
-        console.error(err)
+        console.error(err);
     }
 }
 
-module.exports = {GetUserToken, UpdatePfp, UpdateUserData, UpdateUserPassword}
+const UpdateUserPremium = async (req, res) => {
+    const userId = req.user._id;
+    try {
+        await User.findByIdAndUpdate(userId, {isPremium: true});
+        const updatedUser = await User.findOne({_id: userId});
+        res.status(200).json(updatedUser)
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+module.exports = {GetUserToken, UpdatePfp, UpdateUserData, UpdateUserPassword, UpdateUserPremium}
