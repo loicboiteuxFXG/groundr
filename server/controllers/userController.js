@@ -47,4 +47,17 @@ const UpdateUserPassword = async (req, res) => {
     }
 }
 
-module.exports = {GetUserToken, UpdatePfp, UpdateUserData, UpdateUserPassword}
+const setLocation = async (req, res, next) => {
+    const userId = req.user._id;
+    try {
+        const updatedUser = await User.findOne({_id: userId})
+        console.dir(req.body)
+        updatedUser.location.coordinates = [req.body.latitude, req.body.longitude]
+        await updatedUser.save()
+        res.status(200).send()
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+module.exports = {GetUserToken, UpdatePfp, UpdateUserData, UpdateUserPassword, setLocation}

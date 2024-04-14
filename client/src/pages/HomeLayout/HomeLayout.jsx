@@ -31,9 +31,22 @@ const HomeLayout = () => {
         setIsModalOpen(false);
     };
 
+    const sendLocation = (locationData) => {
+        console.dir(locationData.coords)
+        const data = {latitude: locationData.coords.latitude, longitude: locationData.coords.longitude}
+        axios.patch('http://localhost:3001/user/set-location', data, {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+            }
+        })
+            .then(response => {
+                console.info("OK");
+            })
+    }
+
     useEffect(() => {
         document.title = "Accueil | GroundR";
-
+        navigator.geolocation.getCurrentPosition(sendLocation)
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/user/get-user-token', {
@@ -53,7 +66,7 @@ const HomeLayout = () => {
         if (!token) {
             navigate('/account/login');
         }
-    }, [navigate]);
+    }, []);
 
     const LogoutButton = () => {
 
