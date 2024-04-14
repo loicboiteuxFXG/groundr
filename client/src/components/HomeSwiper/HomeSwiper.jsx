@@ -38,18 +38,26 @@ const HomeSwiper = () => {
         })
             .then((response) => {
                 let temp = response.data.recommendations;
-                setCurrentMatch(temp.shift());
-                setMatches(temp);
-                setLoading(false);
+                if (temp === null || temp.length === 0) {
+                    setNoMoreMatches(true)
+                }
+                else {
+                    setCurrentMatch(temp.shift());
+                    setMatches(temp);
+                    setLoading(false);
+                }
             })
             .catch((err) => {
                 console.error(err);
-                setLoading(false);
                 if (err.response.status === 401) {
                     localStorage.removeItem("usertoken");
                     navigate('/');
                 }
-            });
+            })
+            .finally(() => {
+
+                setLoading(false);
+            })
     };
 
     const handleSubmit = (e) => {

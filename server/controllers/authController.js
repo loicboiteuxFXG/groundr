@@ -57,6 +57,7 @@ const Register = async (req, res) => {
     delete userData.password_confirm
     try {
         const newUser = new User(userData);
+        // newUser.location = { type: "Point", coordinates: [ 0, 0 ] }
         await newUser.save();
         return res.send({ status: "OK", message: "Compte créé" })
     } catch (err) {

@@ -1,21 +1,21 @@
-const { GetAllGrounds } = require('../utils/MongoUtils');
 const User = require("../models/user");
+const Ground = require("../models/ground");
 
 const createMatchList = async (req, res, next) => {
 
     const connectedUser = await User.findOne({_id : req.user._id});
-
+    console.dir(connectedUser)
     const grounds = await User.find({
         $or: [{ sender: connectedUser._id }, { receiver: connectedUser._id }],
         status: "like"
     })
-    const superGrounds = await GetAllGrounds(
+    const superGrounds = await Ground.find(
         {
             $or: [{ sender: connectedUser._id }, { receiver: connectedUser._id }],
             status: "superlike"
         });
 
-    const excludedGrounds = await GetAllGrounds(
+    const excludedGrounds = await Ground.find(
         {
             $or: [{ sender: connectedUser._id }, { receiver: connectedUser._id }],
             status: {$in: ["dislike", "common"]}
@@ -46,7 +46,15 @@ const createMatchList = async (req, res, next) => {
         "_id": { $not: { $in: excludedUsersIDsQuery } },
         "email": { $not: { $eq: connectedUser.email } },
         "orientation": { $in: ["A", connectedUser.gender] },
-        "interests": { $in: connectedUser.interests }
+        "interests": {$in: connectedUser.interests },
+        location:
+            { $near:
+                    {
+                        $geometry: { type: "Point",  coordinates: connectedUser.location.coordinates },
+                        $minDistance: 0,
+                        $maxDistance: (connectedUser.range * 1000)
+                    }
+            }
     };
     if (connectedUser.orientation !== "A") {
         query.gender = connectedUser.orientation;
