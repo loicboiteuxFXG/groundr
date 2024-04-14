@@ -25,11 +25,13 @@ const ProfileEdit = () => {
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({
-        email: connectedUser.email,
-        gender: connectedUser.gender,
-        orientation: connectedUser.orientation,
+        email: "",
+        gender: "M",
+        orientation: "M",
+        range: 0,
+        bio: ""
     });
-    const [interests, setInterests] = useState(connectedUser.interests);
+    const [interests, setInterests] = useState([]);
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
@@ -50,21 +52,29 @@ const ProfileEdit = () => {
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
-            axios.get('http://localhost:3001/user/get-interests')
-                .then((response) => {
-                    setInterestList(response.data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    setLoading(false);
+            try {
+                const response = await axios.get('http://localhost:3001/user/get-interests')
+                console.log(response.data)
+                setInterestList(response.data);
+                console.log(interestList)
+                let temp = [];
+                response.data.forEach(i => {
+                    if (connectedUser.interests.includes(i.value)) {
+                        temp.push(i);
+                    }
                 });
+                setInterests(temp);
+            } catch (err) {
+                console.error(err)
+            } finally {
+                setLoading(false);
+            }
         }
-        fetchData();
+        fetchData()
     }, []);
 
 
     useEffect(() => {
-        setInterests(connectedUser.interests);
         setFormData({
             bio: connectedUser.bio,
             email: connectedUser.email,
@@ -73,13 +83,6 @@ const ProfileEdit = () => {
             range: connectedUser.range
         });
 
-        let temp = [];
-        interestList.forEach(i => {
-            if (connectedUser.interests.includes(i.value)) {
-                temp.push(i);
-            }
-        });
-        setInterests(temp);
     }, [connectedUser]);
 
 

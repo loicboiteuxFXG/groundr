@@ -42,6 +42,9 @@ const HomeLayout = () => {
             .then(response => {
                 console.info("OK");
             })
+            .catch((err) => {
+                console.log("Not OK")
+            })
     }
 
     useEffect(() => {
