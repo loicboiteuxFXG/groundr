@@ -1,5 +1,6 @@
 import {useState} from "react";
-
+import {ConnectedUserContext} from "../../pages/HomeLayout";
+import {useContext} from "react";
 const HomeSettings = () => {
 
     const [name, setName] = useState("");

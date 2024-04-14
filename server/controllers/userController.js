@@ -65,3 +65,15 @@ exports.getUsersForSidebar = async (req, res, next) => {
         next(err)
     }
 }
+
+
+exports.UpdateUserPremium = async (req, res) => {
+    const userId = req.user._id;
+    try {
+        await User.findByIdAndUpdate(userId, {isPremium: true});
+        const updatedUser = await User.findOne({_id: userId});
+        res.status(200).json(updatedUser)
+    } catch (err) {
+        console.error(err);
+    }
+}

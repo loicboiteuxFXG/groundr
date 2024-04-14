@@ -19,6 +19,7 @@ router.patch('/update-password', isAuth, validation.ValidatePasswordChange, user
 
 router.get('/get-interests', interestController.getInterests)
 
+router.patch('/subscribe', isAuth, userController.UpdateUserPremium);
 
 
 
