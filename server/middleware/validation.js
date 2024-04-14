@@ -1,10 +1,11 @@
 'use strict';
 
-const User = require("../models/user");
-const {ObjectId} = require("mongodb");
+const User = require("../models/user")
+const bcrypt = require('bcrypt')
 
 const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
 const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
 const ValidateSignup = async (req, res, next) => {
     const errors = {};
@@ -122,11 +123,10 @@ const ValidatePasswordChange = async (req, res, next) => {
 
     const user = await User.findOne({_id: req.user._id})
 
-    if (user.password !== passwords.password_previous) {
+    if (!bcrypt.compare(passwords.password_previous, user.password)) {
         errors.password_previous = "L'ancien mot de passe est incorrect.";
     }
 
-    // TODO VERIFIER COMMENT FAIRE LA VALIDATION BACKEND DES MDPS
     if (!(passwords.password_confirm.trim() === passwords.password.trim())) {
         errors.password = 'Les mots de passe ne correspondent pas.';
         errors.password_confirm = 'Les mots de passe ne correspondent pas.';

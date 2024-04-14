@@ -12,17 +12,7 @@ const Profile = () => {
 
     useEffect(() => {
         document.title = "Votre profil | GroundR"
-
-        const token = JSON.parse(localStorage.getItem("usertoken"))
-        if (!token) {
-            navigate('/account/login')
-        }
-
-        console.log(authUser)
     }, [])
-
-
-
 
     const handleImageClick = () => {
         document.getElementById('fileInput').click();
@@ -50,7 +40,7 @@ const Profile = () => {
         data2.append('filename', filename)
         await axios.post('http://localhost:3001/user/update-pfp', {filename: filename}, {
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
             .then(response => {
@@ -58,11 +48,10 @@ const Profile = () => {
             })
             .catch(err => {
                 if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
+                    localStorage.removeItem("auth-user");
                     navigate('/');
                 }
             })
-        console.log(authUser)
     };
 
     const pfpURL = `http://localhost:3001/media/${authUser.pfpURL}`

@@ -1,10 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import useLogout from "../../hooks/useLogout";
+import Sidebar from "../../components/Sidebar";
+import {BiLogOut} from "react-icons/bi";
 const HomeLayout = () => {
 
     useEffect(() => {
@@ -21,7 +23,11 @@ const HomeLayout = () => {
         return (
             <form onSubmit={handleSubmit} method="post">
                 {!loading ? (
-                    <input type="submit" value="Logout" />
+                    <button type="submit" className="btnLogout">
+                        <BiLogOut
+                            style={{color: "#e3a256", width: "100%", height: "100%"}}
+                        />
+                    </button>
                 ) : (
                     <LoadingIndicator />
                 )}
@@ -37,11 +43,10 @@ const HomeLayout = () => {
                         <h1 className="homeTitle"><img src={require('../../images/logo_nobackground.png')} alt="GroundR" /></h1>
                         <ProfileButton/>
                         <Link to="swipe" className="btnGround">Let's Ground!</Link>
-                        <Link to="chat">Chat</Link>
+                        <Sidebar />
                     </div>
                     <div>
-                        <Link to="settings">Settings</Link>
-                        <LogoutButton/>
+                        <LogoutButton />
                     </div>
                 </div>
                 <div className="content">

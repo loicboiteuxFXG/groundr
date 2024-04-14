@@ -33,7 +33,7 @@ const HomeSwiper = () => {
         setLoading(true);
         axios.get('http://localhost:3001/swipe/get-matches', {
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
             .then((response) => {
@@ -46,7 +46,7 @@ const HomeSwiper = () => {
                 console.error(err);
                 setLoading(false);
                 if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
+                    localStorage.removeItem("auth-user");
                     navigate('/');
                 }
             });

@@ -10,7 +10,7 @@ const useSignup = () => {
     const {setAuthUser} = useAuthContext()
 
     const signup = async (formData, interests, file) => {
-        const validationErrors = handleInputErrors(formData)
+        const validationErrors = handleInputErrors(formData, interests)
 
         if (Object.keys(validationErrors).length === 0) {
             setLoading(true);
@@ -18,7 +18,7 @@ const useSignup = () => {
             const data = new FormData();
             data.append('file', file);
 
-            let interestsToSend = interests.map(i => i.value);
+            let interestsToSend = interests.map(i => i._id);
 
             var filename = "";
 
@@ -83,9 +83,9 @@ const useSignup = () => {
 export default useSignup
 
 const handleInputErrors = (formData, interests) => {
-    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
-    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
-    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
+    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$'
+    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
     const validationErrors = {};
 

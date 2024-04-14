@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const User = require("../models/user");
+const bcrypt = require('bcrypt')
 const generateToken = require("../utils/generateToken")
 const {throwError} = require('../utils/errorHandler')
 
@@ -11,7 +12,7 @@ exports.Login = async (req, res, next) => {
     const {email, password} = req.body
 
     try {
-        const user = await User.findOne({email: email});
+        const user = await User.findOne({email: email}).populate("interests");
 
         const isPasswordCorrect = bcrypt.compare(password, user.password || "")
 
@@ -21,8 +22,9 @@ exports.Login = async (req, res, next) => {
 
         generateToken(user, res)
 
-        res.status(200).send("Compte connecté.");
+        res.status(200).json(user)
     } catch (err) {
+        console.error(err)
         next(err)
     }
 }
@@ -39,7 +41,7 @@ exports.Register = async (req, res, next) => {
 
             await newUser.save()
 
-            res.status(201).send("Compte créé.")
+            res.status(201).json(newUser)
         } else {
             throwError(400, "Données de l'utilisateur invalides.")
         }

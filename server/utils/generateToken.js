@@ -7,8 +7,7 @@ const generateTokenAndSetCookie = (user, res) => {
             _id: user._id,
             email: user.email,
             firstname: user.firstname,
-            lastname: user.lastname,
-            userId: user._id.toString()
+            lastname: user.lastname
         },
         process.env.SECRET_JWT,
         {expiresIn: "1h"}
@@ -22,4 +21,4 @@ const generateTokenAndSetCookie = (user, res) => {
     })
 }
 
-export default generateTokenAndSetCookie
+module.exports = generateTokenAndSetCookie

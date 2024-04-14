@@ -6,4 +6,4 @@ const throwError = (code, message) => {
     throw error
 }
 
-export default throwError()
+module.exports = throwError

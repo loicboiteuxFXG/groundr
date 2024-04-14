@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const upload = require('../utils/upload/upload');
-const {UpdateUserPfp} = require('../utils/MongoUtils/User')
 
 router.post('/upload', upload.single('file'), (req, res) => {
     // Handle the uploaded file

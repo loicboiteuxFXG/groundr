@@ -6,6 +6,9 @@ const router = express.Router()
 const messageController = require('../controllers/messageController')
 const {isAuth} = require("../middleware");
 
+
+router.get('/:id', isAuth, messageController.getMessages)
+
 router.post('/send/:id', isAuth, messageController.sendMessage)
 
-exports.router = router
+module.exports = router

@@ -8,23 +8,12 @@ import "../../styles.css";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import useSignup from "../../hooks/useSignup";
 
-const sha256 = require('js-sha256');
-
 const SignupBox = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = "Créer un compte | GroundR";
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (token) {
-            navigate('/home');
-        }
     }, [navigate]);
-
-    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
-    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
-    const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
 
 
     const [formData, setFormData] = useState({
@@ -64,6 +53,7 @@ const SignupBox = () => {
             ...formData, [name]: value
         });
     };
+
 
 
     return (

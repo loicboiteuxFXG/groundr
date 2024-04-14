@@ -1,3 +1,5 @@
+import SearchInput from "../SearchInput";
+import Conversations from "../Conversations";
 
 
 const Sidebar = () => {
@@ -5,7 +7,8 @@ const Sidebar = () => {
 
     return (
         <div>
-
+            <SearchInput />
+            <Conversations />
         </div>
     )
 }
