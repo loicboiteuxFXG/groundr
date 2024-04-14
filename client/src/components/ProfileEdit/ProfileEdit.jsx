@@ -69,7 +69,8 @@ const ProfileEdit = () => {
             bio: connectedUser.bio,
             email: connectedUser.email,
             gender: connectedUser.gender,
-            orientation: connectedUser.orientation
+            orientation: connectedUser.orientation,
+            range: connectedUser.range
         });
 
         let temp = [];
@@ -100,6 +101,8 @@ const ProfileEdit = () => {
             validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.';
         }
 
+        if (formData.range < 1) formData.range = 1
+
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
@@ -113,6 +116,7 @@ const ProfileEdit = () => {
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "interests": interestsToSend,
+                "range": formData.range
             };
 
             axios.post('http://localhost:3001/user/update', userData, {
@@ -179,19 +183,20 @@ const ProfileEdit = () => {
                         {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
                         <label htmlFor="gender">Identité de genre</label>
                         <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
-                            name="gender"
-                            onChange={handleChange}
-                            value={formData.gender}>
+                                name="gender"
+                                onChange={handleChange}
+                                value={formData.gender}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
                         </select>
                         {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
                         <label htmlFor="orientation">Je recherche</label>
-                        <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"}
-                            name="orientation"
-                            onChange={handleChange}
-                            value={formData.orientation}>
+                        <select id="orientation"
+                                className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                                name="orientation"
+                                onChange={handleChange}
+                                value={formData.orientation}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="B">Les deux</option>
@@ -261,9 +266,19 @@ const ProfileEdit = () => {
                                 })
                             }}
                         />
+                        <label htmlFor="range">Distance maximale (KM)</label>
+                        <input
+                            type="number"
+                            name="range"
+                            className="form-control"
+                            min="0"
+                            onChange={handleChange}
+                            value={formData.range}
+                        />
                         {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
                         {
-                            isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> : <input type="submit" className="custom-btn" value="Mettre à jour" />}</>
+                            isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                                    <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
                                 : <></>
 
                         }

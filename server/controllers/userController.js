@@ -28,7 +28,7 @@ const UpdateUserData = async (req, res) => {
     const data = req.body;
     const userId = req.user._id
     try{
-        await User.updateOne({_id: userId}, req.body);
+        await User.updateOne({_id: userId}, data);
         const newUser = await User.findOne({_id:userId});
         res.send(newUser)
     } catch (err){
