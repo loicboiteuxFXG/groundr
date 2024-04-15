@@ -20,7 +20,7 @@ const Profile = () => {
         e.preventDefault()
         axios.patch('http://localhost:3001/user/subscribe',{}, {
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
             .then(response => {
@@ -43,19 +43,12 @@ const Profile = () => {
         data.append('file', selectedFile)
         data.append('user', authUser)
         var filename = ""
-        await axios.post('http://localhost:3001/file/upload-new', data, {
-
-        })
+        await axios.post('http://localhost:3001/file/upload-new', data)
             .then((response) => {
                 filename = response.data.filename;
-                console.log(filename)
             })
             .catch(err => console.error(err))
 
-        console.log(filename)
-
-        const data2 = new FormData()
-        data2.append('filename', filename)
         await axios.post('http://localhost:3001/user/update-pfp', {filename: filename}, {
             headers: {
                 "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
@@ -65,10 +58,7 @@ const Profile = () => {
                 setAuthUser(response.data)
             })
             .catch(err => {
-                if (err.response.status === 401) {
-                    localStorage.removeItem("auth-user");
-                    navigate('/');
-                }
+                console.error(err)
             })
     };
 

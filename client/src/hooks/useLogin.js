@@ -22,9 +22,8 @@ const useLogin = () => {
             try {
                 const response = await axios.post('http://localhost:3001/auth/login', userData);
                 if (!response.data.error) {
-                    localStorage.setItem('auth-user', JSON.stringify(response.data));
-                    setAuthUser(response.data);
-                    console.log(response)
+                    localStorage.setItem('auth-user', JSON.stringify(response.data.token));
+                    setAuthUser(response.data.user);
                 } else {
                     throw Error()
                 }

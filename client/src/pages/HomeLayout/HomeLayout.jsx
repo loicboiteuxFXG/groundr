@@ -7,10 +7,32 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import useLogout from "../../hooks/useLogout";
 import Sidebar from "../../components/Sidebar";
 import {BiLogOut} from "react-icons/bi";
+import {useAuthContext} from "../../context/AuthContext";
+import axios from "axios";
 const HomeLayout = () => {
-
+    const {setAuthUser} = useAuthContext()
     useEffect(() => {
         document.title = "Accueil | GroundR";
+        setAuthUser({
+            firstName: "Chargement",
+            lastName: "",
+            pfpURL: "default-user.png"
+        })
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get("http://localhost:3001/user/get-user-token", {
+                    headers: {
+                        "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
+                    }
+                })
+                const user = response.data
+                console.dir(user)
+                setAuthUser(user)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        fetchUser()
     }, []);
 
     const LogoutButton = () => {

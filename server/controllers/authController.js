@@ -10,19 +10,22 @@ const {throwError} = require('../utils/errorHandler')
 
 exports.Login = async (req, res, next) => {
     const {email, password} = req.body
-
     try {
         const user = await User.findOne({email: email}).populate("interests");
 
-        const isPasswordCorrect = await bcrypt.compare(password, user.password || "")
-
-        if (!user || !isPasswordCorrect) {
+        if(!user) {
             res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})
         }
 
-        generateToken(user, res)
+        const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
-        res.status(200).json(user)
+        if (!isPasswordCorrect) {
+            res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})
+        }
+
+        const token = generateToken(user)
+
+        res.status(200).json({user: user, token: token})
     } catch (err) {
         console.error(err)
         next(err)

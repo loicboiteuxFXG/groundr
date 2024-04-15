@@ -19,8 +19,9 @@ exports.UpdatePfp = async (req, res) => {
     const filename = req.body.filename
     const userId = req.user._id
     try{
-        await User.updateOne({_id: userId}, {pfpUrl: filename});
+        await User.updateOne({_id: userId}, {pfpURL: filename});
         const newUser = await User.findOne({_id:userId});
+        console.dir(newUser)
         res.status(200).json(newUser);
     } catch (err){
         console.error(err);
@@ -41,10 +42,10 @@ exports.UpdateUserData = async (req, res) => {
 exports.UpdateUserPassword = async (req, res) => {
     const userId = req.user._id
     const newPassword = req.body.password
-
-    const salt = bcrypt.genSalt(10)
-    const hashedNewPassword = bcrypt.hash(newPassword, salt)
     try{
+        const salt = await bcrypt.genSalt(10)
+        const hashedNewPassword = await bcrypt.hash(newPassword, salt)
+
         await User.updateOne({_id: userId}, {password: hashedNewPassword});
         res.status(200).send();
     } catch (err){

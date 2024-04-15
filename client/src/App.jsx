@@ -10,6 +10,7 @@ import Account from "./pages/Account";
 import LoginBox from "./components/LoginBox";
 import SignupBox from "./components/SignupBox";
 import Chatbox from "./components/ChatBox";
+import SubscribeBox from "./components/SubscribeBox";
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
                 <Route path="profile" element={<Profile />} />
                 <Route path="profile/edit" element={<ProfileEdit />} />
                 <Route path="profile/password/edit" element={<ProfilePassword />} />
+                <Route path="profile/subscribe" element={<SubscribeBox />} />
             </Route>
             <Route path="/account" element={<Account />} />
             <Route path="/account/login" element={authUser ? <Navigate to="/home" />: <LoginBox />} />
