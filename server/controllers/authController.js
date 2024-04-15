@@ -14,7 +14,7 @@ exports.Login = async (req, res, next) => {
     try {
         const user = await User.findOne({email: email}).populate("interests");
 
-        const isPasswordCorrect = bcrypt.compare(password, user.password || "")
+        const isPasswordCorrect = await bcrypt.compare(password, user.password || "")
 
         if (!user || !isPasswordCorrect) {
             res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})

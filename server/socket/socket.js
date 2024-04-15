@@ -8,11 +8,11 @@ const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
         origin: ["http://localhost:3000"],
-        methods:['GET', 'POST']
+        methods:['GET', 'POST', 'PATCH']
     }
 })
 
-export const getReceiverSocketId = (receiverId) => {
+exports.getReceiverSocketId = (receiverId) => {
     return userSocketMap[receiverId]
 }
 
@@ -33,4 +33,4 @@ io.on('connection', (socket) => {
     })
 })
 
-export {app, io, server}
+module.exports = {app, io, server}

@@ -24,9 +24,11 @@ const useLogin = () => {
                 if (!response.data.error) {
                     localStorage.setItem('auth-user', JSON.stringify(response.data));
                     setAuthUser(response.data);
+                    console.log(response)
+                } else {
+                    throw Error()
                 }
             } catch (error) {
-                setLoading(false);
                 const errors = {
                     email: "L'adresse courriel ou le mot de passe est incorrect.",
                     password: "L'adresse courriel ou le mot de passe est incorrect."
