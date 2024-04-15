@@ -10,6 +10,40 @@ import {BiLogOut} from "react-icons/bi";
 import {useAuthContext} from "../../context/AuthContext";
 import axios from "axios";
 const HomeLayout = () => {
+    const navigate = useNavigate();
+
+    const [connectedUser, setConnectedUser] = useState({
+        firstName: 'Chargement',
+        lastName: '',
+        bio: '',
+        pfpURL: 'default-user.png'
+    })
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const sendLocation = (locationData) => {
+        console.dir(locationData.coords)
+        const data = {latitude: locationData.coords.latitude, longitude: locationData.coords.longitude}
+        axios.patch('http://localhost:3001/user/set-location', data, {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+            }
+        })
+            .then(response => {
+                console.info("OK");
+            })
+            .catch((err) => {
+                console.log("Not OK")
+            })
+    }
+
     const {setAuthUser} = useAuthContext()
     useEffect(() => {
         document.title = "Accueil | GroundR";

@@ -20,9 +20,13 @@ const ProfileEdit = () => {
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({
-        email: authUser.email,
-        gender: authUser.gender,
-        orientation: authUser.orientation,
+
+        email: "",
+        gender: "M",
+        orientation: "M",
+        range: 0,
+        bio: ""
+
     });
     const [interests, setInterests] = useState([]);
     const [errors, setErrors] = useState({});
@@ -46,26 +50,36 @@ const ProfileEdit = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:3001/user/get-interests');
+                const response = await axios.get('http://localhost:3001/user/get-interests')
+                console.log(response.data)
                 setInterestList(response.data);
+                console.log(interestList)
+                let temp = [];
+                response.data.forEach(i => {
+                    if (connectedUser.interests.includes(i.value)) {
+                        temp.push(i);
+                    }
+                });
+                setInterests(temp);
+            } catch (err) {
+                console.error(err)
+            } finally {
                 setLoading(false);
-            } catch (error) {
-                setLoading(false);
-                console.error('Error fetching interests:', error);
             }
         }
         fetchData()
     }, []);
 
     useEffect(() => {
-        setInterests(authUser.interests);
         setFormData({
-            bio: authUser.bio,
-            email: authUser.email,
-            gender: authUser.gender,
-            orientation: authUser.orientation
+            bio: connectedUser.bio,
+            email: connectedUser.email,
+            gender: connectedUser.gender,
+            orientation: connectedUser.orientation,
+            range: connectedUser.range
         });
-    }, [authUser, interestList]);
+
+    }, [connectedUser]);
 
 
     const handleSubmit = async (e) => {
@@ -89,6 +103,8 @@ const ProfileEdit = () => {
             validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.';
         }
 
+        if (formData.range < 1) formData.range = 1
+
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
@@ -102,6 +118,7 @@ const ProfileEdit = () => {
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "interests": interestsToSend,
+                "range": formData.range
             };
 
             axios.patch('http://localhost:3001/user/update', userData, {withCredentials: true})
@@ -248,6 +265,15 @@ const ProfileEdit = () => {
                                     }
                                 })
                             }}
+                        />
+                        <label htmlFor="range">Distance maximale (KM)</label>
+                        <input
+                            type="number"
+                            name="range"
+                            className="form-control"
+                            min="0"
+                            onChange={handleChange}
+                            value={formData.range}
                         />
                         {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
                         {

@@ -1,4 +1,10 @@
 const User = require("../models/user");
+const Ground = require("../models/ground");
+
+const createMatchList = async (req, res, next) => {
+
+    const connectedUser = await User.findOne({_id : req.user._id});
+
 const Ground = require("../models/ground")
 
 const createMatchList = async (req, res, next) => {
@@ -44,9 +50,17 @@ const createMatchList = async (req, res, next) => {
     // Only get appropriate users according to gender and orientation
     let query = {
         "_id": { $not: { $in: excludedUsersIDsQuery } },
-        "email": { $not: { $eq: authUser.email } },
-        "orientation": { $in: ["A", authUser.gender] },
-        "interests": { $in: authUser.interests }
+        "email": { $not: { $eq: connectedUser.email } },
+        "orientation": { $in: ["A", connectedUser.gender] },
+        "interests": {$in: connectedUser.interests },
+        location:
+            { $near:
+                    {
+                        $geometry: { type: "Point",  coordinates: connectedUser.location.coordinates },
+                        $minDistance: 0,
+                        $maxDistance: (connectedUser.range * 1000)
+                    }
+            }
     };
     if (authUser.orientation !== "A") {
         query.gender = authUser.orientation;
