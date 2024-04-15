@@ -5,18 +5,11 @@ import "../../styles.css";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import Modal from "../Modal";
 
-const sha256 = require('js-sha256');
-
 const ProfilePassword = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = "Modifier le mot de passe | GroundR";
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (!token) {
-            navigate('/account');
-        }
     }, [navigate]);
 
     const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
@@ -68,19 +61,9 @@ const ProfilePassword = () => {
         if (Object.keys(validationErrors).length === 0) {
             setLoading(true);
 
-            let hashedPassword = sha256.sha256(formData.password);
-            let hashedPasswordConfirm = sha256.sha256(formData.password_confirm);
-            let hashedPasswordPrevious = sha256.sha256(formData.password_previous);
-
-            let userData = {
-                password: hashedPassword,
-                password_confirm: hashedPasswordConfirm,
-                password_previous: hashedPasswordPrevious
-            };
-
-            axios.post('http://localhost:3001/user/update-password', userData, {
+            axios.post('http://localhost:3001/user/update-password', formData, {
                 headers: {
-                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                 }
             })
                 .then((response) => {
@@ -98,7 +81,7 @@ const ProfilePassword = () => {
                     const errors = err.response.data;
                     setErrors(errors);
                     if (err.response.status === 401) {
-                        localStorage.removeItem("usertoken");
+                        localStorage.removeItem("auth-user");
                         navigate('/');
                     }
                 });
@@ -128,7 +111,7 @@ const ProfilePassword = () => {
                             onChange={handleChange}
                             value={formData.password_previous} />
                         {errors.password_previous && <span className="invalid-feedback">{errors.password_previous}</span>}
-                        <label htmlFor="password">Créez un mot de passe</label>
+                        <label htmlFor="password">Nouveau un mot de passe</label>
                         <input
                             id="password"
                             className={errors.password ? "is-invalid form-control" : "form-control"}
@@ -137,7 +120,7 @@ const ProfilePassword = () => {
                             onChange={handleChange}
                             value={formData.password} />
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
-                        <label htmlFor="password_confirm">Confirmez votre mot de passe</label>
+                        <label htmlFor="password_confirm">Confirmez le nouveau mot de passe</label>
                         <input
                             id="password_confirm"
                             className={errors.password_confirm ? "is-invalid form-control" : "form-control"}

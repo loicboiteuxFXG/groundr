@@ -36,10 +36,16 @@ const userSchema = new Schema({
     },
     interests: {
         type: [{
-            type: String,
+            type: Schema.Types.ObjectId,
             required: true,
+            ref: "interest"
         }],
         validate: [(val) => val.length > 0 && val.length <= 5, 'Doit avoir entre 1 et 5 intérêts.']
+    },
+    isPremium: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     DoB: {
         type: Schema.Types.Date,

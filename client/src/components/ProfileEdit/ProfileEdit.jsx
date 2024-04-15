@@ -1,35 +1,32 @@
 import Select from "react-select";
 import LoadingIndicator from "../LoadingIndicator";
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { ConnectedUserContext } from "../../pages/HomeLayout";
+import {useNavigate} from "react-router-dom";
 import Modal from "../Modal";
+import {useAuthContext} from "../../context/AuthContext";
 
 const ProfileEdit = () => {
     const navigate = useNavigate();
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext);
+    const {authUser, setAuthUser} = useAuthContext()
 
     useEffect(() => {
-        document.title = "Modifier votre profil | GroundR";
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (!token) {
-            navigate('/account/login');
-        }
-    }, [navigate]);
+        document.title = "Modifier votre profil | GroundR"
+    }, []);
 
 
     const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({
+
         email: "",
         gender: "M",
         orientation: "M",
         range: 0,
         bio: ""
+
     });
     const [interests, setInterests] = useState([]);
     const [errors, setErrors] = useState({});
@@ -50,7 +47,7 @@ const ProfileEdit = () => {
 
 
     useEffect(() => {
-        async function fetchData() {
+        const fetchData = async () => {
             setLoading(true);
             try {
                 const response = await axios.get('http://localhost:3001/user/get-interests')
@@ -72,7 +69,6 @@ const ProfileEdit = () => {
         }
         fetchData()
     }, []);
-
 
     useEffect(() => {
         setFormData({
@@ -96,7 +92,10 @@ const ProfileEdit = () => {
             validationErrors.email = 'L\'adresse courriel est invalide.';
         }
 
-        if (!formData.bio.match(regExpString)) {
+        if (!formData.bio.trim()) {
+            validationErrors.bio = 'Ce champ est requis'
+        }
+        else if (!formData.bio.match(regExpString)) {
             validationErrors.bio = 'La bio est invalide.';
         }
 
@@ -122,23 +121,20 @@ const ProfileEdit = () => {
                 "range": formData.range
             };
 
-            axios.post('http://localhost:3001/user/update', userData, {
-                headers: {
-                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
-                }
-            })
+            axios.patch('http://localhost:3001/user/update', userData, {withCredentials: true})
                 .then((response) => {
-                    setConnectedUser(response.data);
+                    setAuthUser(response.data);
                     setLoading(false);
                     setIsChanged(false);
                     openModal();
                 })
                 .catch((err) => {
+                    console.log(err)
                     setLoading(false);
                     const errors = err.response.data;
                     setErrors(errors);
                     if (err.response.status === 401) {
-                        localStorage.removeItem("usertoken");
+                        localStorage.removeItem("auth-user");
                         navigate('/');
                     }
                 });
@@ -146,7 +142,8 @@ const ProfileEdit = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
+
         setFormData({
             ...formData, [name]: value
         });
@@ -161,7 +158,7 @@ const ProfileEdit = () => {
     return (
         <>
             <div className="container signup-layout">
-                <h2 className="golden">Modifier le compte</h2>
+                <h2 className="golden">Modifier le profil</h2>
                 <div className="signup-card">
                     <form onSubmit={handleSubmit} noValidate>
 

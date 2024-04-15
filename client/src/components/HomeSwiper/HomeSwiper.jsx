@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
+import {useAuthContext} from "../../context/AuthContext";
+import notificationSound from "../../assets/sounds/message.wav"
 
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
     const [currentMatch, setCurrentMatch] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [inputEnabled, setInputEnabled] = useState(true);
     const [matchedUsername, setMatchedUsername] = useState("");
     const [noMoreMatches, setNoMoreMatches] = useState(false);
@@ -17,6 +19,7 @@ const HomeSwiper = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
+    const {authUser} = useAuthContext()
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -33,13 +36,14 @@ const HomeSwiper = () => {
         setLoading(true);
         axios.get('http://localhost:3001/swipe/get-matches', {
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
             .then((response) => {
                 let temp = response.data.recommendations;
                 if (temp === null || temp.length === 0) {
                     setNoMoreMatches(true)
+                    setLoading(false)
                 }
                 else {
                     setCurrentMatch(temp.shift());
@@ -50,7 +54,7 @@ const HomeSwiper = () => {
             .catch((err) => {
                 console.error(err);
                 if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
+                    localStorage.removeItem("auth-user");
                     navigate('/');
                 }
             })
@@ -68,23 +72,26 @@ const HomeSwiper = () => {
         axios.post('http://localhost:3001/swipe/ground', {
             swipedUser: currentMatch,
             swipeStatus: e.target.swipeStatus.value,
-        }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}` } })
+        }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
             .then((response) => {
                 console.log(response.data);
-                let temp = matches;
-                setCurrentMatch(temp.shift());
-                setMatches(temp);
                 if (matches === null || matches.length === 0) {
                     fetchData().then(() => {
                         if (matches === null || matches.length === 0) {
                             setNoMoreMatches(true);
                         }
                     });
+                } else {
+                    let temp = matches;
+                    setCurrentMatch(temp.shift());
+                    setMatches(temp);
                 }
                 setInputEnabled(true);
 
                 if (response.data.match) {
                     setMatchedUsername(response.data.user.firstName);
+                    const sound = new Audio(notificationSound)
+                    sound.play()
                     openModal();
                 }
             })
@@ -92,7 +99,7 @@ const HomeSwiper = () => {
                 console.error(err);
                 setInputEnabled(true);
                 if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
+                    localStorage.removeItem("auth-user");
                     navigate('/');
                 }
             });
@@ -122,25 +129,30 @@ const HomeSwiper = () => {
                             <div className="swiperLayout-buttons">
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="dislike" />
+                                        <input type="hidden" name="swipeStatus" value="dislike"/>
                                         <button id="dislike" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/dislike.png')} alt="dislike" />
+                                            <img src={require('../../images/dislike.png')} alt="dislike"/>
                                         </button>
                                     </form>
                                 </div>
+                                {authUser.isPremium ?
+                                    <div>
+                                        <form method="POST" onSubmit={handleSubmit}>
+                                            <input type="hidden" name="swipeStatus" value="superlike"/>
+                                            <button id="superlike" type="submit" disabled={!inputEnabled}>
+                                                <img src={require('../../images/superlike.png')} alt="superlike"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    :
+                                    <></>
+                                }
+
                                 <div>
                                     <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="superlike" />
-                                        <button id="superlike" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/superlike.png')} alt="superlike" />
-                                        </button>
-                                    </form>
-                                </div>
-                                <div>
-                                    <form method="POST" onSubmit={handleSubmit}>
-                                        <input type="hidden" name="swipeStatus" value="like" />
+                                        <input type="hidden" name="swipeStatus" value="like"/>
                                         <button id="like" type="submit" disabled={!inputEnabled}>
-                                            <img src={require('../../images/like.png')} alt="like" />
+                                            <img src={require('../../images/like.png')} alt="like"/>
                                         </button>
                                     </form>
                                 </div>
@@ -156,9 +168,9 @@ const HomeSwiper = () => {
         <>
             {
                 loading ?
-                    <div className="centerHeart mt-5"><LoadingIndicator /></div>
+                    <div className="centerHeart mt-5"><LoadingIndicator/></div>
                     :
-                    <SwiperCard />
+                    <SwiperCard/>
 
             }
             <Modal isOpen={isModalOpen} onClose={closeModal}>

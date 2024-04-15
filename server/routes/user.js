@@ -7,6 +7,8 @@ const userController = require("../controllers/userController");
 const interestController = require("../controllers/interestController");
 const {isAuth, validation} = require("../middleware")
 
+router.get('/users', isAuth, userController.getUsersForSidebar)
+
 router.get('/get-user-token', isAuth, userController.GetUserToken)
 
 router.post('/update-pfp', isAuth, userController.UpdatePfp)
@@ -17,7 +19,11 @@ router.post('/update-password', isAuth, validation.ValidatePasswordChange, userC
 
 router.get('/get-interests', interestController.getInterests)
 
+
 router.patch('/set-location', isAuth, userController.setLocation)
+
+router.patch('/subscribe', isAuth, userController.UpdateUserPremium);
+
 
 
 

@@ -1,10 +1,11 @@
 'use strict';
 
-const User = require("../models/user");
-const {ObjectId} = require("mongodb");
+const User = require("../models/user")
+const bcrypt = require('bcrypt')
 
 const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
 const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+const regExpPassword = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
 const ValidateSignup = async (req, res, next) => {
     const errors = {};
@@ -37,20 +38,16 @@ const ValidateSignup = async (req, res, next) => {
         errors.email = 'L\'adresse courriel est invalide.';
     }
 
-    // TODO VERIFIER COMMENT FAIRE LA VALIDATION BACKEND DES MDPS
-    /* 
-        if (!userData.password.trim()) {
-            errors.password = 'Ce champ est requis.'
-        } else if (!userData.password.trim().match(regExpPassword)) {
-            errors.password = 'Le mot de passe est invalide. Il doit contenir au moins 8' +
-                ' caractères dont au moins une lettre minuscule, une lettre majuscule et un chiffre.'
-        }
-    
-        if (!userData.password_confirm.trim()) {
-            errors.password_confirm = 'Ce champ est requis.'
-        } else if (!(userData.password_confirm.trim() === userData.password.trim())) {
-            errors.password_confirm = 'Les mots de passe ne correspondent pas.'
-        } */
+    if (!userData.password.trim()) {
+        errors.password = 'Ce champ est requis.'
+    } else if (!userData.password.trim().match(regExpPassword)) {
+        errors.password = 'Le mot de passe est invalide. Il doit contenir au moins 8' +
+            ' caractères dont au moins une lettre minuscule, une lettre majuscule et un chiffre.'
+    }
+
+    if (!userData.password_confirm.trim()) {
+        errors.password_confirm = 'Ce champ est requis.'
+    }
 
     if (!userData.DoB) {
         errors.DoB = 'Ce champ est requis.';
@@ -72,7 +69,6 @@ const ValidateSignup = async (req, res, next) => {
 
     if (userData.password !== userData.password_confirm) {
         errors.password_confirm = "Les mots de passe ne correspondent pas.";
-
     }
 
     let user = await User.findOne({ email: userData.email });
@@ -81,6 +77,10 @@ const ValidateSignup = async (req, res, next) => {
         if (Object.keys(user).length !== 0)
             errors.email = "Un utilisateur avec cette adresse courriel existe déjà.";
     }
+
+    const salt = await bcrypt.genSalt(10)
+    userData.password = await bcrypt.hash(userData.password, salt)
+    delete userData.password_confirm
 
     if (Object.keys(errors).length !== 0)
         return res.status(400).send(errors);
@@ -123,11 +123,10 @@ const ValidatePasswordChange = async (req, res, next) => {
 
     const user = await User.findOne({_id: req.user._id})
 
-    if (user.password !== passwords.password_previous) {
+    if (!bcrypt.compare(passwords.password_previous, user.password)) {
         errors.password_previous = "L'ancien mot de passe est incorrect.";
     }
 
-    // TODO VERIFIER COMMENT FAIRE LA VALIDATION BACKEND DES MDPS
     if (!(passwords.password_confirm.trim() === passwords.password.trim())) {
         errors.password = 'Les mots de passe ne correspondent pas.';
         errors.password_confirm = 'Les mots de passe ne correspondent pas.';

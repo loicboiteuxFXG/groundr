@@ -1,32 +1,64 @@
 'use strict'
 
+const User = require('../models/user')
+const throwError = require('../utils/errorHandler')
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
-/** Vérifie si la requête a un token JWT valide */
+module.exports = async (req, res, next) => {
+    try {
+        // console.dir(req.cookies)
+        // const token = req.cookies.jwt;
+        //
+        // if (!token) {
+        //     throwError(401, "Aucun jeton trouvé.")
+        // }
+        //
+        // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        //
+        // if (!decoded) {
+        //     throwError(401, "L'authentification est nécessaire pour effectuer cette action.")
+        // }
+        //
+        // const user = await User.findById(decoded._id).select("-password");
+        //
+        // if (!user) {
+        //     throwError(404, "L'utilisateur n'existe pas.")
+        // }
+        //
+        // req.user = user
+        // req.decoded = decoded
+        //
+        // next();
+        console.log(req.url)
+        const authHeader = req.get('Authorization');
+        if (!authHeader) {
+            throwError(401, "L'authentification est nécessaire pour effectuer cette action.")
+        }
+        const token = authHeader.split(' ')[1];
+        let decodedToken;
+        try {
+            decodedToken = jwt.verify(token, process.env.SECRET_JWT);
+        } catch (err) {
+            err.statusCode = 401;
+            return res.status(err.statusCode).send({error: err});
+        }
+        if (!decodedToken) {
+            throwError(401, "L'authentification est nécessaire pour effectuer cette action.")
+        }
 
-module.exports = (req, res, next) => {
-  const authHeader = req.get('Authorization');
-  if (!authHeader) {
-    return res.status(401).send({ error: 'Non authentifié..' });
-  }
-  const token = authHeader.split(' ')[1];
-  let decodedToken;
-  try {
-    decodedToken = jwt.verify(token, process.env.SECRET_JWT);
-  } catch (err) {
-    err.statusCode = 401; 
-    return res.status(err.statusCode).send({error: err});
-  }
-  if (!decodedToken) {
-    const error = new Error('Non authentifié.');
-    error.statusCode = 401;
-    return res.status(error.statusCode).send({ error: error });
-  }
+        const user = await User.findById(decodedToken._id).select("-password");
 
-  // Passe le token décodé dans la requête pour pouvoir l'utiliser ailleurs
-  req.user = decodedToken;
-  console.log("Decoded token")
-  next();
+        if (!user) {
+            throwError(404, "L'utilisateur n'existe pas.")
+        }
+
+        // Passe le token décodé dans la requête pour pouvoir l'utiliser ailleurs
+        req.user = user
+        req.token = decodedToken
+        next();
+    } catch (err) {
+        next(err)
+    }
 };
