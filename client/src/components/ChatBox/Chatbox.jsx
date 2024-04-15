@@ -1,6 +1,6 @@
 import Messages from "../Messages";
 import MessageInput from "../MessageInput";
-import useConversation from "../../zustand/useConversation";
+import {useConversation} from "../../context/ConversationContext";
 import {useEffect} from "react";
 
 const NoChatSelected = () => {
@@ -13,7 +13,7 @@ const NoChatSelected = () => {
 }
 
 const Chatbox = () => {
-    const {selectedConversation, setSelectedConversation} = useConversation
+    const {selectedConversation, setSelectedConversation} = useConversation()
 
     useEffect(() => {
         return () => setSelectedConversation(null)

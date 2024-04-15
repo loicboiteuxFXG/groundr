@@ -6,8 +6,8 @@ const Conversations = () => {
     const {loading, conversations} = useGetConversations()
     return (
         <div className="conversations">
-            {conversations.map((conversation, idx) => {
-                <Conversation key={conversation._id} conversation={conversation}/>
+            {conversations.map((conversation) => {
+                return <Conversation key={conversation._id} conversation={conversation}/>
             })}
             {loading ? <LoadingIndicator /> : null}
         </div>

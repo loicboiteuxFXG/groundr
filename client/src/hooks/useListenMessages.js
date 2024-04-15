@@ -1,5 +1,5 @@
 import {useSocketContext} from "../context/SocketContext";
-import useConversation from "../zustand/useConversation";
+import {useConversation} from "../context/ConversationContext";
 import {useEffect} from "react";
 import notificationSound from '../assets/sounds/message.wav'
 

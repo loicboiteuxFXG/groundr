@@ -41,9 +41,15 @@ const HomeSwiper = () => {
         })
             .then((response) => {
                 let temp = response.data.recommendations;
-                setCurrentMatch(temp.shift());
-                setMatches(temp);
-                setLoading(false);
+                if (temp === null || temp.length === 0) {
+                    setNoMoreMatches(true)
+                    setLoading(false);
+                }
+                else {
+                    setCurrentMatch(temp.shift());
+                    setMatches(temp);
+                    setLoading(false);
+                }
             })
             .catch((err) => {
                 console.error(err);
@@ -66,15 +72,16 @@ const HomeSwiper = () => {
         }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
             .then((response) => {
                 console.log(response.data);
-                let temp = matches;
-                setCurrentMatch(temp.shift());
-                setMatches(temp);
                 if (matches === null || matches.length === 0) {
                     fetchData().then(() => {
                         if (matches === null || matches.length === 0) {
                             setNoMoreMatches(true);
                         }
                     });
+                } else {
+                    let temp = matches;
+                    setCurrentMatch(temp.shift());
+                    setMatches(temp);
                 }
                 setInputEnabled(true);
 

@@ -57,21 +57,23 @@ exports.getUsersForSidebar = async (req, res, next) => {
     try{
         const authUserId = req.user._id
 
-        const conversations = Conversation.find({participants : {$in : authUserId}})
+        const conversations = await Conversation.find({participants : {$in : authUserId}})
+        console.log(conversations)
 
         const ids = []
-        for (conversation of conversations) {
+        for (let conversation of conversations) {
             conversation.participants.forEach((i) => {
-                if (i !== authUserId) {
+                if (!authUserId.equals(i)) {
                     ids.push(i)
                 }
             })
         }
+        console.log(ids)
 
         const users = await User.find({
             _id: {$in: ids}
         })
-
+        console.dir(users)
 
         res.status(200).json(users)
     } catch (err) {
