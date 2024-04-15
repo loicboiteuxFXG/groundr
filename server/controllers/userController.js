@@ -30,6 +30,7 @@ exports.UpdatePfp = async (req, res) => {
 
 exports.UpdateUserData = async (req, res) => {
     const userId = req.user._id
+    const data = req.body
     try{
         await User.updateOne({_id: userId}, data);
         const newUser = await User.findOne({_id:userId});
@@ -54,7 +55,7 @@ exports.UpdateUserPassword = async (req, res) => {
 }
 
 
-const setLocation = async (req, res, next) => {
+exports.setLocation = async (req, res, next) => {
     const userId = req.user._id;
     try {
         const updatedUser = await User.findOne({_id: userId})
@@ -66,8 +67,6 @@ const setLocation = async (req, res, next) => {
         res.status(500).send()
     }
 }
-
-module.exports = {GetUserToken, UpdatePfp, UpdateUserData, UpdateUserPassword, setLocation}
 
 exports.getUsersForSidebar = async (req, res, next) => {
     try{

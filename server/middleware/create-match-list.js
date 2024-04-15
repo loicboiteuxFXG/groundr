@@ -3,12 +3,6 @@ const Ground = require("../models/ground");
 
 const createMatchList = async (req, res, next) => {
 
-    const connectedUser = await User.findOne({_id : req.user._id});
-
-const Ground = require("../models/ground")
-
-const createMatchList = async (req, res, next) => {
-
     const authUser = await User.findOne({_id : req.user._id});
 
     const grounds = await User.find({
@@ -50,15 +44,15 @@ const createMatchList = async (req, res, next) => {
     // Only get appropriate users according to gender and orientation
     let query = {
         "_id": { $not: { $in: excludedUsersIDsQuery } },
-        "email": { $not: { $eq: connectedUser.email } },
-        "orientation": { $in: ["A", connectedUser.gender] },
-        "interests": {$in: connectedUser.interests },
+        "email": { $not: { $eq: authUser.email } },
+        "orientation": { $in: ["A", authUser.gender] },
+        "interests": {$in: authUser.interests },
         location:
             { $near:
                     {
-                        $geometry: { type: "Point",  coordinates: connectedUser.location.coordinates },
+                        $geometry: { type: "Point",  coordinates: authUser.location.coordinates },
                         $minDistance: 0,
-                        $maxDistance: (connectedUser.range * 1000)
+                        $maxDistance: (authUser.range * 1000)
                     }
             }
     };
@@ -71,4 +65,4 @@ const createMatchList = async (req, res, next) => {
     res.status(200).send({ recommendations: superinterestedUsers.concat(interestedUsers).concat(matchingUsers) });
 };
 
-module.exports = createMatchList;
+module.exports = createMatchList

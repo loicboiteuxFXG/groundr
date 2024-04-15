@@ -56,7 +56,7 @@ const ProfileEdit = () => {
                 console.log(interestList)
                 let temp = [];
                 response.data.forEach(i => {
-                    if (connectedUser.interests.includes(i.value)) {
+                    if (authUser.interests.includes(i.value)) {
                         temp.push(i);
                     }
                 });
@@ -71,15 +71,16 @@ const ProfileEdit = () => {
     }, []);
 
     useEffect(() => {
+        setInterests(authUser.interests);
         setFormData({
-            bio: connectedUser.bio,
-            email: connectedUser.email,
-            gender: connectedUser.gender,
-            orientation: connectedUser.orientation,
-            range: connectedUser.range
+            bio: authUser.bio,
+            email: authUser.email,
+            gender: authUser.gender,
+            orientation: authUser.orientation,
+            range: authUser.range
         });
 
-    }, [connectedUser]);
+    }, [authUser, interestList]);
 
 
     const handleSubmit = async (e) => {
@@ -121,7 +122,11 @@ const ProfileEdit = () => {
                 "range": formData.range
             };
 
-            axios.patch('http://localhost:3001/user/update', userData, {withCredentials: true})
+            axios.post('http://localhost:3001/user/update', userData, {
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
+                }
+            })
                 .then((response) => {
                     setAuthUser(response.data);
                     setLoading(false);
@@ -133,10 +138,6 @@ const ProfileEdit = () => {
                     setLoading(false);
                     const errors = err.response.data;
                     setErrors(errors);
-                    if (err.response.status === 401) {
-                        localStorage.removeItem("auth-user");
-                        navigate('/');
-                    }
                 });
         }
     };

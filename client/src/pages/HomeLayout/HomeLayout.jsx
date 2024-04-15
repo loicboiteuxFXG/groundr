@@ -1,7 +1,7 @@
-import { Link, Outlet } from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import useLogout from "../../hooks/useLogout";
@@ -31,9 +31,9 @@ const HomeLayout = () => {
     const sendLocation = (locationData) => {
         console.dir(locationData.coords)
         const data = {latitude: locationData.coords.latitude, longitude: locationData.coords.longitude}
-        axios.patch('http://localhost:3001/user/set-location', data, {
+        axios.post('http://localhost:3001/user/set-location', data, {
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
             .then(response => {
@@ -46,6 +46,7 @@ const HomeLayout = () => {
 
     const {setAuthUser} = useAuthContext()
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(sendLocation)
         document.title = "Accueil | GroundR";
         setAuthUser({
             firstName: "Chargement",
