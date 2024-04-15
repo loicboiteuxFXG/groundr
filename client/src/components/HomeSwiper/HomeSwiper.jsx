@@ -4,7 +4,7 @@ import axios from "axios";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
-import {ConnectedUserContext} from "../../pages/HomeLayout";
+import {useAuthContext} from "../../context/AuthContext";
 
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
@@ -18,7 +18,7 @@ const HomeSwiper = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
+    const {authUser} = useAuthContext()
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -122,7 +122,7 @@ const HomeSwiper = () => {
                                         </button>
                                     </form>
                                 </div>
-                                {connectedUser.isPremium ?
+                                {authUser.isPremium ?
                                     <div>
                                         <form method="POST" onSubmit={handleSubmit}>
                                             <input type="hidden" name="swipeStatus" value="superlike"/>

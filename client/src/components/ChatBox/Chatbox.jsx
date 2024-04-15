@@ -2,7 +2,6 @@ import Messages from "../Messages";
 import MessageInput from "../MessageInput";
 import useConversation from "../../zustand/useConversation";
 import {useEffect} from "react";
-import {multiValueAsValue} from "react-select/dist/declarations/src/utils";
 
 const NoChatSelected = () => {
     return (

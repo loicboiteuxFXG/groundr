@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../../styles.css";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
-import Modal from "../Modal";
 
 
 const SubscribeBox = () => {
@@ -11,9 +10,7 @@ const SubscribeBox = () => {
 
     useEffect(() => {
         document.title = "S'abonner | GroundR";
-
-
-    }, [navigate]);
+    }, []);
 
     const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
     const regExpNumber = '[0-9]/-';
@@ -154,4 +151,4 @@ const SubscribeBox = () => {
     );
 };
 
-module.exports = SubscribeBox
+export default SubscribeBox

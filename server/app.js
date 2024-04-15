@@ -1,13 +1,13 @@
 'use strict';
 
 const express = require('express');
+const {app, server} = require('./socket/socket')
 const cors = require('cors');
 const cookieParser = require('cookie-parser')
 const mongoose = require("mongoose");
 const dotenv = require('dotenv')
 dotenv.config()
 
-const app = express();
 const port = process.env.PORT;
 const groundrDbURI = process.env.MONGO_DB_URI
 
@@ -70,7 +70,7 @@ app.get('/add', async (req, res) => {
 }) */
 mongoose.connect(groundrDbURI)
     .then(response => {
-        app.listen(port, () => {
+        server.listen(port, () => {
             console.log(`Example app listening on port ${port}`);
         });
     })

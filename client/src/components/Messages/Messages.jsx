@@ -2,10 +2,12 @@ import Message from "../Message";
 import useGetMessages from "../../hooks/useGetMessages";
 import LoadingIndicator from "../LoadingIndicator";
 import {useEffect, useRef} from "react";
+import useListenMessages from "../../hooks/useListenMessages";
 
 
 const Messages = () => {
     const {loading, messages} = useGetMessages()
+    useListenMessages()
     const lastMessageRef = useRef()
     useEffect(() => {
         setTimeout(() => {
@@ -23,11 +25,6 @@ const Messages = () => {
                 )))}
             {!loading && messages.length === 0 && (
                 <div className="nochatselected"><p>Envoyez un message pour commencer la conversation.</p></div>)}
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
         </div>
     )
 }

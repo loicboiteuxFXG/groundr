@@ -894,6 +894,26 @@ body {
     }
 }
 
+/* CSS Animation for Message Pop In with Bounce */
+@keyframes messagePopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply Animation to Message Element */
+.message-anim {
+    animation: messagePopIn 0.5s ease forwards;
+}
+
 // ===================
 // ===================
 // ===================

@@ -8,13 +8,16 @@ import {AuthContextProvider} from "./context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import {SocketContextProvider} from "./context/SocketContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <AuthContextProvider>
-                <App/>
+                <SocketContextProvider>
+                    <App/>
+                </SocketContextProvider>
             </AuthContextProvider>
         </BrowserRouter>
     </React.StrictMode>

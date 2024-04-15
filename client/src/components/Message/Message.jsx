@@ -9,6 +9,7 @@ const Message = ({message}) => {
     const formattedTime = extractTime(message.createdAt)
     const chatClassName = fromMe ? 'message-end' : 'message-start'
     const profilePic = fromMe ? authUser.pfpURL : selectedConversation?.pfpURL
+    const animate = message.anim ? "message-anim" : ""
     const pfpURL = `http://localhost:3001/media/${profilePic}`
     return (
         <div className={chatClassName}>
@@ -16,7 +17,7 @@ const Message = ({message}) => {
                 <img src={pfpURL} alt="Photo de profil"/>
             </div>
             <div className="message">
-                <div className="bubble">{message.message}</div>
+                <div className={`bubble ${animate}`}>{message.message}</div>
                 <div className="timestamp">{formattedTime}</div>
             </div>
         </div>
