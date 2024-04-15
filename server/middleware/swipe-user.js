@@ -1,8 +1,10 @@
 const Ground = require("../models/ground");
+const Conversation = require("../models/conversation")
 
 const swipeUser = async (req, res, next) => {
     const swipeStatus = req.body.swipeStatus;
     const swipedUser = req.body.swipedUser;
+    const userId = req.user._id
 
     const fetchedGroundsList = await Ground.find({
         $or: [
@@ -25,6 +27,10 @@ const swipeUser = async (req, res, next) => {
             // MATCH
             console.log("MATCH! Mise à jour du Ground.");
             await Ground.findByIdAndUpdate(fetchedGround._id, { status: "common" });
+            const conversation = new Conversation({
+                participants : [userId, swipedUser._id]
+            })
+            await conversation.save()
             res.send({action: "update", match: true, user: swipedUser});
         } else {
             // DELETE

@@ -13,7 +13,7 @@ const NoChatSelected = () => {
 }
 
 const Chatbox = () => {
-    const {selectedConversation, setSelectedConversation} = useConversation()
+    const {selectedConversation, setSelectedConversation} = useConversation
 
     useEffect(() => {
         return () => setSelectedConversation(null)

@@ -25,7 +25,7 @@ const Profile = () => {
         })
             .then(response => {
                 console.log(response)
-                setConnectedUser(response.data);
+                setAuthUser(response.data);
             })
             .catch(err => {
                 console.error(err);
@@ -91,7 +91,7 @@ const Profile = () => {
             <div>
                 <Link to="edit" className="btnGround">Modifier le profil</Link>
                 <Link to="password/edit" className="btnGround">Modifier le mot de passe</Link>
-                {connectedUser.isPremium ? <> </> : <Link to="subscribe" className="btnGround">S'abonner à GroundR Max</Link>}
+                {authUser.isPremium ? <> </> : <Link to="subscribe" className="btnGround">S'abonner à GroundR Max</Link>}
             </div>
         </div>
     )

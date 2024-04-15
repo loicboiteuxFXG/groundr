@@ -5,6 +5,7 @@ import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import {useAuthContext} from "../../context/AuthContext";
+import notificationSound from "../../assets/sounds/message.wav"
 
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
@@ -62,7 +63,7 @@ const HomeSwiper = () => {
         axios.post('http://localhost:3001/swipe/ground', {
             swipedUser: currentMatch,
             swipeStatus: e.target.swipeStatus.value,
-        }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}` } })
+        }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
             .then((response) => {
                 console.log(response.data);
                 let temp = matches;
@@ -79,6 +80,8 @@ const HomeSwiper = () => {
 
                 if (response.data.match) {
                     setMatchedUsername(response.data.user.firstName);
+                    const sound = new Audio(notificationSound)
+                    sound.play()
                     openModal();
                 }
             })
@@ -86,7 +89,7 @@ const HomeSwiper = () => {
                 console.error(err);
                 setInputEnabled(true);
                 if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
+                    localStorage.removeItem("auth-user");
                     navigate('/');
                 }
             });

@@ -11,29 +11,6 @@ const HomeLayout = () => {
 
     useEffect(() => {
         document.title = "Accueil | GroundR";
-
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:3001/user/get-user-token', {
-                    headers: {
-                        "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
-                    }
-                });
-                setConnectedUser(response.data);
-            } catch (err) {
-                if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
-                    navigate('/');
-                }
-            }
-        };
-
-        fetchData();
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (!token) {
-            navigate('/account/login');
-        }
     }, []);
 
     const LogoutButton = () => {

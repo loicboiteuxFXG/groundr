@@ -1,6 +1,7 @@
 'use strict'
 
 const User = require("../models/user")
+const Conversation = require('../models/conversation')
 const bcrypt = require('bcrypt')
 const {stderr} = require("process");
 
@@ -55,8 +56,19 @@ exports.getUsersForSidebar = async (req, res, next) => {
     try{
         const authUserId = req.user._id
 
+        const conversations = Conversation.find({participants : {$in : authUserId}})
+
+        const ids = []
+        for (conversation of conversations) {
+            conversation.participants.forEach((i) => {
+                if (i !== authUserId) {
+                    ids.push(i)
+                }
+            })
+        }
+
         const users = await User.find({
-            _id: {$ne: authUserId}
+            _id: {$in: ids}
         })
 
 

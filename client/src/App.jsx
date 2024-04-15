@@ -2,8 +2,6 @@ import {useAuthContext} from "./context/AuthContext";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Presentation from "./pages/Presentation";
 import HomeLayout from "./pages/HomeLayout";
-import HomeChatbox from "./components/HomeChatbox";
-import HomeSettings from "./components/HomeSettings";
 import HomeSwiper from "./components/HomeSwiper";
 import Profile from "./components/Profile";
 import ProfileEdit from "./components/ProfileEdit";
@@ -21,7 +19,6 @@ const App = () => {
             <Route path="/" element={<Presentation />} />
             <Route path="/home" element={authUser ? <HomeLayout /> : <Navigate to="/account/login" />}>
                 <Route path="chat" element={<Chatbox />} />
-                <Route path="settings" element={<HomeSettings />} />
                 <Route path="swipe" element={<HomeSwiper />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="profile/edit" element={<ProfileEdit />} />
