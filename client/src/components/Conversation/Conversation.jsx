@@ -15,6 +15,7 @@ const Conversation = ({conversation}) => {
     const handleClick = () => {
         setSelectedConversation(conversation)
         navigate('chat')
+
     }
 
     return (

@@ -1,4 +1,4 @@
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
 import {useEffect, useState} from "react";
@@ -9,8 +9,13 @@ import Sidebar from "../../components/Sidebar";
 import {BiLogOut} from "react-icons/bi";
 import {useAuthContext} from "../../context/AuthContext";
 import axios from "axios";
+
+import {useConversation} from "../../context/ConversationContext"
+
 const HomeLayout = () => {
     const navigate = useNavigate();
+    const location = useLocation()
+    const {selectedConversation, setSelectedConversation} = useConversation()
 
     const [connectedUser, setConnectedUser] = useState({
         firstName: 'Chargement',
@@ -27,6 +32,12 @@ const HomeLayout = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    useEffect(() => {
+        if (location.pathname !== "/home/chat") {
+            setSelectedConversation(null)
+        }
+    }, [location])
 
     const sendLocation = (locationData) => {
         console.dir(locationData.coords)

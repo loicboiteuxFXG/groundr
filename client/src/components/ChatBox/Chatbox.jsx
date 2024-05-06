@@ -1,7 +1,7 @@
 import Messages from "../Messages"
 import MessageInput from "../MessageInput"
 import {useConversation} from "../../context/ConversationContext"
-import {useEffect} from "react"
+import {useEffect, useRef} from "react"
 import {useLocation} from "react-router-dom";
 
 const NoChatSelected = () => {
@@ -15,13 +15,7 @@ const NoChatSelected = () => {
 
 const Chatbox = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
-    
 
-    useEffect(() => {
-        return () => {
-            setSelectedConversation(null)
-        }
-    }, [setSelectedConversation])
 
     return (
         <>
