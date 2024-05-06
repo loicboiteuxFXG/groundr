@@ -17,14 +17,17 @@ const Messages = () => {
     return (
         <div className="messages" >
             {loading && <LoadingIndicator />}
-            {!loading && messages.length > 0 && (
+            {messages && messages.length > 0 ? (
                 messages.map((message) => (
                     <div key={message._id} ref={lastMessageRef}>
                         <Message message={message} />
                     </div>
-                )))}
-            {!loading && messages.length === 0 && (
-                <div className="nochatselected"><p>Envoyez un message pour commencer la conversation.</p></div>)}
+                ))
+            ) : !loading ? (
+                <div className="nochatselected">
+                    <p>Envoyez un message pour commencer la conversation.</p>
+                </div>
+            ) : null}
         </div>
     )
 }

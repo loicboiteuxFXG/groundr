@@ -1,7 +1,7 @@
-import Messages from "../Messages";
-import MessageInput from "../MessageInput";
-import {useConversation} from "../../context/ConversationContext";
-import {useEffect} from "react";
+import Messages from "../Messages"
+import MessageInput from "../MessageInput"
+import {useConversation} from "../../context/ConversationContext"
+import {useEffect} from "react"
 
 const NoChatSelected = () => {
     return (
@@ -25,7 +25,7 @@ const Chatbox = () => {
                 <NoChatSelected/>
             ) : (
                 <>
-                    <h2 className="contact">To: {selectedConversation.firstName + " " + selectedConversation.lastName}</h2>
+                    <h2 className="contact">{selectedConversation.firstName + " " + selectedConversation.lastName}</h2>
                     <Messages/>
                     <MessageInput/>
                 </>

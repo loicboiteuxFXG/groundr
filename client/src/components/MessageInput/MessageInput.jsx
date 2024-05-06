@@ -12,11 +12,12 @@ const MessageInput = () => {
 
         await sendMessage(message)
         setMessage("")
+        document.getElementById("messageField").value = ""
     }
 
     return (
         <form className="messagebar" onSubmit={handleSubmit}>
-            <input type="text" className="form-control" placeholder="Aa" onChange={(e) => setMessage(e.target.value)}/>
+            <input type="text" id="messageField" className="form-control" placeholder="Aa" onChange={(e) => setMessage(e.target.value)}/>
             {loading ? <LoadingIndicator /> : (
                 <button type="submit" className="btnSend">
                     <IoSend style={{width: "100%", height: "100%"}}/>

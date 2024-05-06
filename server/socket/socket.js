@@ -12,7 +12,7 @@ const io = new Server(server, {
     }
 })
 
-exports.getReceiverSocketId = (receiverId) => {
+const getReceiverSocketId = (receiverId) => {
     return userSocketMap[receiverId]
 }
 
@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
     console.log('Un utilisateur est connecté', socket.id)
 
     const userId = socket.handshake.query.userId
-    if(userId != "undefined") userSocketMap[userId] = socket.id
+    if(userId !== "undefined") userSocketMap[userId] = socket.id
 
     io.emit("getOnlineUsers", Object.keys(userSocketMap))
 
@@ -33,4 +33,4 @@ io.on('connection', (socket) => {
     })
 })
 
-module.exports = {app, io, server}
+module.exports = {app, io, server, getReceiverSocketId}

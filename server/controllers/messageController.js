@@ -2,7 +2,8 @@
 
 const Conversation = require('../models/conversation')
 const Message = require('../models/message')
-const {getReceiverSocketId, io} = require("../socket/socket");
+const {io} = require('../socket/socket')
+import {getReceiverSocketId} from "../socket/socket";
 
 exports.getMessages = async (req, res, next) => {
     try {

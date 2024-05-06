@@ -1,5 +1,6 @@
 import {useConversation} from "../../context/ConversationContext";
 import {useSocketContext} from "../../context/SocketContext";
+import {useNavigate} from "react-router-dom";
 
 const Conversation = ({conversation}) => {
     const {selectedConversation, setSelectedConversation} = useConversation()
@@ -7,12 +8,19 @@ const Conversation = ({conversation}) => {
     const {onlineUsers} = useSocketContext()
     const isOnline = onlineUsers.includes(conversation._id)
     const url = `http://localhost:3001/media/${conversation.pfpURL}`
+    const navigate = useNavigate()
 
     const fullName = conversation.firstName + " " + conversation.lastName
+
+    const handleClick = () => {
+        setSelectedConversation(conversation)
+        navigate('chat')
+    }
+
     return (
         <>
             <div className={`conversation ${isSelected ? "selected" : ""}`}
-                 onClick={() => setSelectedConversation(conversation)}>
+                 onClick={handleClick}>
                 <div className="photo">
                     <img src={url} alt="Photo de profil"/>
                 </div>

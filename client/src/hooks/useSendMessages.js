@@ -9,7 +9,7 @@ const useSendMessages = () => {
     const sendMessage = async (message) => {
         setLoading(true)
         try {
-            const response = await axios.post(`http://localhost:3001/message/send/${selectedConversation._id}`, JSON.stringify(message))
+            const response = await axios.post(`http://localhost:3001/message/send/${selectedConversation._id}`, {message: message}, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
             if(response.data.error) {
                 throw new Error(response.data.error)
             }
