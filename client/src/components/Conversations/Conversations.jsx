@@ -1,6 +1,7 @@
 import Conversation from "../Conversation";
 import useGetConversations from "../../hooks/useGetConversations";
 import LoadingIndicator from "../LoadingIndicator";
+import React from "react";
 
 const Conversations = () => {
     const {loading, conversations} = useGetConversations()
@@ -9,7 +10,7 @@ const Conversations = () => {
             {conversations.map((conversation) => {
                 return <Conversation key={conversation._id} conversation={conversation}/>
             })}
-            {loading ? <LoadingIndicator /> : null}
+            {loading ? <div className="centerHeart"><LoadingIndicator/></div> : null}
         </div>
     )
 }
