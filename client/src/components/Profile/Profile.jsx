@@ -2,27 +2,35 @@ import {Link, useNavigate} from "react-router-dom";
 import '../../styles.css'
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
-import {ConnectedUserContext} from '../../pages/HomeLayout'
+import {useAuthContext} from "../../context/AuthContext";
 
 const Profile = () => {
     const navigate = useNavigate()
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
+    const {authUser, setAuthUser} = useAuthContext()
     const [file, setFile] = useState(null)
 
     useEffect(() => {
         document.title = "Votre profil | GroundR"
-
-        const token = JSON.parse(localStorage.getItem("usertoken"))
-        if (!token) {
-            navigate('/account/login')
-        }
-
-        console.log(connectedUser)
     }, [])
 
 
 
+    const submitSubscribe = (e) => {
+        e.preventDefault()
+        axios.patch('http://localhost:3001/user/subscribe',{}, {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
+            }
+        })
+            .then(response => {
+                console.log(response)
+                setAuthUser(response.data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
 
     const handleImageClick = () => {
         document.getElementById('fileInput').click();
@@ -33,40 +41,29 @@ const Profile = () => {
         setFile(selectedFile);
         const data = new FormData()
         data.append('file', selectedFile)
-        data.append('user', connectedUser)
+        data.append('user', authUser)
         var filename = ""
-        await axios.post('http://localhost:3001/file/upload-new', data, {
-
-        })
+        await axios.post('http://localhost:3001/file/upload-new', data)
             .then((response) => {
                 filename = response.data.filename;
-                console.log(filename)
             })
             .catch(err => console.error(err))
 
-        console.log(filename)
-
-        const data2 = new FormData()
-        data2.append('filename', filename)
         await axios.post('http://localhost:3001/user/update-pfp', {filename: filename}, {
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
             .then(response => {
-                setConnectedUser(response.data)
+                setAuthUser(response.data)
             })
             .catch(err => {
-                if (err.response.status === 401) {
-                    localStorage.removeItem("usertoken");
-                    navigate('/');
-                }
+                console.error(err)
             })
-        console.log(connectedUser)
     };
 
-    const pfpURL = `http://localhost:3001/media/${connectedUser.pfpURL}`
-    const fullname = connectedUser.firstName + " " + connectedUser.lastName
+    const pfpURL = `http://localhost:3001/media/${authUser.pfpURL}`
+    const fullname = authUser.firstName + " " + authUser.lastName
 
     return (
         <div className="profileLayout">
@@ -79,11 +76,12 @@ const Profile = () => {
                     </div>
                 </div>
                 <h2>{fullname}</h2>
-                <p>{connectedUser.bio}</p>
+                <p>{authUser.bio}</p>
             </div>
             <div>
                 <Link to="edit" className="btnGround">Modifier le profil</Link>
                 <Link to="password/edit" className="btnGround">Modifier le mot de passe</Link>
+                {authUser.isPremium ? <> </> : <Link to="subscribe" className="btnGround">S'abonner à GroundR Max</Link>}
             </div>
         </div>
     )

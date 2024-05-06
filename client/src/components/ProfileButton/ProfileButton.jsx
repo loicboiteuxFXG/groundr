@@ -1,14 +1,15 @@
 import {useNavigate} from 'react-router-dom'
 import {ConnectedUserContext} from "../../pages/HomeLayout";
 import {useContext} from "react";
+import {useAuthContext} from "../../context/AuthContext";
 
 const ProfileButton = () => {
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext)
+    const {authUser} = useAuthContext()
 
     const navigate = useNavigate()
 
-    const fullName = connectedUser.firstName + " " + connectedUser.lastName
-    const pfp = `http://localhost:3001/media/${connectedUser.pfpURL}`
+    const fullName = authUser.firstName + " " + authUser.lastName
+    const pfp = `http://localhost:3001/media/${authUser.pfpURL}`
 
     const handleCLick = () => {
         navigate('profile')

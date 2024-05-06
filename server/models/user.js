@@ -1,17 +1,15 @@
 "use strict";
-const mongoose = require("mongoose");
+const mongoose= require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     firstName : {
         type : String,
-        required: true,
-        unique: true,
+        required: true
     },
     lastName : {
         type : String,
-        required: true,
-        unique: true,
+        required: true
     },
     email : {
         type : String,
@@ -38,10 +36,16 @@ const userSchema = new Schema({
     },
     interests: {
         type: [{
-            type: String,
+            type: Schema.Types.ObjectId,
             required: true,
+            ref: "interest"
         }],
         validate: [(val) => val.length > 0 && val.length <= 5, 'Doit avoir entre 1 et 5 intérêts.']
+    },
+    isPremium: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     DoB: {
         type: Schema.Types.Date,
@@ -56,6 +60,24 @@ const userSchema = new Schema({
         type: String,
         required: true,
         default: "default-user.png"
+    },
+    location: {
+        type: {
+            type: String, // Don't do `{ location: { type: String } }`
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true,
+            default: "Point"
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+            default: [0, 0]
+        }
+    },
+    range: {
+        type: Number,
+        required: true,
+        default: 10
     }
 },{
     timestamps: false

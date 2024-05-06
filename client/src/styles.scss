@@ -99,6 +99,100 @@ h1 img {
     }
 }
 
+.search {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e3a256;
+    input{
+        width: 80%;
+        border-radius: 40px;
+        background-color: $dark-color2;
+        border-color: #e3a256;
+        color: white;
+        &:focus{
+            background-color: $dark-color2;
+            border-color: #e3a256;
+            color: white;
+        }
+    }
+    input::placeholder {
+        color: white;
+        opacity: 1;
+    }
+    .btnSearch {
+        background-image: url("images/gold.jpg");
+        color: $dark-color;
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+        border: none;
+        &:hover {
+            background-position-x: -30px;
+            transition: 250ms;
+        }
+    }
+}
+
+.conversation {
+    background-color: $dark-color2;
+    border-radius: 20px;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    .photo {
+        width: 20%;
+        margin-right: 15px;
+        img {
+            width: 100%;
+        }
+    }
+    .middlecontent {
+        width: 75%;
+        .receiver {
+            margin: 0;
+            color: #e4c14d;
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.3rem;
+        }
+        .lastmessage {
+            margin: 0;
+            color: #e3a256;
+            font-size: 1rem;
+        }
+    }
+    .onlinestatus {
+        width: 5%;
+    }
+    &:hover{
+        background-color: #363636;
+        transition: 250ms;
+    }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.selected {
+    background-color: #363636;
+}
+
+.conversations {
+    height:30vh;
+    overflow-y:scroll;
+}
+
+.btnLogout {
+    border: none;
+    background: none;
+    width: 15%;
+}
+
 .limit-center {
     margin: 0 auto;
     width: 50%;
@@ -420,6 +514,132 @@ footer {
     }
 }
 
+.messages {
+    height: 63vh;
+    overflow-y: scroll;
+}
+
+.message-start{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    .pfp {
+        width: 5%;
+        margin-right: 10px;
+        img {
+            width: 100%;
+            border-radius: 100%;
+        }
+    }
+    .bubble {
+        display: inline-block;
+        max-width: 50%;
+        width: auto;
+        padding: 10px;
+        background-color: $dark-color;
+        border-radius: 25px;
+        overflow-wrap: break-word;
+    }
+    .message {
+        display: inline-block;
+        width: 95%;
+    }
+    .timestamp {
+        color: #e3a256;
+    }
+}
+
+.message-end {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+    .pfp {
+        width: 5%;
+        margin-left: 10px;
+        img {
+            width: 100%;
+            border-radius: 100%;
+        }
+    }
+    .bubble {
+        display: inline-block;
+        max-width: 50%;
+        width: auto;
+        padding: 10px;
+        background-color: #e4c14d;
+        border-radius: 25px;
+        overflow-wrap: break-word;
+        align-self: flex-end;
+    }
+    .message {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+    }
+    .timestamp {
+        color: #e3a256;
+        align-self: flex-end;
+    }
+}
+
+.messagebar {
+    display: flex;
+    justify-content: space-between;
+    input {
+        width: 95%;
+        height: 50px;
+        border-radius: 40px;
+        background-color: $dark-color2;
+        border-color: #e3a256;
+        color: white;
+        &:focus{
+            background-color: $dark-color2;
+            border-color: #e3a256;
+            color: white;
+        }
+    }
+    input::placeholder {
+        color: white;
+        opacity: 1;
+    }
+    .btnSend {
+        background-color: #926129;
+        padding: 10px;
+        width: 50px;
+        height: 50px;
+        border: none;
+        border-radius: 100%;
+        &:hover{
+            background-color: #e4c14d;
+            transition: 250ms;
+        }
+    }
+}
+
+.contact {
+    color: #e3a256;
+}
+
+.nochatselected {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+        color: #e3a256;
+    }
+    p {
+        color: #e3a256;
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+    }
+}
+
 .centerHeart {
     display: flex;
     justify-content: center;
@@ -673,6 +893,26 @@ body {
         margin-top: 30%;
         margin-left: 80%;
     }
+}
+
+/* CSS Animation for Message Pop In with Bounce */
+@keyframes messagePopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply Animation to Message Element */
+.message-anim {
+    animation: messagePopIn 0.5s ease forwards;
 }
 
 // ===================

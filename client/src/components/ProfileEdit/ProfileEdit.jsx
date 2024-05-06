@@ -1,35 +1,34 @@
 import Select from "react-select";
 import LoadingIndicator from "../LoadingIndicator";
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { ConnectedUserContext } from "../../pages/HomeLayout";
+import {useNavigate} from "react-router-dom";
 import Modal from "../Modal";
+import {useAuthContext} from "../../context/AuthContext";
 
 const ProfileEdit = () => {
     const navigate = useNavigate();
 
-    let [connectedUser, setConnectedUser] = useContext(ConnectedUserContext);
+    const {authUser, setAuthUser} = useAuthContext()
 
     useEffect(() => {
-        document.title = "Modifier votre profil | GroundR";
-
-        const token = JSON.parse(localStorage.getItem("usertoken"));
-        if (!token) {
-            navigate('/account/login');
-        }
-    }, [navigate]);
+        document.title = "Modifier votre profil | GroundR"
+    }, []);
 
 
     const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
     const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
 
     const [formData, setFormData] = useState({
-        email: connectedUser.email,
-        gender: connectedUser.gender,
-        orientation: connectedUser.orientation,
+
+        email: "",
+        gender: "M",
+        orientation: "M",
+        range: 0,
+        bio: ""
+
     });
-    const [interests, setInterests] = useState(connectedUser.interests);
+    const [interests, setInterests] = useState([]);
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
@@ -48,38 +47,40 @@ const ProfileEdit = () => {
 
 
     useEffect(() => {
-        async function fetchData() {
+        const fetchData = async () => {
             setLoading(true);
-            axios.get('http://localhost:3001/user/get-interests')
-                .then((response) => {
-                    setInterestList(response.data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    setLoading(false);
+            try {
+                const response = await axios.get('http://localhost:3001/user/get-interests')
+                console.log(response.data)
+                setInterestList(response.data);
+                console.log(interestList)
+                let temp = [];
+                response.data.forEach(i => {
+                    if (authUser.interests.includes(i.value)) {
+                        temp.push(i);
+                    }
                 });
+                setInterests(temp);
+            } catch (err) {
+                console.error(err)
+            } finally {
+                setLoading(false);
+            }
         }
-        fetchData();
+        fetchData()
     }, []);
 
-
     useEffect(() => {
-        setInterests(connectedUser.interests);
+        setInterests(authUser.interests);
         setFormData({
-            bio: connectedUser.bio,
-            email: connectedUser.email,
-            gender: connectedUser.gender,
-            orientation: connectedUser.orientation
+            bio: authUser.bio,
+            email: authUser.email,
+            gender: authUser.gender,
+            orientation: authUser.orientation,
+            range: authUser.range
         });
 
-        let temp = [];
-        interestList.forEach(i => {
-            if (connectedUser.interests.includes(i.value)) {
-                temp.push(i);
-            }
-        });
-        setInterests(temp);
-    }, [connectedUser]);
+    }, [authUser, interestList]);
 
 
     const handleSubmit = async (e) => {
@@ -92,13 +93,18 @@ const ProfileEdit = () => {
             validationErrors.email = 'L\'adresse courriel est invalide.';
         }
 
-        if (!formData.bio.match(regExpString)) {
+        if (!formData.bio.trim()) {
+            validationErrors.bio = 'Ce champ est requis'
+        }
+        else if (!formData.bio.match(regExpString)) {
             validationErrors.bio = 'La bio est invalide.';
         }
 
         if (!interests || interests.length < 3) {
             validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.';
         }
+
+        if (formData.range < 1) formData.range = 1
 
         setErrors(validationErrors);
 
@@ -113,33 +119,32 @@ const ProfileEdit = () => {
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "interests": interestsToSend,
+                "range": formData.range
             };
 
             axios.post('http://localhost:3001/user/update', userData, {
                 headers: {
-                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                 }
             })
                 .then((response) => {
-                    setConnectedUser(response.data);
+                    setAuthUser(response.data);
                     setLoading(false);
                     setIsChanged(false);
                     openModal();
                 })
                 .catch((err) => {
+                    console.log(err)
                     setLoading(false);
                     const errors = err.response.data;
                     setErrors(errors);
-                    if (err.response.status === 401) {
-                        localStorage.removeItem("usertoken");
-                        navigate('/');
-                    }
                 });
         }
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
+
         setFormData({
             ...formData, [name]: value
         });
@@ -154,7 +159,7 @@ const ProfileEdit = () => {
     return (
         <>
             <div className="container signup-layout">
-                <h2 className="golden">Modifier le compte</h2>
+                <h2 className="golden">Modifier le profil</h2>
                 <div className="signup-card">
                     <form onSubmit={handleSubmit} noValidate>
 
@@ -179,19 +184,20 @@ const ProfileEdit = () => {
                         {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
                         <label htmlFor="gender">Identité de genre</label>
                         <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
-                            name="gender"
-                            onChange={handleChange}
-                            value={formData.gender}>
+                                name="gender"
+                                onChange={handleChange}
+                                value={formData.gender}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
                         </select>
                         {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
                         <label htmlFor="orientation">Je recherche</label>
-                        <select id="orientation" className={errors.orientation ? "is-invalid form-control" : "form-control"}
-                            name="orientation"
-                            onChange={handleChange}
-                            value={formData.orientation}>
+                        <select id="orientation"
+                                className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                                name="orientation"
+                                onChange={handleChange}
+                                value={formData.orientation}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="B">Les deux</option>
@@ -261,9 +267,19 @@ const ProfileEdit = () => {
                                 })
                             }}
                         />
+                        <label htmlFor="range">Distance maximale (KM)</label>
+                        <input
+                            type="number"
+                            name="range"
+                            className="form-control"
+                            min="0"
+                            onChange={handleChange}
+                            value={formData.range}
+                        />
                         {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
                         {
-                            isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> : <input type="submit" className="custom-btn" value="Mettre à jour" />}</>
+                            isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                                    <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
                                 : <></>
 
                         }
