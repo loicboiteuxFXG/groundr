@@ -115,7 +115,6 @@ const HomeSwiper = () => {
             age--;
         }
 
-
         return (
             <div className="swiperLayout">
                 {noMoreMatches ? <h2>Désolé, nous n'avons plus de Grounds à vous proposer.</h2> :

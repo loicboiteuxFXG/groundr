@@ -2,12 +2,14 @@ import {IoSearchSharp} from "react-icons/io5";
 import React, {useState} from "react";
 import {useConversation} from "../../context/ConversationContext";
 import useGetConversations from "../../hooks/useGetConversations";
+import {useNavigate} from "react-router-dom";
 
 const SearchInput = () => {
     const [error, setError] = useState(false)
     const [search, setSearch] = useState("")
     const {setSelectedConversation} = useConversation()
     const {conversations} = useGetConversations()
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -18,6 +20,7 @@ const SearchInput = () => {
             setError(false)
             setSelectedConversation(conversation)
             setSearch("")
+            navigate('chat')
         } else {
             setError(true)
         }

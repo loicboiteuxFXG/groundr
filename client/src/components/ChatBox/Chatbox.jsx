@@ -2,6 +2,7 @@ import Messages from "../Messages"
 import MessageInput from "../MessageInput"
 import {useConversation} from "../../context/ConversationContext"
 import {useEffect} from "react"
+import {useLocation} from "react-router-dom";
 
 const NoChatSelected = () => {
     return (
@@ -14,10 +15,13 @@ const NoChatSelected = () => {
 
 const Chatbox = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
+    
 
     useEffect(() => {
-        return () => setSelectedConversation(null)
-    }, [setSelectedConversation]);
+        return () => {
+            setSelectedConversation(null)
+        }
+    }, [setSelectedConversation])
 
     return (
         <>
@@ -26,7 +30,7 @@ const Chatbox = () => {
             ) : (
                 <>
                     <h2 className="contact">{selectedConversation.firstName + " " + selectedConversation.lastName}</h2>
-                    <Messages/>
+                    <Messages />
                     <MessageInput/>
                 </>
             )
