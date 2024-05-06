@@ -55,7 +55,6 @@ const HomeSwiper = () => {
                 console.error(err);
                 if (err.response.status === 401) {
                     localStorage.removeItem("auth-user");
-                    navigate('/');
                 }
             })
             .finally(() => {

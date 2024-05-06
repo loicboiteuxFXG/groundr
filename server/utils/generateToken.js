@@ -10,7 +10,7 @@ const generateToken = (user) => {
             lastname: user.lastname
         },
         process.env.SECRET_JWT,
-        {expiresIn: "1h"}
+        {expiresIn: "10s"}
     )
 
     return token

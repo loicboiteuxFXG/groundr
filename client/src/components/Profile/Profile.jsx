@@ -28,7 +28,9 @@ const Profile = () => {
                 setAuthUser(response.data);
             })
             .catch(err => {
-                console.error(err);
+                if (err.response.status === 401) {
+                    localStorage.removeItem("auth-user")
+                }
             })
     }
 
@@ -58,7 +60,9 @@ const Profile = () => {
                 setAuthUser(response.data)
             })
             .catch(err => {
-                console.error(err)
+                if (err.response.status === 401) {
+                    localStorage.removeItem("auth-user")
+                }
             })
     };
 

@@ -17,22 +17,6 @@ const HomeLayout = () => {
     const location = useLocation()
     const {selectedConversation, setSelectedConversation} = useConversation()
 
-    const [connectedUser, setConnectedUser] = useState({
-        firstName: 'Chargement',
-        lastName: '',
-        bio: '',
-        pfpURL: 'default-user.png'
-    })
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
     useEffect(() => {
         if (location.pathname !== "/home/chat") {
             setSelectedConversation(null)
@@ -75,7 +59,9 @@ const HomeLayout = () => {
                 console.dir(user)
                 setAuthUser(user)
             } catch (err) {
-                console.error(err)
+                if (err.response.status === 401) {
+                    localStorage.removeItem("auth-user")
+                }
             }
         }
         fetchUser()
