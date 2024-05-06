@@ -13,7 +13,7 @@ const SubscribeBox = () => {
     }, []);
 
     const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
-    const regExpNumber = '[0-9]/-';
+    const regExpNumber = '0-9/-';
 
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
@@ -49,37 +49,38 @@ const SubscribeBox = () => {
         setLoading(true)
 
         const validationErrors = {};
-
-        if (!formData.name.trim()) {
-            validationErrors.name = 'Ce champ est requis.';
-        } else if (!formData.name.trim().match(regExpString)) {
-            validationErrors.name = 'Le nom entré est invalide.';
-        }
-
-        if (!formData.card.trim()) {
-            validationErrors.card = 'Ce champ est requis.';
-        } else if (!formData.card.trim().match(regExpNumber)) {
-            validationErrors.card = 'Le numéro de carte est invalide.';
-        }
-
-        if (!formData.cvv.trim()) {
-            validationErrors.cvv = 'Ce champ est requis.';
-        } else if (!formData.cvv.trim().match(regExpNumber)) {
-            validationErrors.cvv = 'Le CVV est invalide.';
-        }
-
-        if (!formData.date.trim()) {
-            validationErrors.date = 'Ce champ est requis.';
-        } else if (!formData.date.trim().match(regExpNumber)) {
-            validationErrors.date = 'La date est est invalide.';
-        }
+        //
+        // if (!formData.name.trim()) {
+        //     validationErrors.name = 'Ce champ est requis.';
+        // } else if (!formData.name.trim().match(regExpString)) {
+        //     validationErrors.name = 'Le nom entré est invalide.';
+        // }
+        //
+        // if (!formData.card.trim()) {
+        //     validationErrors.card = 'Ce champ est requis.';
+        // } else if (!formData.card.trim().match(regExpNumber)) {
+        //     validationErrors.card = 'Le numéro de carte est invalide.';
+        // }
+        //
+        // if (!formData.cvv.trim()) {
+        //     validationErrors.cvv = 'Ce champ est requis.';
+        // } else if (!formData.cvv.trim().match(regExpNumber)) {
+        //     validationErrors.cvv = 'Le CVV est invalide.';
+        // }
+        //
+        // if (!formData.date.trim()) {
+        //     validationErrors.date = 'Ce champ est requis.';
+        // } else if (!formData.date.trim().match(regExpNumber)) {
+        //     validationErrors.date = 'La date est est invalide.';
+        // }
 
         setErrors(validationErrors);
+        setLoading(false);
         if (Object.keys(validationErrors).length === 0) {
 
             axios.post('http://localhost:3001/user/subscribe', {}, {
                 headers: {
-                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("usertoken"))}`
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                 }
             })
                 .then((response) => {
@@ -87,7 +88,6 @@ const SubscribeBox = () => {
                 })
                 .catch((err) => {
                     console.log(err)
-                    setLoading(false);
                 });
         }
     }

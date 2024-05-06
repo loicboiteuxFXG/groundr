@@ -43,7 +43,7 @@ const HomeSwiper = () => {
                 let temp = response.data.recommendations;
                 if (temp === null || temp.length === 0) {
                     setNoMoreMatches(true)
-                    setLoading(false);
+                    setLoading(false)
                 }
                 else {
                     setCurrentMatch(temp.shift());
@@ -53,12 +53,15 @@ const HomeSwiper = () => {
             })
             .catch((err) => {
                 console.error(err);
-                setLoading(false);
                 if (err.response.status === 401) {
                     localStorage.removeItem("auth-user");
                     navigate('/');
                 }
-            });
+            })
+            .finally(() => {
+
+                setLoading(false);
+            })
     };
 
     const handleSubmit = (e) => {

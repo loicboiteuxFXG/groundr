@@ -1,7 +1,7 @@
-import { Link, Outlet } from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import Footer from "../../components/Footer";
 import '../../styles.css'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import ProfileButton from "../../components/ProfileButton";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import useLogout from "../../hooks/useLogout";
@@ -10,8 +10,43 @@ import {BiLogOut} from "react-icons/bi";
 import {useAuthContext} from "../../context/AuthContext";
 import axios from "axios";
 const HomeLayout = () => {
+    const navigate = useNavigate();
+
+    const [connectedUser, setConnectedUser] = useState({
+        firstName: 'Chargement',
+        lastName: '',
+        bio: '',
+        pfpURL: 'default-user.png'
+    })
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const sendLocation = (locationData) => {
+        console.dir(locationData.coords)
+        const data = {latitude: locationData.coords.latitude, longitude: locationData.coords.longitude}
+        axios.post('http://localhost:3001/user/set-location', data, {
+            headers: {
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
+            }
+        })
+            .then(response => {
+                console.info("OK");
+            })
+            .catch((err) => {
+                console.log("Not OK")
+            })
+    }
+
     const {setAuthUser} = useAuthContext()
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(sendLocation)
         document.title = "Accueil | GroundR";
         setAuthUser({
             firstName: "Chargement",

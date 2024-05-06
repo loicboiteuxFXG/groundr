@@ -37,8 +37,6 @@ exports.Register = async (req, res, next) => {
     const userData = req.body
     console.log(`Register requested from ${userData.email}`)
     try {
-        const newUser = new User(userData)
-
         if(newUser) {
             generateToken(newUser, res)
 

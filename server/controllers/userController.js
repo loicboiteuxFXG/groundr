@@ -30,8 +30,9 @@ exports.UpdatePfp = async (req, res) => {
 
 exports.UpdateUserData = async (req, res) => {
     const userId = req.user._id
+    const data = req.body
     try{
-        await User.updateOne({_id: userId}, req.body);
+        await User.updateOne({_id: userId}, data);
         const newUser = await User.findOne({_id:userId});
         res.status(200).json(newUser)
     } catch (err){
@@ -50,6 +51,20 @@ exports.UpdateUserPassword = async (req, res) => {
         res.status(200).send();
     } catch (err){
         console.error(err)
+    }
+}
+
+
+exports.setLocation = async (req, res, next) => {
+    const userId = req.user._id;
+    try {
+        const updatedUser = await User.findOne({_id: userId})
+        updatedUser.location.coordinates = [req.body.latitude, req.body.longitude]
+        await updatedUser.save()
+        res.status(200).send()
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
     }
 }
 
@@ -92,3 +107,4 @@ exports.UpdateUserPremium = async (req, res) => {
         console.error(err);
     }
 }
+

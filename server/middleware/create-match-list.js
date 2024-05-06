@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Ground = require("../models/ground")
+const Ground = require("../models/ground");
 
 const createMatchList = async (req, res, next) => {
 
@@ -46,7 +46,15 @@ const createMatchList = async (req, res, next) => {
         "_id": { $not: { $in: excludedUsersIDsQuery } },
         "email": { $not: { $eq: authUser.email } },
         "orientation": { $in: ["A", authUser.gender] },
-        "interests": { $in: authUser.interests }
+        "interests": {$in: authUser.interests },
+        location:
+            { $near:
+                    {
+                        $geometry: { type: "Point",  coordinates: authUser.location.coordinates },
+                        $minDistance: 0,
+                        $maxDistance: (authUser.range * 1000)
+                    }
+            }
     };
     if (authUser.orientation !== "A") {
         query.gender = authUser.orientation;
@@ -57,4 +65,4 @@ const createMatchList = async (req, res, next) => {
     res.status(200).send({ recommendations: superinterestedUsers.concat(interestedUsers).concat(matchingUsers) });
 };
 
-module.exports = createMatchList;
+module.exports = createMatchList
