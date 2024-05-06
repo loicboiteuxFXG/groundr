@@ -713,11 +713,13 @@ footer {
 
 .custom-modal-text {
     font-family: Montserrat, sans-serif;
+    color: #e4c14d;
     font-size: 3.5rem;
 }
 
 .custom-modal-text-p {
     font-family: Montserrat, sans-serif;
+    color: #e4c14d;
     font-size: 2rem;
 }
 
@@ -738,7 +740,6 @@ footer {
     width: 40vw;
     height: 40vh;
     text-align: center;
-    color: #e4c14d;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 9999; /* Ensure it's above other content */

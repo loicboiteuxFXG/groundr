@@ -9,7 +9,7 @@ import ProfilePassword from "./components/ProfilePassword";
 import Account from "./pages/Account";
 import LoginBox from "./components/LoginBox";
 import SignupBox from "./components/SignupBox";
-import Chatbox from "./components/ChatBox";
+import Chatbox from "./components/Chatbox";
 import SubscribeBox from "./components/SubscribeBox";
 
 
