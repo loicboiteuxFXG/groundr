@@ -12,7 +12,7 @@ const NoChatSelected = () => {
 }
 
 const Chatbox = () => {
-    const {selectedConversation, setSelectedConversation} = useConversation()
+    const {selectedConversation} = useConversation()
 
 
     return (

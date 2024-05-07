@@ -33,7 +33,7 @@ const SignupBox = () => {
     const [file, setFile] = useState();
 
     useEffect(() => {
-        fetchData();
+        fetchData()
     }, []);
 
 

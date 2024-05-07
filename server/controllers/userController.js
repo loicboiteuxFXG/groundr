@@ -3,7 +3,6 @@
 const User = require("../models/user")
 const Conversation = require('../models/conversation')
 const bcrypt = require('bcrypt')
-const {stderr} = require("process");
 
 exports.GetUserToken = async (req, res, next) => {
     const userId = req.user._id;
@@ -11,11 +10,11 @@ exports.GetUserToken = async (req, res, next) => {
         const user = await User.findOne({_id:userId}).populate("interests");
         res.status(200).json(user)
     } catch (err) {
-        console.error(err);
+        next(err)
     }
 }
 
-exports.UpdatePfp = async (req, res) => {
+exports.UpdatePfp = async (req, res, next) => {
     const filename = req.body.filename
     const userId = req.user._id
     try{
@@ -24,11 +23,11 @@ exports.UpdatePfp = async (req, res) => {
         console.dir(newUser)
         res.status(200).json(newUser);
     } catch (err){
-        console.error(err);
+        next(err)
     }
 }
 
-exports.UpdateUserData = async (req, res) => {
+exports.UpdateUserData = async (req, res, next) => {
     const userId = req.user._id
     const data = req.body
     try{
@@ -36,11 +35,11 @@ exports.UpdateUserData = async (req, res) => {
         const newUser = await User.findOne({_id:userId});
         res.status(200).json(newUser)
     } catch (err){
-        console.error(err)
+        next(err)
     }
 }
 
-exports.UpdateUserPassword = async (req, res) => {
+exports.UpdateUserPassword = async (req, res, next) => {
     const userId = req.user._id
     const newPassword = req.body.password
     try{
@@ -50,7 +49,7 @@ exports.UpdateUserPassword = async (req, res) => {
         await User.updateOne({_id: userId}, {password: hashedNewPassword});
         res.status(200).send();
     } catch (err){
-        console.error(err)
+        next(err)
     }
 }
 
@@ -63,8 +62,7 @@ exports.setLocation = async (req, res, next) => {
         await updatedUser.save()
         res.status(200).send()
     } catch (err) {
-        console.error(err)
-        res.status(500).send()
+        next(err)
     }
 }
 
@@ -97,14 +95,42 @@ exports.getUsersForSidebar = async (req, res, next) => {
 }
 
 
-exports.UpdateUserPremium = async (req, res) => {
+exports.UpdateUserPremium = async (req, res, next) => {
     const userId = req.user._id;
     try {
         await User.findByIdAndUpdate(userId, {isPremium: true});
         const updatedUser = await User.findOne({_id: userId});
         res.status(200).json(updatedUser)
     } catch (err) {
-        console.error(err);
+        next(err)
     }
 }
 
+exports.getResearchedUsers = async (req, res, next) => {
+    const criterias = req.body
+    try {
+        let sort = {}
+        if (criterias.sort === "alphabetical") {
+            sort = { name: -1 }
+        }
+        if (criterias.sort === "gender") {
+            sort = {gender: 1}
+        }
+        if (criterias.sort === "orientation") {
+            sort = { orientation: 1 }
+        }
+
+        const regexp = new RegExp(criterias.name, "i")
+        const users = await User.find({
+            $and: [
+                { $or : [{firstName: regexp}, {lastName: regexp}] },
+                { gender: { $in: criterias.genders } },
+                { orientation: { $in: criterias.orientations } }
+            ]
+        }).sort(sort)
+
+        res.status(200).json(users)
+    } catch (err) {
+        next(err)
+    }
+}

@@ -7,15 +7,14 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import useLogout from "../hooks/useLogout";
 import Sidebar from "../components/Sidebar";
 import {BiLogOut} from "react-icons/bi";
+import {IoSearch} from "react-icons/io5";
 import {useAuthContext} from "../context/AuthContext";
 import axios from "axios";
-
 import {useConversation} from "../context/ConversationContext"
 
 const HomeLayout = () => {
-    const navigate = useNavigate();
     const location = useLocation()
-    const {selectedConversation, setSelectedConversation} = useConversation()
+    const {setSelectedConversation} = useConversation()
 
     useEffect(() => {
         if (location.pathname !== "/home/chat") {
@@ -69,23 +68,35 @@ const HomeLayout = () => {
 
     const LogoutButton = () => {
         const {loading, logout} = useLogout()
+        const navigate = useNavigate()
         const handleSubmit = async (event) => {
             event.preventDefault();
             await logout()
         }
 
+        const handleClick = () => {
+            navigate('search')
+        }
+
         return (
-            <form onSubmit={handleSubmit} method="post">
-                {!loading ? (
-                    <button type="submit" className="btnLogout">
-                        <BiLogOut
-                            style={{color: "#e3a256", width: "100%", height: "100%"}}
-                        />
-                    </button>
-                ) : (
-                    <LoadingIndicator />
-                )}
-            </form>
+            <div className="d-flex justify-content-between align-items-center">
+                <form onSubmit={handleSubmit} method="post">
+                    {!loading ? (
+                        <button type="submit" className="btnLogout">
+                            <BiLogOut
+                                style={{color: "#e3a256", width: "100%", height: "100%"}}
+                            />
+                        </button>
+                    ) : (
+                        <div className=""><LoadingIndicator/></div>
+                    )}
+                </form>
+                <button className="btnLogout" onClick={handleClick}>
+                    <IoSearch
+                        style={{color: "#e3a256", width: "100%", height: "100%"}}
+                    />
+                </button>
+            </div>
         )
     }
 
@@ -94,20 +105,21 @@ const HomeLayout = () => {
             <div className="page-layout">
                 <div className='sidebar'>
                     <div>
-                        <h1 className="homeTitle"><img src={require('../images/logo_nobackground.png')} alt="GroundR" /></h1>
+                        <h1 className="homeTitle"><img src={require('../images/logo_nobackground.png')} alt="GroundR"/>
+                        </h1>
                         <ProfileButton/>
                         <Link to="swipe" className="btnGround">Let's Ground!</Link>
-                        <Sidebar />
+                        <Sidebar/>
                     </div>
                     <div>
-                        <LogoutButton />
+                        <LogoutButton/>
                     </div>
                 </div>
                 <div className="content">
                     <Outlet/>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 }

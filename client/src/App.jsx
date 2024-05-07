@@ -11,6 +11,7 @@ import LoginBox from "./components/LoginBox";
 import SignupBox from "./components/SignupBox";
 import Chatbox from "./components/Chatbox";
 import SubscribeBox from "./components/SubscribeBox";
+import UserSearch from "./components/UserSearch"
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Presentation />} />
             <Route path="/home" element={authUser ? <HomeLayout /> : <Navigate to="/account/login" />}>
+                <Route path="search" element={<UserSearch />} />
                 <Route path="chat" element={<Chatbox />} />
                 <Route path="swipe" element={<HomeSwiper />} />
                 <Route path="profile" element={<Profile />} />
