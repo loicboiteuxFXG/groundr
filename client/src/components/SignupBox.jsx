@@ -13,8 +13,30 @@ const SignupBox = () => {
 
     useEffect(() => {
         document.title = "Créer un compte | GroundR";
+        document.getElementById("email").addEventListener("input", checkIfEmailExists)
     }, [navigate]);
 
+    const checkIfEmailExists = async (e) => {
+        const input = e.target.value
+        try {
+            const response = await axios.get(`http://localhost:3001/user/check/${input}`)
+            console.log(response.data)
+
+            // TODO Un caractère de retard ??????
+            if (response.data === true) {
+                console.log(input)
+                let temp = errors
+                temp.email = "Adresse courriel déjà utilisée."
+                setErrors(temp)
+            } else {
+                let temp = errors
+                delete temp.email
+                setErrors(temp)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -28,7 +50,7 @@ const SignupBox = () => {
         bio: ''
     });
 
-    const {errors, loading, interestList, signup, fetchData} = useSignup()
+    const {errors, setErrors, loading, interestList, signup, fetchData} = useSignup()
     const [interests, setInterests] = useState([]);
     const [file, setFile] = useState();
 
@@ -47,7 +69,7 @@ const SignupBox = () => {
         await signup(formData, interests, file)
     };
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData, [name]: value

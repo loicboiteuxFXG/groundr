@@ -78,7 +78,7 @@ const useSignup = () => {
         }
     }
 
-    return {errors, loading, interestList, signup, fetchData}
+    return {errors, setErrors, loading, interestList, signup, fetchData}
 }
 export default useSignup
 

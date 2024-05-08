@@ -25,6 +25,7 @@ router.post('/set-location', isAuth, userController.setLocation)
 
 router.post('/subscribe', isAuth, userController.UpdateUserPremium);
 
+router.get('/check/:email', userController.checkIfExists)
 
 
 

@@ -134,3 +134,18 @@ exports.getResearchedUsers = async (req, res, next) => {
         next(err)
     }
 }
+
+
+exports.checkIfExists = async (req, res, next) => {
+    const email = req.params.email
+    try {
+        const user = await User.findOne({email: req.params.email})
+        if (!user) {
+            res.status(200).send(false)
+        } else {
+            res.status(200).send(true)
+        }
+    } catch (err) {
+        next(err)
+    }
+}
