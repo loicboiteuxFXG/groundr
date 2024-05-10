@@ -13,30 +13,9 @@ const SignupBox = () => {
 
     useEffect(() => {
         document.title = "Créer un compte | GroundR";
-        document.getElementById("email").addEventListener("input", checkIfEmailExists)
     }, [navigate]);
 
-    const checkIfEmailExists = async (e) => {
-        const input = e.target.value
-        try {
-            const response = await axios.get(`http://localhost:3001/user/check/${input}`)
-            console.log(response.data)
 
-            // TODO Un caractère de retard ??????
-            if (response.data === true) {
-                console.log(input)
-                let temp = errors
-                temp.email = "Adresse courriel déjà utilisée."
-                setErrors(temp)
-            } else {
-                let temp = errors
-                delete temp.email
-                setErrors(temp)
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -49,6 +28,22 @@ const SignupBox = () => {
         DoB: '',
         bio: ''
     });
+    const checkIfEmailExists = async (e) => {
+        let temp = {
+            ...errors
+        }
+        try {
+            const response = await axios.get(`http://localhost:3001/user/check/${formData.email}`)
+            if (response.data === true) {
+                temp.email = "Adresse courriel déjà utilisée."
+            } else {
+                delete temp.email
+            }
+        } catch (err) {}
+        setErrors(temp)
+        console.log(errors)
+    }
+
 
     const {errors, setErrors, loading, interestList, signup, fetchData} = useSignup()
     const [interests, setInterests] = useState([]);
@@ -108,7 +103,8 @@ const SignupBox = () => {
                             className={errors.email ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="email"
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                            onBlur={checkIfEmailExists}/>
                         {errors.email && <span className="invalid-feedback">{errors.email}</span>}
                         <label htmlFor="password">Créez un mot de passe</label>
                         <input
@@ -116,7 +112,7 @@ const SignupBox = () => {
                             className={errors.password ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password"
-                            onChange={handleChange} />
+                            onChange={handleChange}/>
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
                         <label htmlFor="password_confirm">Confirmez votre mot de passe</label>
                         <input
