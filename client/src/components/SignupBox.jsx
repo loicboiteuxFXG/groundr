@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import ShowcaseHeader from "./ShowcaseHeader";
 import Footer from "./Footer";
 import "../styles.css";
@@ -48,20 +48,19 @@ const SignupBox = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData, [name]: value
         });
     };
 
 
-
     return (
-        <>
-            <ShowcaseHeader />
-            <div className="container signup-layout">
-                <h2 className="golden">Créer un compte</h2>
+        <div className="signup">
+            <ShowcaseHeader/>
+            <div className="signup-layout">
                 <div className="signup-card">
+                    <h2>Créer un compte</h2>
                     <form onSubmit={handleSubmit} noValidate>
                         <label htmlFor="firstname">Prénom</label>
                         <input
@@ -78,7 +77,7 @@ const SignupBox = () => {
                             className={errors.lastName ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="lastName"
-                            onChange={handleChange} />
+                            onChange={handleChange}/>
                         {errors.lastName && <span className="invalid-feedback">{errors.lastName}</span>}
                         <label htmlFor="email">Adresse courriel</label>
                         <input
@@ -86,7 +85,7 @@ const SignupBox = () => {
                             className={errors.email ? "is-invalid form-control" : "form-control"}
                             type="text"
                             name="email"
-                            onChange={handleChange} />
+                            onChange={handleChange}/>
                         {errors.email && <span className="invalid-feedback">{errors.email}</span>}
                         <label htmlFor="password">Créez un mot de passe</label>
                         <input
@@ -94,7 +93,7 @@ const SignupBox = () => {
                             className={errors.password ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password"
-                            onChange={handleChange} />
+                            onChange={handleChange}/>
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
                         <label htmlFor="password_confirm">Confirmez votre mot de passe</label>
                         <input
@@ -102,17 +101,17 @@ const SignupBox = () => {
                             className={errors.password_confirm ? "is-invalid form-control" : "form-control"}
                             type="password"
                             name="password_confirm"
-                            onChange={handleChange} />
+                            onChange={handleChange}/>
                         {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
                         <label htmlFor="birthdate">Date de naissance</label>
                         <input id="birthdate" className={errors.DoB ? "is-invalid form-control" : "form-control"}
-                            type='date' name="DoB"
-                            onChange={handleChange} />
+                               type='date' name="DoB"
+                               onChange={handleChange}/>
                         {errors.DoB && <span className="invalid-feedback">{errors.DoB}</span>}
                         <label htmlFor="gender">Identité de genre</label>
                         <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
-                            name="gender"
-                            onChange={handleChange}>
+                                name="gender"
+                                onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
@@ -120,9 +119,9 @@ const SignupBox = () => {
                         {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
                         <label htmlFor="orientation">Je recherche</label>
                         <select id="orientation"
-                            className={errors.orientation ? "is-invalid form-control" : "form-control"}
-                            name="orientation"
-                            onChange={handleChange}>
+                                className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                                name="orientation"
+                                onChange={handleChange}>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="B">Les deux</option>
@@ -195,23 +194,23 @@ const SignupBox = () => {
                         {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
                         <label htmlFor="profilepicture">Ajoutez une photo de profil</label>
                         <input id="profilepicture" type="file" className="form-control"
-                            accept="image/png, image/jpg, image/jpeg"
-                            onChange={handleFileChange} />
+                               accept="image/png, image/jpg, image/jpeg"
+                               onChange={handleFileChange}/>
                         <label htmlFor="bio">Ajoutez une bio pour votre profil</label>
                         <textarea
                             id="bio"
                             className={errors.bio ? "is-invalid form-control" : "form-control"}
                             name="bio"
                             onChange={handleChange}
-                            value={formData.bio} />
+                            value={formData.bio}/>
                         {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
-                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> :
-                            <input type="submit" className="custom-btn" value="Créer un compte" />}
+                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                            <input type="submit" className="custom-btn" value="Créer un compte"/>}
                     </form>
                 </div>
             </div>
-            <Footer />
-        </>
+            <Footer/>
+        </div>
     );
 };
 

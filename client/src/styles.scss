@@ -3,7 +3,13 @@
 
 $dark-color: #232020;
 $dark-color2: #2f2c2c;
-$pink-color: #b33f62;
+$golden: #e3a256;
+$golden2: #e4c14d;
+
+
+//=====================
+//===== Others ========
+// ====================
 
 ::selection {
     background-color: #e4c14d;
@@ -13,6 +19,383 @@ $pink-color: #b33f62;
 textarea {
     resize: none;
 }
+
+body {
+    margin: 0;
+    background-color: $dark-color;
+}
+
+h1,
+h2,
+h3 {
+    font-family: Montserrat, sans-serif;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: $golden;
+}
+
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto
+}
+
+//=====================
+//===== Header ========
+//=====================
+
+
+header {
+    padding: 20px;
+    background-color: $dark-color2;
+    border-radius: 0 0 20px 20px;
+
+    .presTitle {
+        width: 20%;
+        margin-bottom: 0;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .header-layout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+
+
+//=====================
+//===== Footer ========
+//=====================
+
+footer {
+    background-color: $dark-color2;
+    padding: 25px;
+    border-radius: 20px 20px 0 0;
+    div {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+            margin: 0;
+            color: $golden;
+        }
+        a {
+            margin: 0 5px;
+        }
+        button {
+            border: none;
+            background: none;
+        }
+    }
+}
+
+//=====================
+//=== Presentation ====
+//=====================
+
+.presentation {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .presentationcontainer {
+        flex-grow: 1;
+    }
+}
+
+//=====================
+//===== Accounts ======
+//=====================
+
+.accountspage{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .accountscontainer {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        .accountscard {
+            padding: 40px;
+            border-radius: 40px;
+            background-color: $dark-color2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            h2 {
+                width: 90%;
+                img {
+                    width: 100%;
+                }
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+                color: $golden;
+            }
+
+            p {
+                color: $golden;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .buttons{
+                width: 100%;
+                max-width: 250px;
+                background-image: url("images/gold.jpg");
+                background-size: 125%;
+                background-position: center;
+                color: $dark-color;
+                padding: 15px;
+                border-radius: 40px;
+                text-align: center;
+                font-family: Montserrat, sans-serif;
+                font-size: 1rem;
+                font-weight: 700;
+                text-decoration: none;
+                margin-bottom: 10px;
+
+                &:hover {
+                    background-position-x: -5px;
+                    transition: 250ms;
+                }
+            }
+        }
+    }
+}
+
+
+//=====================
+//===== Login =========
+//=====================
+
+.login {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .login-layout {
+        flex-grow: 1;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            color: $golden;
+            margin-bottom: 0;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            margin: 0 auto;
+            border-radius: 30px;
+            background-color: $dark-color2;
+
+            input {
+                background-color: $dark-color;
+                border-color: $golden;
+                color: $golden;
+                border-radius: 40px;
+            }
+
+            input[type="submit"] {
+                margin: 35px auto 0;
+                width: 200px;
+                color: $dark-color;
+            }
+
+            input:focus {
+                box-shadow: none;
+            }
+
+            label {
+                color: $golden;
+                font-family: "Montserrat", sans-serif;
+                margin-top: 20px;
+            }
+
+            p {
+                color: $golden;
+                text-align: center;
+                margin: 30px 0 5px 0;
+            }
+
+            .smallbutton {
+                display: block;
+                max-width: 150px;
+                background-image: url("images/gold.jpg");
+                background-size: 125%;
+                background-position: center;
+                color: $dark-color;
+                padding: 8px;
+                border-radius: 40px;
+                text-align: center;
+                font-family: Montserrat, sans-serif;
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-decoration: none;
+                margin: 0 auto;
+
+                &:hover {
+                    background-position-x: -5px;
+                    transition: 250ms;
+                }
+            }
+        }
+    }
+}
+
+//=====================
+//===== Signup ========
+//=====================
+
+.signup {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .signup-layout {
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            color: $golden;
+            margin-bottom: 0;
+        }
+
+        .signup-card {
+            width: 100%;
+            max-width: 700px;
+            background-color: $dark-color2;
+            padding: 40px;
+            border-radius: 40px;
+            margin: 0 auto 20px;
+
+            label {
+                color: $golden;
+                font-family: Montserrat, sans-serif;
+                margin-top: 20px;
+            }
+
+            input,
+            select,
+            textarea {
+                color: $golden;
+                background-color: $dark-color;
+                border: 1px solid $golden;
+                border-radius: 40px;
+            }
+
+            textarea {
+                border-radius: 20px;
+            }
+
+            input[type="submit"] {
+                border: none;
+                color: $dark-color;
+                text-align: center;
+                margin: 35px auto 0 auto;
+            }
+
+            input::file-selector-button {
+                background-color: $dark-color;
+                color: $golden;
+            }
+
+            input:focus {
+                box-shadow: none;
+            }
+
+            .css-es2p3j-control,
+            .css-sg40b7-control {
+                margin-bottom: 0;
+
+                &:focus {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+//=====================
+//==== HomeLayout =====
+//=====================
+
+
+
+//=====================
+//==== NotFound =======
+//=====================
+
+.notfound {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .notfoundcontainer {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        .notfoundcard{
+            padding: 50px;
+            border-radius: 40px;
+            max-width: 700px;
+            background-color: $dark-color2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h1 {
+                font-size: 6rem;
+                color: $golden2;
+            }
+            h2 {
+                font-size: 2rem;
+                color: $golden;
+                margin-bottom: 20px;
+            }
+            .buttons {
+                width: 100%;
+                max-width: 150px;
+                background-image: url("images/gold.jpg");
+                background-size: 125%;
+                background-position: center;
+                color: $dark-color;
+                padding: 15px;
+                border-radius: 40px;
+                text-align: center;
+                font-family: Montserrat, sans-serif;
+                font-size: 1rem;
+                font-weight: 700;
+                text-decoration: none;
+
+                &:hover {
+                    background-position-x: -5px;
+                    transition: 250ms;
+                }
+            }
+        }
+    }
+}
+
+// ====================
+
 
 .golden {
     background: #926129 -webkit-linear-gradient(
@@ -28,30 +411,6 @@ textarea {
         background: #e4c14d;
         -webkit-text-fill-color: $dark-color2;
     }
-}
-
-body {
-    margin: 0;
-    background-color: $dark-color;
-}
-
-h1,
-h2,
-h3 {
-    font-family: Montserrat, sans-serif;
-    font-size: 2rem;
-    margin-bottom: 15px;
-    text-align: center;
-    color: #e3a256;
-}
-
-.presTitle {
-    width: 20%;
-    margin-bottom: 0;
-}
-
-h1 img {
-    width: 100%;
 }
 
 .page-layout {
@@ -104,25 +463,25 @@ h1 img {
     justify-content: space-between;
     width: 100%;
     padding-bottom: 20px;
-    border-bottom: 1px solid #e3a256;
+    border-bottom: 1px solid $golden;
     input{
         width: 80%;
         border-radius: 40px;
         background-color: $dark-color2;
-        border-color: #e3a256;
-        color: white;
+        border-color: $golden;
+        color: $golden;
         &:focus{
             background-color: $dark-color2;
-            border-color: #e3a256;
-            color: white;
+            border-color: $golden;
+            color: $golden;
         }
     }
     input::placeholder {
-        color: white;
+        color: $golden;
         opacity: 1;
     }
     .btnSearch {
-        background-color: #e3a256;
+        background-color: $golden;
         color: $dark-color;
         padding: 5px;
         width: 40px;
@@ -155,7 +514,7 @@ h1 img {
         width: 75%;
         .receiver {
             margin: 0;
-            color: #e3a256;
+            color: $golden;
             font-family: "Montserrat", sans-serif;
             font-size: 1.3rem;
         }
@@ -183,34 +542,18 @@ h1 img {
 }
 
 .btnLogout {
-    border: none;
-    background: none;
     width: 15%;
+    button {
+        border: none;
+        background: none;
+        width: 100%;
+    }
+    form{
+        width: 100%;
+    }
 }
 
-.limit-center {
-    margin: 0 auto;
-    width: 50%;
-    max-width: 600px;
-}
 
-header {
-    padding: 20px;
-    background-color: $dark-color2;
-    height: 15vh;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.header-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 .custom-btn {
     display: block;
@@ -229,108 +572,6 @@ header {
     &:hover {
         background-position-x: -5px;
         transition: 250ms;
-    }
-}
-
-.login-layout {
-    height: 75vh;
-
-    .login-card {
-        max-width: 500px;
-        padding: 40px;
-        margin: 0 auto;
-        border: 2px solid #e3a256;
-        border-radius: 30px;
-        background-color: $dark-color2;
-
-        input {
-            background-color: $dark-color;
-            border-color: #e3a256;
-            color: white;
-        }
-
-        input[type="submit"] {
-            margin: 20px auto 0;
-            width: 200px;
-            color: $dark-color;
-        }
-
-        label {
-            color: white;
-            font-family: "Montserrat", sans-serif;
-            margin-top: 20px;
-        }
-    }
-}
-
-footer {
-    background-color: $dark-color2;
-    bottom: 0;
-    width: 100%;
-    height: 10vh;
-    display: flex;
-    justify-content: center;
-
-    .footer-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 400px;
-
-        div {
-            margin: 0 8px;
-            color: white;
-        }
-    }
-}
-
-.signup-layout {
-    .signup-card {
-        max-width: 700px;
-        background-color: $dark-color2;
-        padding: 40px;
-        border: 2px solid #e3a256;
-        border-radius: 30px;
-        margin: 0 auto 20px;
-
-        label {
-            color: white;
-            font-family: Montserrat, sans-serif;
-            margin-top: 20px;
-        }
-
-        input,
-        select,
-        textarea {
-            color: white;
-            background-color: $dark-color;
-            border: 1px solid #e3a256;
-        }
-
-        input[type="submit"] {
-            border: none;
-            color: $dark-color;
-            text-align: center;
-            margin: 20px auto 0 auto;
-        }
-
-        input::file-selector-button {
-            background-color: $dark-color;
-            color: white;
-        }
-
-        input:focus {
-            box-shadow: none;
-        }
-
-        .css-es2p3j-control,
-        .css-sg40b7-control {
-            margin-bottom: 0;
-
-            &:focus {
-                margin-bottom: 0;
-            }
-        }
     }
 }
 
@@ -390,7 +631,7 @@ footer {
         p {
             font-size: 0.7rem;
             text-decoration: underline;
-            color: #e3a256;
+            color: $golden;
             margin-bottom: 0;
         }
     }
@@ -433,7 +674,7 @@ footer {
 
         button {
             border: none;
-            color: white;
+            color: $golden;
             padding: 16px 32px;
             text-align: center;
             text-decoration: none;
@@ -542,7 +783,7 @@ footer {
         width: 95%;
     }
     .timestamp {
-        color: #e3a256;
+        color: $golden;
     }
 }
 
@@ -577,7 +818,7 @@ footer {
         width: 95%;
     }
     .timestamp {
-        color: #e3a256;
+        color: $golden;
         align-self: flex-end;
     }
 }
@@ -590,20 +831,20 @@ footer {
         height: 50px;
         border-radius: 40px;
         background-color: $dark-color2;
-        border-color: #e3a256;
-        color: white;
+        border-color: $golden;
+        color: $golden;
         &:focus{
             background-color: $dark-color2;
-            border-color: #e3a256;
-            color: white;
+            border-color: $golden;
+            color: $golden;
         }
     }
     input::placeholder {
-        color: white;
+        color: $golden;
         opacity: 1;
     }
     .btnSend {
-        background-color: #e3a256;
+        background-color: $golden;
         padding: 10px;
         width: 50px;
         height: 50px;
@@ -617,7 +858,7 @@ footer {
 }
 
 .contact {
-    color: #e3a256;
+    color: $golden;
 }
 
 .nochatselected {
@@ -626,10 +867,10 @@ footer {
     flex-direction: column;
     justify-content: center;
     h2 {
-        color: #e3a256;
+        color: $golden;
     }
     p {
-        color: #e3a256;
+        color: $golden;
         font-family: "Montserrat", sans-serif;
         text-align: center;
     }
@@ -683,7 +924,7 @@ footer {
 
 @keyframes pulsecolor {
     10% {
-        background: #e3a256;
+        background: $golden;
     }
 }
 
@@ -907,7 +1148,7 @@ body {
     h2 {
         margin-bottom: 10px;
         font-family: "Montserrat", sans-serif;
-        color: #e3a256;
+        color: $golden;
     }
     .headerbox {
         background-color: $dark-color;
@@ -921,21 +1162,21 @@ body {
             height: 50px;
             border-radius: 40px;
             background-color: $dark-color2;
-            border-color: #e3a256;
-            color: white;
+            border-color: $golden;
+            color: $golden;
             &:focus{
                 background-color: $dark-color2;
-                border-color: #e3a256;
-                color: white;
+                border-color: $golden;
+                color: $golden;
             }
             &::placeholder {
-                color: white;
+                color: $golden;
                 opacity: 1;
             }
         }
 
         .btnSend {
-            background-color: #e3a256;
+            background-color: $golden;
             padding: 10px;
             width: 50px;
             height: 50px;
@@ -950,14 +1191,14 @@ body {
         fieldset {
             input[type="checkbox"], input[type="radio"] {
                 background-color: $dark-color;
-                border: 1px #e3a256 solid;
+                border: 1px $golden solid;
             }
             label {
-                color: #e3a256;
+                color: $golden;
                 font-family: "Montserrat", sans-serif;
             }
             legend {
-                color: #e3a256;
+                color: $golden;
                 font-family: "Montserrat", sans-serif;
                 font-weight: bold;
                 text-align: center;
@@ -980,7 +1221,7 @@ body {
         p {
             font-family: "Montserrat", sans-serif;
             text-align: center;
-            color: #e3a256;
+            color: $golden;
             font-size: 1rem;
         }
     }
@@ -1007,7 +1248,7 @@ body {
         width: 70%;
         .foundUser {
             margin: 0;
-            color: #e3a256;
+            color: $golden;
             font-family: "Montserrat", sans-serif;
             font-size: 1.5rem;
         }
@@ -1018,3 +1259,4 @@ body {
         transition: 250ms;
     }
 }
+

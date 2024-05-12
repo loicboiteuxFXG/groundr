@@ -80,9 +80,9 @@ const HomeLayout = () => {
 
         return (
             <div className="d-flex justify-content-between align-items-center">
-                <form onSubmit={handleSubmit} method="post">
+                <form onSubmit={handleSubmit} method="post" className="btnLogout">
                     {!loading ? (
-                        <button type="submit" className="btnLogout">
+                        <button type="submit">
                             <BiLogOut
                                 style={{color: "#e3a256", width: "100%", height: "100%"}}
                             />
@@ -91,11 +91,13 @@ const HomeLayout = () => {
                         <div className=""><LoadingIndicator/></div>
                     )}
                 </form>
-                <button className="btnLogout" onClick={handleClick}>
-                    <IoSearch
-                        style={{color: "#e3a256", width: "100%", height: "100%"}}
-                    />
-                </button>
+                <div className="btnLogout">
+                    <button onClick={handleClick}>
+                        <IoSearch
+                            style={{color: "#e3a256", width: "100%", height: "100%"}}
+                        />
+                    </button>
+                </div>
             </div>
         )
     }

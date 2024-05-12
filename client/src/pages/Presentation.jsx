@@ -10,13 +10,15 @@ const Presentation = () => {
     }, []);
 
     return(
-        <>
+        <div className="presentation">
             <ShowcaseHeader/>
-            <div className="container">
-                <h1 className="golden">Page vitrine</h1>
+            <div className="presentationcontainer">
+                <div className="container">
+
+                </div>
             </div>
             <Footer/>
-        </>
+        </div>
     );
 }
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import ShowcaseHeader from "./ShowcaseHeader";
 import LoadingIndicator from "./LoadingIndicator";
 import Footer from "./Footer";
 import "../styles.css";
 import useLogin from "../hooks/useLogin";
+import {Link} from "react-router-dom";
 
 const LoginBox = () => {
 
@@ -26,19 +27,18 @@ const LoginBox = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData, [name]: value
         });
     };
 
     return (
-        <>
-            <ShowcaseHeader />
-            <div className="container login-layout">
-                <h2 className="golden">Connexion</h2>
+        <div className="login">
+            <ShowcaseHeader/>
+            <div className="login-layout">
                 <div className="login-card">
-
+                    <h2>Connexion</h2>
                     <form onSubmit={handleSubmit} method="POST" noValidate>
                         <label htmlFor="email">Adresse Courriel</label>
                         <input
@@ -61,13 +61,16 @@ const LoginBox = () => {
                         />
                         {errors.password && <span className="invalid-feedback">{errors.password}</span>}
 
-                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> :
-                            <input type="submit" className="custom-btn" value="Se connecter" />}
+                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                            <input type="submit" className="custom-btn" value="Se connecter"/>}
+
+                        <p>Vous n'avez pas de compte?</p>
+                        <Link to={'/account/signup'} className="smallbutton">Créer un compte</Link>
                     </form>
                 </div>
             </div>
-            <Footer />
-        </>
+            <Footer/>
+        </div>
     );
 };
 

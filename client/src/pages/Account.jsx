@@ -9,26 +9,24 @@ const Account = () => {
         document.title = "GroundR Web | GroundR";
     }, []);
 
-    return(
-        <>
+    return (
+        <div className="accountspage">
             <ShowcaseHeader/>
-            <div className="container">
-                <div className="min-vh-100 d-flex justify-content-center align-items-center">
-                    <div className="w-100">
-                        <h2 className="text-center"><img className="limit-center"
-                                                         src={require('../images/logo_web.png')}
-                                                         alt="GroundR Web"/></h2>
-
-                        <h3 className="golden mb-4">Bienvenue sur GroundR Web</h3>
-                        <div className="limit-center">
-                            <Link to="login" className="btnGround">Se connecter</Link>
-                            <Link to="signup" className="btnGround">Créer un compte</Link>
-                        </div>
-                    </div>
+            <div className="accountscontainer">
+                <div className="accountscard">
+                    <h2><img
+                        src={require('../images/logo_web.png')}
+                        alt="GroundR Web"/></h2>
+                    <h3>Bienvenue sur GroundR Web!</h3>
+                    <p>
+                        Utilisez les services de Groundr dès maintenant directement depuis votre navigateur!
+                    </p>
+                    <Link to="login" className="buttons">Se connecter</Link>
+                    <Link to="signup" className="buttons">Créer un compte</Link>
                 </div>
             </div>
             <Footer/>
-        </>
+        </div>
     )
 }
 
