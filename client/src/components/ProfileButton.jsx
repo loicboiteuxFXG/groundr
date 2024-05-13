@@ -9,7 +9,7 @@ const ProfileButton = () => {
     const navigate = useNavigate()
 
     const fullName = authUser.firstName + " " + authUser.lastName
-    const pfp = `https://localhost:3001/media/${authUser.pfpURL}`
+    const pfp = `http://localhost:3001/media/${authUser.pfpURL}`
 
     const handleCLick = () => {
         navigate('profile')

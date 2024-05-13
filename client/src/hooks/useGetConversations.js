@@ -9,7 +9,7 @@ const useGetConversations = () => {
         const getConversations = async () => {
             setLoading(true)
             try {
-                const response = await axios.get('https://localhost:3001/user/users', {
+                const response = await axios.get('http://localhost:3001/user/users', {
                     headers: {
                         "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                     }

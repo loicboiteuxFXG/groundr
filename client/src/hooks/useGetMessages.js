@@ -11,7 +11,7 @@ const useGetMessages = () => {
         const getMessages = async () => {
             setLoading(true)
             try {
-                const response = await axios.get(`https://localhost:3001/message/${selectedConversation._id}`, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
+                const response = await axios.get(`http://localhost:3001/message/${selectedConversation._id}`, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
                 if(response.data.error) {
                     throw new Error(response.data.error)
                 }

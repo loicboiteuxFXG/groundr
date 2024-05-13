@@ -33,7 +33,7 @@ const SignupBox = () => {
             ...errors
         }
         try {
-            const response = await axios.get(`https://localhost:3001/user/check/${formData.email}`)
+            const response = await axios.get(`http://localhost:3001/user/check/${formData.email}`)
             if (response.data === true) {
                 temp.email = "Adresse courriel déjà utilisée."
             } else {

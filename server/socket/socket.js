@@ -4,16 +4,17 @@ const express = require('express')
 const app = express();
 const fs = require('fs'); // filesystem
 const https = require('https'); // import https pour le protocole https
+const http = require('http'); // import https pour le protocole https
 
 // import du certificat et de la clé privée
 // (le certificat est la clé publique)
 const certificate = fs.readFileSync('server.cert');
 const privateKey = fs.readFileSync('server.key');
 
-const server = https.createServer({key: privateKey, cert: certificate}, app)
+const server = http.createServer({key: privateKey, cert: certificate}, app)
 const io = new Server(server, {
     cors: {
-        origin: ["https://localhost:3000"],
+        origin: ["http://localhost:3000"],
         methods:['GET', 'POST', 'PATCH']
     }
 })

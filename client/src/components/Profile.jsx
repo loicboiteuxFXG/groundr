@@ -23,13 +23,13 @@ const Profile = () => {
         data.append('file', selectedFile)
         data.append('user', authUser)
         var filename = ""
-        await axios.post('https://localhost:3001/file/upload-new', data)
+        await axios.post('http://localhost:3001/file/upload-new', data)
             .then((response) => {
                 filename = response.data.filename;
             })
             .catch(err => console.error(err))
 
-        await axios.post('https://localhost:3001/user/update-pfp', {filename: filename}, {
+        await axios.post('http://localhost:3001/user/update-pfp', {filename: filename}, {
             headers: {
                 "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
@@ -44,7 +44,7 @@ const Profile = () => {
             })
     };
 
-    const pfpURL = `https://localhost:3001/media/${authUser.pfpURL}`
+    const pfpURL = `http://localhost:3001/media/${authUser.pfpURL}`
     const fullname = authUser.firstName + " " + authUser.lastName
 
     return (

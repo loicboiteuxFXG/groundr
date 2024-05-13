@@ -61,7 +61,7 @@ const ProfilePassword = () => {
         if (Object.keys(validationErrors).length === 0) {
             setLoading(true);
 
-            axios.post('https://localhost:3001/user/update-password', formData, {
+            axios.post('http://localhost:3001/user/update-password', formData, {
                 headers: {
                     "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                 }

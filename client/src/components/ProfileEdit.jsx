@@ -48,7 +48,7 @@ const ProfileEdit = () => {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const response = await axios.get('https://localhost:3001/user/get-interests')
+                const response = await axios.get('http://localhost:3001/user/get-interests')
                 console.log(response.data)
                 setInterestList(response.data)
                 console.log(interestList)
@@ -113,7 +113,7 @@ const ProfileEdit = () => {
                 "range": formData.range
             }
 
-            axios.post('https://localhost:3001/user/update', userData, {
+            axios.post('http://localhost:3001/user/update', userData, {
                 headers: {
                     "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                 }
