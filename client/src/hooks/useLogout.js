@@ -10,7 +10,7 @@ const useLogout = () => {
     const logout  = async () => {
         setLoading(true)
         try {
-            const response  = await axios.post('http://localhost:3001/auth/logout')
+            const response  = await axios.post('https://localhost:3001/auth/logout')
 
             if(!response.error) {
                 localStorage.removeItem('auth-user')

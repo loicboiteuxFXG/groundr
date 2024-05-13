@@ -17,7 +17,7 @@ const useSearchUser = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:3001/user/users-search", searchData, {
+            const response = await axios.post("https://localhost:3001/user/users-search", searchData, {
                 headers: {
                     "Authorization" :`Bearer ${JSON.parse(localStorage.getItem('auth-user'))}`
                 }

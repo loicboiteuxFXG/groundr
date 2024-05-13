@@ -10,7 +10,7 @@ const Message = ({message}) => {
     const chatClassName = fromMe ? 'message-end' : 'message-start'
     const profilePic = fromMe ? authUser.pfpURL : selectedConversation?.pfpURL
     const animate = message.anim ? "message-anim" : ""
-    const pfpURL = `http://localhost:3001/media/${profilePic}`
+    const pfpURL = `https://localhost:3001/media/${profilePic}`
     return (
         <div className={chatClassName}>
             <div className="pfp">

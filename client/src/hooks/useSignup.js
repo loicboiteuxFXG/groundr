@@ -23,7 +23,7 @@ const useSignup = () => {
             var filename = "";
 
             try {
-                const response = await axios.post('http://localhost:3001/file/upload', data);
+                const response = await axios.post('https://localhost:3001/file/upload', data);
                 filename = response.data.filename;
             } catch (error) {
                 console.error(error);
@@ -44,7 +44,7 @@ const useSignup = () => {
             };
 
             try {
-                const registerResponse = await axios.post('http://localhost:3001/auth/register', userData);
+                const registerResponse = await axios.post('https://localhost:3001/auth/register', userData);
                 if (!registerResponse.data.error) {
                     localStorage.setItem('auth-user', JSON.stringify(registerResponse.data))
                     setAuthUser(registerResponse.data)
@@ -66,7 +66,7 @@ const useSignup = () => {
     async function fetchData() {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3001/user/get-interests');
+            const response = await axios.get('https://localhost:3001/user/get-interests');
             setInterestList(response.data);
             setLoading(false);
         } catch (error) {

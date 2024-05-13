@@ -7,7 +7,7 @@ const Conversation = ({conversation}) => {
     const isSelected = selectedConversation?._id === conversation._id
     const {onlineUsers} = useSocketContext()
     const isOnline = onlineUsers.includes(conversation._id)
-    const url = `http://localhost:3001/media/${conversation.pfpURL}`
+    const url = `https://localhost:3001/media/${conversation.pfpURL}`
     const navigate = useNavigate()
 
     const fullName = conversation.firstName + " " + conversation.lastName

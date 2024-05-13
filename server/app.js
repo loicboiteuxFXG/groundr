@@ -56,7 +56,7 @@ app.use((err, req, res, next) => {
 mongoose.connect(groundrDbURI)
     .then(response => {
         server.listen(port, () => {
-            console.log(`GroundR app listening on port ${port}`);
+                console.log(`GroundR app listening on port ${port}`);
         });
     })
 

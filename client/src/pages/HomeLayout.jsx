@@ -25,7 +25,7 @@ const HomeLayout = () => {
     const sendLocation = (locationData) => {
         console.dir(locationData.coords)
         const data = {latitude: locationData.coords.latitude, longitude: locationData.coords.longitude}
-        axios.post('http://localhost:3001/user/set-location', data, {
+        axios.post('https://localhost:3001/user/set-location', data, {
             headers: {
                 "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
@@ -49,7 +49,7 @@ const HomeLayout = () => {
         })
         const fetchUser = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/user/get-user-token", {
+                const response = await axios.get("https://localhost:3001/user/get-user-token", {
                     headers: {
                         "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                     }
