@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import {useAuthContext} from "../context/AuthContext";
 import notificationSound from "../assets/sounds/message.wav"
+import useGetConversations from "../hooks/useGetConversations";
 
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
@@ -26,6 +27,7 @@ const HomeSwiper = () => {
 
     const closeModal = () => {
         setIsModalOpen(false)
+        window.location.reload();
     };
 
     useEffect(() => {
@@ -66,14 +68,11 @@ const HomeSwiper = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setInputEnabled(false);
-        console.log(e.target.swipeStatus.value);
-        console.log(currentMatch);
         axios.post('http://localhost:3001/swipe/ground', {
             swipedUser: currentMatch,
             swipeStatus: e.target.swipeStatus.value,
         }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
-            .then((response) => {
-                console.log(response.data);
+            .then(async (response) => {
                 if (matches === null || matches.length === 0) {
                     fetchData().then(() => {
                         if (matches === null || matches.length === 0) {

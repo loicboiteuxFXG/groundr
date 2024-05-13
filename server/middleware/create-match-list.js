@@ -5,10 +5,11 @@ const createMatchList = async (req, res, next) => {
 
     const authUser = await User.findOne({_id : req.user._id});
 
-    const grounds = await User.find({
+    const grounds = await Ground.find({
         $or: [{ sender: authUser._id }, { receiver: authUser._id }],
         status: "like"
     })
+    console.log(grounds)
     const superGrounds = await Ground.find(
         {
             $or: [{ sender: authUser._id }, { receiver: authUser._id }],
@@ -41,6 +42,8 @@ const createMatchList = async (req, res, next) => {
     });
 
     const excludedUsersIDsQuery = likedUsersIDs.concat(superlikedUsersIDs, interestedUsersIDs, superinterestedUsersIDs, excludedUsersIDs);
+    console.log(excludedUsersIDsQuery)
+
     // Only get appropriate users according to gender and orientation
     let query = {
         "_id": { $not: { $in: excludedUsersIDsQuery } },

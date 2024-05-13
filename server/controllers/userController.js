@@ -21,7 +21,6 @@ exports.UpdatePfp = async (req, res, next) => {
     try{
         await User.updateOne({_id: userId}, {pfpURL: filename});
         const newUser = await User.findOne({_id:userId});
-        console.dir(newUser)
         res.status(200).json(newUser);
     } catch (err){
         next(err)
@@ -74,7 +73,6 @@ exports.getUsersForSidebar = async (req, res, next) => {
         const authUserId = req.user._id
 
         const conversations = await Conversation.find({participants : {$in : authUserId}})
-        console.log(conversations)
 
         const ids = []
         for (let conversation of conversations) {
@@ -84,12 +82,10 @@ exports.getUsersForSidebar = async (req, res, next) => {
                 }
             })
         }
-        console.log(ids)
 
         const users = await User.find({
             _id: {$in: ids}
         })
-        console.dir(users)
 
         res.status(200).json(users)
     } catch (err) {

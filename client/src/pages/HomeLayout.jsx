@@ -24,19 +24,13 @@ const HomeLayout = () => {
     }, [location])
 
     const sendLocation = (locationData) => {
-        console.dir(locationData.coords)
         const data = {latitude: locationData.coords.latitude, longitude: locationData.coords.longitude}
         axios.post('http://localhost:3001/user/set-location', data, {
             headers: {
                 "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
         })
-            .then(response => {
-                console.info("OK");
-            })
-            .catch((err) => {
-                console.log("Not OK")
-            })
+            .catch((err) => {})
     }
 
     const {setAuthUser} = useAuthContext()
@@ -56,7 +50,6 @@ const HomeLayout = () => {
                     }
                 })
                 const user = response.data
-                console.dir(user)
                 setAuthUser(user)
             } catch (err) {
                 if (err.response.status === 401) {
