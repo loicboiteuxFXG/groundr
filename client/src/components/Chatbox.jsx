@@ -20,11 +20,11 @@ const Chatbox = () => {
             {!selectedConversation ? (
                 <NoChatSelected/>
             ) : (
-                <>
+                <div className="chatbox">
                     <h2 className="contact">{selectedConversation.firstName + " " + selectedConversation.lastName}</h2>
                     <Messages />
                     <MessageInput/>
-                </>
+                </div>
             )
             }
         </>

@@ -93,13 +93,6 @@ const ValidateChanges = async (req, res, next) => {
 
     let userData = req.body;
 
-    if (!userData.email.trim()) {
-        errors.email = 'Ce champ est requis.';
-    } else if (!userData.email.trim().match(regExpEmail)) {
-        errors.email = 'L\'adresse courriel est invalide.';
-    }
-
-
     if (!userData.bio.trim()) {
         errors.bio = 'Ce champ est requis.';
     } else if (!userData.bio.match(regExpString)) {

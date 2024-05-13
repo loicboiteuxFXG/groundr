@@ -1,38 +1,16 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom"
 import '../styles.css'
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import {useAuthContext} from "../context/AuthContext";
+import {useEffect, useState} from "react"
+import axios from "axios"
+import {useAuthContext} from "../context/AuthContext"
 
 const Profile = () => {
-    const navigate = useNavigate()
-
     const {authUser, setAuthUser} = useAuthContext()
     const [file, setFile] = useState(null)
 
     useEffect(() => {
         document.title = "Votre profil | GroundR"
     }, [])
-
-
-
-    const submitSubscribe = (e) => {
-        e.preventDefault()
-        axios.patch('http://localhost:3001/user/subscribe',{}, {
-            headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
-            }
-        })
-            .then(response => {
-                console.log(response)
-                setAuthUser(response.data);
-            })
-            .catch(err => {
-                if (err.response.status === 401) {
-                    localStorage.removeItem("auth-user")
-                }
-            })
-    }
 
     const handleImageClick = () => {
         document.getElementById('fileInput').click();
@@ -83,9 +61,9 @@ const Profile = () => {
                 <p>{authUser.bio}</p>
             </div>
             <div>
-                <Link to="edit" className="btnGround">Modifier le profil</Link>
-                <Link to="password/edit" className="btnGround">Modifier le mot de passe</Link>
-                {authUser.isPremium ? <> </> : <Link to="subscribe" className="btnGround">S'abonner à GroundR Max</Link>}
+                <Link to="edit" className="btnGround buttons">Modifier le profil</Link>
+                <Link to="password/edit" className="btnGround buttons">Modifier le mot de passe</Link>
+                {authUser.isPremium ? <> </> : <Link to="subscribe" className="btnGround buttons">S'abonner à GroundR Max</Link>}
             </div>
         </div>
     )

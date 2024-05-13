@@ -18,18 +18,16 @@ const Conversation = ({conversation}) => {
     }
 
     return (
-        <>
-            <div className={`conversation ${isSelected ? "selected" : ""}`}
-                 onClick={handleClick}>
-                <div className="photo">
-                    <img src={url} alt="Photo de profil"/>
-                </div>
-                <div className="middlecontent">
-                    <p className="receiver">{fullName}</p>
-                </div>
-                {isOnline && <img src={require('../images/online.png')} className="onlinestatus" alt="Online"/>}
+        <div className={`conversation ${isSelected ? "selected" : ""}`}
+             onClick={handleClick}>
+            <div className="photo">
+                <img src={url} alt="Photo de profil"/>
             </div>
-        </>
+            <div className="middlecontent">
+                <p className="receiver">{fullName}</p>
+            </div>
+            {isOnline && <img src={require('../images/online.png')} className="onlinestatus" alt="Online"/>}
+        </div>
     )
 }
 

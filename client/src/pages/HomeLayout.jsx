@@ -11,6 +11,7 @@ import {IoSearch} from "react-icons/io5";
 import {useAuthContext} from "../context/AuthContext";
 import axios from "axios";
 import {useConversation} from "../context/ConversationContext"
+import SearchInput from "../components/SearchInput";
 
 const HomeLayout = () => {
     const location = useLocation()
@@ -103,16 +104,16 @@ const HomeLayout = () => {
     }
 
     return (
-        <>
+        <div className="home-page">
             <div className="page-layout">
                 <div className='sidebar'>
                     <div>
-                        <h1 className="homeTitle"><img src={require('../images/logo_nobackground.png')} alt="GroundR"/>
-                        </h1>
+                        <h1><img src={require('../images/logo_nobackground.png')} alt="GroundR"/></h1>
                         <ProfileButton/>
-                        <Link to="swipe" className="btnGround">Let's Ground!</Link>
-                        <Sidebar/>
+                        <Link to="swipe" className="btnGround">Ground</Link>
                     </div>
+                    <SearchInput />
+                    <Sidebar/>
                     <div>
                         <LogoutButton/>
                     </div>
@@ -122,7 +123,7 @@ const HomeLayout = () => {
                 </div>
             </div>
             <Footer/>
-        </>
+        </div>
     );
 }
 export default HomeLayout;

@@ -1,23 +1,21 @@
-import Select from "react-select";
-import LoadingIndicator from "./LoadingIndicator";
-import React, {useEffect, useState} from "react";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
-import Modal from "./Modal";
-import {useAuthContext} from "../context/AuthContext";
+import Select from "react-select"
+import LoadingIndicator from "./LoadingIndicator"
+import React, {useEffect, useState} from "react"
+import axios from "axios"
+import Modal from "./Modal"
+import {useAuthContext} from "../context/AuthContext"
 
 const ProfileEdit = () => {
-    const navigate = useNavigate();
 
     const {authUser, setAuthUser} = useAuthContext()
 
     useEffect(() => {
         document.title = "Modifier votre profil | GroundR"
-    }, []);
+    }, [])
 
 
-    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$';
-    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$';
+    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$'
+    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
 
     const [formData, setFormData] = useState({
 
@@ -27,48 +25,48 @@ const ProfileEdit = () => {
         range: 0,
         bio: ""
 
-    });
-    const [interests, setInterests] = useState([]);
-    const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [isChanged, setIsChanged] = useState(false);
-    const [interestList, setInterestList] = useState([]);
+    })
+    const [interests, setInterests] = useState([])
+    const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [isChanged, setIsChanged] = useState(false)
+    const [interestList, setInterestList] = useState([])
 
 
-    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+    const [isModalOpen, setIsModalOpen] = useState(false) // State for modal
 
     const openModal = () => {
-        setIsModalOpen(true);
-    };
+        setIsModalOpen(true)
+    }
 
     const closeModal = () => {
-        setIsModalOpen(false);
-    };
+        setIsModalOpen(false)
+    }
 
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
+            setLoading(true)
             try {
                 const response = await axios.get('http://localhost:3001/user/get-interests')
                 console.log(response.data)
-                setInterestList(response.data);
+                setInterestList(response.data)
                 console.log(interestList)
-                let temp = [];
+                let temp = []
                 response.data.forEach(i => {
                     if (authUser.interests.includes(i.value)) {
                         temp.push(i);
                     }
-                });
-                setInterests(temp);
+                })
+                setInterests(temp)
             } catch (err) {
                 console.error(err)
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
         }
         fetchData()
-    }, []);
+    }, [])
 
     useEffect(() => {
         setInterests(authUser.interests);
@@ -80,47 +78,40 @@ const ProfileEdit = () => {
             range: authUser.range
         });
 
-    }, [authUser, interestList]);
+    }, [authUser, interestList])
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const validationErrors = {};
-
-        if (!formData.email.trim()) {
-            validationErrors.email = 'Ce champ est requis.';
-        } else if (!formData.email.trim().match(regExpEmail)) {
-            validationErrors.email = 'L\'adresse courriel est invalide.';
-        }
+        e.preventDefault()
+        const validationErrors = {}
 
         if (!formData.bio.trim()) {
             validationErrors.bio = 'Ce champ est requis'
         }
         else if (!formData.bio.match(regExpString)) {
-            validationErrors.bio = 'La bio est invalide.';
+            validationErrors.bio = 'La bio est invalide.'
         }
 
         if (!interests || interests.length < 3) {
-            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.';
+            validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
         }
 
         if (formData.range < 1) formData.range = 1
 
-        setErrors(validationErrors);
+        setErrors(validationErrors)
 
         if (Object.keys(validationErrors).length === 0) {
             setLoading(true);
 
-            let interestsToSend = interests.map(i => i.value);
+            let interestsToSend = interests.map(i => i.value)
 
             let userData = {
                 "bio": formData.bio,
-                "email": formData.email,
                 "gender": formData.gender,
                 "orientation": formData.orientation,
                 "interests": interestsToSend,
                 "range": formData.range
-            };
+            }
 
             axios.post('http://localhost:3001/user/update', userData, {
                 headers: {
@@ -157,22 +148,11 @@ const ProfileEdit = () => {
     };
 
     return (
-        <>
-            <div className="container signup-layout">
-                <h2 className="golden">Modifier le profil</h2>
-                <div className="signup-card">
+        <div>
+            <div className="profileedit">
+                <div className="profileeditcard">
+                    <h2>Modifier le profil</h2>
                     <form onSubmit={handleSubmit} noValidate>
-
-                        <label htmlFor="email">Adresse courriel</label>
-                        <input
-                            id="email"
-                            className={errors.email ? "is-invalid form-control" : "form-control"}
-                            type="text"
-                            name="email"
-                            onChange={handleChange}
-                            value={formData.email}
-                        />
-                        {errors.email && <span className="invalid-feedback">{errors.email}</span>}
                         <label htmlFor="bio">Bio</label>
                         <textarea
                             id="bio"
@@ -233,8 +213,8 @@ const ProfileEdit = () => {
                                     backgroundColor: "#232020",
                                     color: "white",
                                     borderColor: "#e3a256",
-                                    borderRadius: "5px",
-                                    marginBottom: "20px"
+                                    borderRadius: "40px",
+                                    marginBottom: "0px"
                                 }),
                                 menu: (baseStyles, state) => ({
                                     ...baseStyles,
@@ -249,7 +229,7 @@ const ProfileEdit = () => {
                                 }),
                                 multiValue: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    borderRadius: "5px",
+                                    borderRadius: "40px",
                                     color: "white",
                                     backgroundColor: "DarkGoldenRod"
                                 }),
@@ -259,7 +239,7 @@ const ProfileEdit = () => {
                                 }),
                                 multiValueRemove: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    borderRadius: "5px",
+                                    borderRadius: "40px",
                                     color: "white",
                                     ":hover": {
                                         backgroundColor: "goldenrod"
@@ -267,7 +247,7 @@ const ProfileEdit = () => {
                                 })
                             }}
                         />
-                        <label htmlFor="range">Distance maximale (KM)</label>
+                        <label htmlFor="range">Distance de recherche maximale (Km)</label>
                         <input
                             type="number"
                             name="range"
@@ -291,7 +271,7 @@ const ProfileEdit = () => {
                     <h2 className="custom-modal-text">Paramètres mis à jour avec succès.</h2>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

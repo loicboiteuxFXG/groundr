@@ -6,8 +6,7 @@ const Sidebar = () => {
 
 
     return (
-        <div>
-            <SearchInput />
+        <div className="sidebar-layout">
             <Conversations />
         </div>
     )

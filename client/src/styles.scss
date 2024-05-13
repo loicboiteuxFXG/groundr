@@ -280,11 +280,525 @@ footer {
 
         .signup-card {
             width: 100%;
-            max-width: 700px;
+            max-width: 900px;
             background-color: $dark-color2;
             padding: 40px;
             border-radius: 40px;
             margin: 0 auto 20px;
+
+            p {
+                color: $golden;
+                text-align: center;
+                margin: 30px 0 5px 0;
+            }
+
+            .smallbutton {
+                display: block;
+                max-width: 150px;
+                background-image: url("images/gold.jpg");
+                background-size: 125%;
+                background-position: center;
+                color: $dark-color;
+                padding: 8px;
+                border-radius: 40px;
+                text-align: center;
+                font-family: Montserrat, sans-serif;
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-decoration: none;
+                margin: 0 auto;
+
+                &:hover {
+                    background-position-x: -5px;
+                    transition: 250ms;
+                }
+            }
+
+
+            .form {
+                display: flex;
+                justify-content: space-between;
+
+                > div {
+                    width: 47%;
+
+                    h3 {
+                        font-family: "Montserrat", sans-serif;
+                        font-size: 1.3rem;
+                        color: $golden;
+                        margin: 20px 0 0 0;
+                        text-align: center;
+                    }
+
+                    label {
+                        color: $golden;
+                        font-family: Montserrat, sans-serif;
+                        margin-top: 20px;
+                    }
+
+                    input,
+                    select,
+                    textarea {
+                        color: $golden;
+                        background-color: $dark-color;
+                        border: 1px solid $golden;
+                        border-radius: 40px;
+                    }
+
+                    textarea {
+                        border-radius: 20px;
+                    }
+
+                    input[type="submit"] {
+                        border: none;
+                        color: $dark-color;
+                        text-align: center;
+                        margin: 35px auto 0 auto;
+                        border-radius: 40px;
+                    }
+
+                    input::file-selector-button {
+                        background-color: $dark-color;
+                        color: $golden;
+                    }
+
+                    input:focus, textarea:focus, select:focus{
+                        box-shadow: none;
+                    }
+
+                    .css-es2p3j-control,
+                    .css-sg40b7-control {
+                        margin-bottom: 0;
+
+                        &:focus {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//=====================
+//==== HomeLayout =====
+//=====================
+
+.home-page {
+    height: 100vh;
+    .page-layout {
+        display: flex;
+        justify-content: space-between;
+        background-color: $dark-color;
+        height: calc(100% - 74px);
+
+        .sidebar {
+            width: 20%;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            h1 {
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .content {
+            margin: 15px 0 15px 0;
+            width: 80%;
+            background-color: $dark-color2;
+            border-radius: 40px 0 0 40px;
+            padding: 30px;
+        }
+    }
+}
+
+//=====================
+//== ProfileButton ====
+//=====================
+
+.profileButton {
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: $dark-color2;
+    border-radius: 20px;
+    padding: 12px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .profileIcon {
+        position: relative;
+        width: 20%;
+        height: 0;
+        padding-bottom: 20%;
+
+        img {
+            width: 100%;
+            border-radius: 15px;
+        }
+    }
+
+    .profileButtonContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 75%;
+
+        h4 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.3rem;
+            color: #e4c14d;
+            margin-bottom: 0;
+        }
+
+        p {
+            font-size: 0.7rem;
+            text-decoration: underline;
+            color: $golden;
+            margin-bottom: 0;
+        }
+    }
+
+    &:hover {
+        background-color: #363636;
+        transition: 250ms;
+    }
+}
+
+//=====================
+//==== SideBar ========
+//=====================
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $golden;
+    input{
+        width: 80%;
+        border-radius: 40px;
+        background-color: $dark-color2;
+        border-color: $golden;
+        color: $golden;
+        &:focus{
+            background-color: $dark-color2;
+            border-color: $golden;
+            color: $golden;
+            box-shadow: none;
+        }
+    }
+    input::placeholder {
+        color: $golden;
+        opacity: 1;
+    }
+    .btnSearch {
+        background-color: $golden;
+        color: $dark-color;
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+        border: none;
+        &:hover {
+            background-color: #e4c14d;
+            transition: 250ms;
+        }
+    }
+}
+
+.sidebar-layout {
+    flex-grow: 1;
+    overflow: auto;
+
+    .conversation {
+        background-color: $dark-color2;
+        border-radius: 20px;
+        margin: 10px 0;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        .photo {
+            width: 20%;
+            margin-right: 15px;
+            img {
+                width: 100%;
+            }
+        }
+        .middlecontent {
+            width: 75%;
+            .receiver {
+                margin: 0;
+                color: $golden;
+                font-family: "Montserrat", sans-serif;
+                font-size: 1.3rem;
+            }
+        }
+        .onlinestatus {
+            width: 5%;
+        }
+        &:hover{
+            background-color: #363636;
+            transition: 250ms;
+        }
+    }
+
+    .selected {
+        background-color: #363636;
+    }
+}
+
+.btnLogout {
+    width: 15%;
+    button {
+        border: none;
+        background: none;
+        width: 100%;
+    }
+    form{
+        width: 100%;
+    }
+}
+
+//=====================
+//==== Messaging ======
+//=====================
+
+.chatbox {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .messages {
+        flex-grow: 1;
+        overflow: auto;
+    }
+
+    .message-start{
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        .pfp {
+            width: 5%;
+            margin-right: 10px;
+            img {
+                width: 100%;
+                border-radius: 100%;
+            }
+        }
+        .bubble {
+            display: inline-block;
+            max-width: 50%;
+            width: auto;
+            padding: 10px;
+            background-color: $dark-color;
+            border-radius: 25px;
+            overflow-wrap: break-word;
+        }
+        .message {
+            display: inline-block;
+            width: 95%;
+        }
+        .timestamp {
+            color: $golden;
+        }
+    }
+
+    .message-end {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: flex-start;
+        flex-direction: row-reverse;
+        margin-bottom: 10px;
+        .pfp {
+            width: 5%;
+            margin-left: 10px;
+            img {
+                width: 100%;
+                border-radius: 100%;
+            }
+        }
+        .bubble {
+            display: inline-block;
+            max-width: 50%;
+            width: auto;
+            padding: 10px;
+            background-color: #e4c14d;
+            border-radius: 25px;
+            overflow-wrap: break-word;
+            align-self: flex-end;
+        }
+        .message {
+            display: flex;
+            flex-direction: column;
+            width: 95%;
+        }
+        .timestamp {
+            color: $golden;
+            align-self: flex-end;
+        }
+    }
+
+    .messagebar {
+        display: flex;
+        justify-content: space-between;
+        input {
+            width: 95%;
+            height: 50px;
+            border-radius: 40px;
+            background-color: $dark-color;
+            border-color: $golden;
+            color: $golden;
+            &:focus{
+                box-shadow: none;
+            }
+        }
+        input::placeholder {
+            color: $golden;
+            opacity: 1;
+        }
+        .btnSend {
+            background-color: $golden;
+            padding: 10px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 100%;
+            &:hover{
+                background-color: #e4c14d;
+                transition: 250ms;
+            }
+        }
+    }
+
+    .contact {
+        color: $golden;
+    }
+
+}
+
+.message-anim {
+    animation: messagePopIn 0.5s ease forwards;
+}
+
+
+.nochatselected {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+        color: $golden;
+    }
+    p {
+        color: $golden;
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+    }
+}
+
+//=====================
+//=== Profile Layout ==
+//=====================
+
+.profileLayout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+
+    .imageContainer:hover .overlay {
+        opacity: 1;
+    }
+
+    .icon {
+        color: white;
+        font-size: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .fa-user:hover {
+        color: $dark-color;
+    }
+
+    > div {
+        width: 49%;
+        text-align: center;
+
+        img {
+            width: 50%;
+            margin-bottom: 20px;
+            border-radius: 40px;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .3s ease;
+            background-color: red;
+        }
+
+
+        p {
+            color: $golden;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            color: $golden;
+            margin-bottom: 20px;
+            font-size: 3rem;
+        }
+
+        .buttons {
+            padding: 10px;
+            width: 80%;
+            margin: 15px auto;
+        }
+    }
+}
+
+//=====================
+//=== Profile Edit ====
+//=====================
+
+.profileedit {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .profileeditcard {
+        width: 80%;
+        height: 100%;
+        h2 {
+            color: $golden;
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
+            height: 100%;
 
             label {
                 color: $golden;
@@ -299,10 +813,13 @@ footer {
                 background-color: $dark-color;
                 border: 1px solid $golden;
                 border-radius: 40px;
+                &:focus {
+                    box-shadow: none;
+                }
             }
-
             textarea {
                 border-radius: 20px;
+                resize: none;
             }
 
             input[type="submit"] {
@@ -310,34 +827,11 @@ footer {
                 color: $dark-color;
                 text-align: center;
                 margin: 35px auto 0 auto;
-            }
-
-            input::file-selector-button {
-                background-color: $dark-color;
-                color: $golden;
-            }
-
-            input:focus {
-                box-shadow: none;
-            }
-
-            .css-es2p3j-control,
-            .css-sg40b7-control {
-                margin-bottom: 0;
-
-                &:focus {
-                    margin-bottom: 0;
-                }
+                border-radius: 40px;
             }
         }
     }
 }
-
-//=====================
-//==== HomeLayout =====
-//=====================
-
-
 
 //=====================
 //==== NotFound =======
@@ -413,29 +907,7 @@ footer {
     }
 }
 
-.page-layout {
-    display: flex;
-    justify-content: space-between;
-    background-color: $dark-color;
 
-    .sidebar {
-        width: 20%;
-        height: 90vh;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-    }
-
-    .content {
-        margin-top: 15px;
-        width: 80%;
-        height: 85vh;
-        background-color: $dark-color2;
-        border-radius: 40px 0 0 40px;
-        padding: 30px;
-    }
-}
 
 .btnGround {
     display: block;
@@ -458,102 +930,6 @@ footer {
     }
 }
 
-.search {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding-bottom: 20px;
-    border-bottom: 1px solid $golden;
-    input{
-        width: 80%;
-        border-radius: 40px;
-        background-color: $dark-color2;
-        border-color: $golden;
-        color: $golden;
-        &:focus{
-            background-color: $dark-color2;
-            border-color: $golden;
-            color: $golden;
-        }
-    }
-    input::placeholder {
-        color: $golden;
-        opacity: 1;
-    }
-    .btnSearch {
-        background-color: $golden;
-        color: $dark-color;
-        padding: 5px;
-        width: 40px;
-        height: 40px;
-        border: none;
-        &:hover {
-            background-color: #e4c14d;
-            transition: 250ms;
-        }
-    }
-}
-
-.conversation {
-    background-color: $dark-color2;
-    border-radius: 20px;
-    margin: 10px 0;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    .photo {
-        width: 20%;
-        margin-right: 15px;
-        img {
-            width: 100%;
-        }
-    }
-    .middlecontent {
-        width: 75%;
-        .receiver {
-            margin: 0;
-            color: $golden;
-            font-family: "Montserrat", sans-serif;
-            font-size: 1.3rem;
-        }
-    }
-    .onlinestatus {
-        width: 5%;
-    }
-    &:hover{
-        background-color: #363636;
-        transition: 250ms;
-    }
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.selected {
-    background-color: #363636;
-}
-
-.conversations {
-    height:30vh;
-    overflow-y:scroll;
-}
-
-.btnLogout {
-    width: 15%;
-    button {
-        border: none;
-        background: none;
-        width: 100%;
-    }
-    form{
-        width: 100%;
-    }
-}
-
-
 
 .custom-btn {
     display: block;
@@ -564,6 +940,7 @@ footer {
     padding: 10px;
     border-radius: 10px;
     text-align: center;
+    font-weight: 700;
     font-family: Montserrat, sans-serif;
     font-size: 1.2rem;
     text-decoration: none;
@@ -593,54 +970,7 @@ footer {
     }
 }
 
-.profileButton {
-    margin-bottom: 20px;
-    cursor: pointer;
-    background-color: $dark-color2;
-    border-radius: 20px;
-    padding: 12px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    .profileIcon {
-        position: relative;
-        width: 20%;
-        height: 0;
-        padding-bottom: 20%;
-
-        img {
-            width: 100%;
-            border-radius: 15px;
-        }
-    }
-
-    .profileButtonContent {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 75%;
-
-        h4 {
-            font-family: "Montserrat", sans-serif;
-            font-size: 1.3rem;
-            color: #e4c14d;
-            margin-bottom: 0;
-        }
-
-        p {
-            font-size: 0.7rem;
-            text-decoration: underline;
-            color: $golden;
-            margin-bottom: 0;
-        }
-    }
-
-    &:hover {
-        background-color: #363636;
-        transition: 250ms;
-    }
-}
 
 .swiperLayout {
     height: 100%;
@@ -728,153 +1058,11 @@ footer {
     }
 }
 
-.profileLayout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
 
-    > div {
-        width: 49%;
-        text-align: center;
 
-        img {
-            width: 40%;
-            margin-bottom: 20px;
-            border-radius: 40px;
-        }
-
-        h3 {
-            margin-bottom: 20px;
-        }
-    }
-}
-
-.messages {
-    height: 63vh;
-    overflow-y: scroll;
-}
-
-.message-start{
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: flex-start;
-    margin-bottom: 10px;
-    .pfp {
-        width: 5%;
-        margin-right: 10px;
-        img {
-            width: 100%;
-            border-radius: 100%;
-        }
-    }
-    .bubble {
-        display: inline-block;
-        max-width: 50%;
-        width: auto;
-        padding: 10px;
-        background-color: $dark-color;
-        border-radius: 25px;
-        overflow-wrap: break-word;
-    }
-    .message {
-        display: inline-block;
-        width: 95%;
-    }
-    .timestamp {
-        color: $golden;
-    }
-}
-
-.message-end {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    align-items: flex-start;
-    flex-direction: row-reverse;
-    margin-bottom: 10px;
-    .pfp {
-        width: 5%;
-        margin-left: 10px;
-        img {
-            width: 100%;
-            border-radius: 100%;
-        }
-    }
-    .bubble {
-        display: inline-block;
-        max-width: 50%;
-        width: auto;
-        padding: 10px;
-        background-color: #e4c14d;
-        border-radius: 25px;
-        overflow-wrap: break-word;
-        align-self: flex-end;
-    }
-    .message {
-        display: flex;
-        flex-direction: column;
-        width: 95%;
-    }
-    .timestamp {
-        color: $golden;
-        align-self: flex-end;
-    }
-}
-
-.messagebar {
-    display: flex;
-    justify-content: space-between;
-    input {
-        width: 95%;
-        height: 50px;
-        border-radius: 40px;
-        background-color: $dark-color2;
-        border-color: $golden;
-        color: $golden;
-        &:focus{
-            background-color: $dark-color2;
-            border-color: $golden;
-            color: $golden;
-        }
-    }
-    input::placeholder {
-        color: $golden;
-        opacity: 1;
-    }
-    .btnSend {
-        background-color: $golden;
-        padding: 10px;
-        width: 50px;
-        height: 50px;
-        border: none;
-        border-radius: 100%;
-        &:hover{
-            background-color: #e4c14d;
-            transition: 250ms;
-        }
-    }
-}
-
-.contact {
-    color: $golden;
-}
-
-.nochatselected {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    h2 {
-        color: $golden;
-    }
-    p {
-        color: $golden;
-        font-family: "Montserrat", sans-serif;
-        text-align: center;
-    }
-}
+//=====================
+//== Heart Animation ==
+//=====================
 
 .centerHeart {
     display: flex;
@@ -927,6 +1115,10 @@ footer {
         background: $golden;
     }
 }
+
+//=====================
+//====== Modal ========
+//=====================
 
 .modal-overlay {
     position: fixed;
@@ -1056,13 +1248,6 @@ $box-shadow2: ();
     -ms-transform: $settings;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    background: #000;
-    overflow: hidden;
-}
-
 .pyro > .before,
 .pyro > .after {
     position: absolute;
@@ -1139,10 +1324,6 @@ body {
     }
 }
 
-.message-anim {
-    animation: messagePopIn 0.5s ease forwards;
-}
-
 .usersearchbox {
     height: 100%;
     h2 {
@@ -1168,6 +1349,7 @@ body {
                 background-color: $dark-color2;
                 border-color: $golden;
                 color: $golden;
+                box-shadow: none;
             }
             &::placeholder {
                 color: $golden;
