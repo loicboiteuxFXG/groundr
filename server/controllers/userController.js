@@ -112,7 +112,7 @@ exports.getResearchedUsers = async (req, res, next) => {
     try {
         let sort = {}
         if (criterias.sort === "alphabetical") {
-            sort = { name: -1 }
+            sort = { firstName: 1 }
         }
         if (criterias.sort === "gender") {
             sort = {gender: 1}

@@ -49,7 +49,7 @@ const SearchResult = ({user}) => {
             break
     }
 
-    const display = `${fullName}, ${age} ans\n${gender}\n${orientation}`
+    const display = `${fullName}, ${age} ans ${gender}\n${orientation}`
 
     const handleClick = () => {
 
@@ -61,7 +61,11 @@ const SearchResult = ({user}) => {
                 <img src={url} alt="Photo de profil"/>
             </div>
             <div className="text">
-                <p className="foundUser">{display}</p>
+                <p className="foundUser">
+                    {fullName}, {age} ans<br/>
+                    {gender}<br/>
+                    {orientation}
+                </p>
             </div>
         </div>
     )
@@ -131,19 +135,19 @@ const UserSearch = () => {
                         <fieldset>
                             <legend>Genre</legend>
                             <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="M" id="gmen" onChange={handleGenderChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="M" id="gmen" onChange={handleGenderChange} checked={genders.includes("M")} />
                                 <label className="form-check-label" htmlFor="gmen">
                                     Hommes
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="checkbox" value="F" id="gwomen" onChange={handleGenderChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="F" id="gwomen" onChange={handleGenderChange} checked={genders.includes("F")}/>
                                 <label className="form-check-label" htmlFor="gwomen">
                                     Femmes
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="checkbox" value="O" id="others" onChange={handleGenderChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="O" id="others" onChange={handleGenderChange} checked={genders.includes("O")}/>
                                 <label className="form-check-label" htmlFor="others">
                                     Autres
                                 </label>
@@ -152,25 +156,25 @@ const UserSearch = () => {
                         <fieldset>
                             <legend>Orientation sexuelle</legend>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="checkbox" value="M" id="omen" onChange={handleOrientationChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="M" id="omen" onChange={handleOrientationChange} checked={orientations.includes("M")}/>
                                 <label className="form-check-label" htmlFor="omen">
                                     Hommes
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="checkbox" value="F" id="owomen" onChange={handleOrientationChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="F" id="owomen" onChange={handleOrientationChange} checked={orientations.includes("F")} />
                                 <label className="form-check-label" htmlFor="owomen">
                                     Femmes
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="checkbox" value="B" id="both" onChange={handleOrientationChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="B" id="both" onChange={handleOrientationChange} checked={orientations.includes("B")}/>
                                 <label className="form-check-label" htmlFor="both">
                                     Les deux
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="checkbox" value="A" id="tout" onChange={handleOrientationChange} checked/>
+                                <input className="form-check-input" type="checkbox" value="A" id="tout" onChange={handleOrientationChange} checked={orientations.includes("A")}/>
                                 <label className="form-check-label" htmlFor="tout">
                                     Tout
                                 </label>
@@ -179,19 +183,19 @@ const UserSearch = () => {
                         <fieldset>
                             <legend>Tri</legend>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="radio" value="alphabetical" name="sort" id="alphabetical" onChange={handleSortChange} checked/>
+                                <input className="form-check-input" type="radio" value="alphabetical" name="sort" id="alphabetical" onChange={handleSortChange} checked={sort==="alphabetical"}/>
                                 <label className="form-check-label" htmlFor="alphabetical">
                                     A-Z
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="radio" value="gender" name="sort" id="gender" onChange={handleSortChange}/>
+                                <input className="form-check-input" type="radio" value="gender" name="sort" id="gender" onChange={handleSortChange} checked={sort==="gender"}/>
                                 <label className="form-check-label" htmlFor="gender">
                                     Genre
                                 </label>
                             </div>
                             <div className="form-check checkgroup">
-                                <input className="form-check-input" type="radio" value="orientation" name="sort" id="orientation" onChange={handleSortChange}/>
+                                <input className="form-check-input" type="radio" value="orientation" name="sort" id="orientation" onChange={handleSortChange} checked={sort==="orientation"}/>
                                 <label className="form-check-label" htmlFor="orientation">
                                     Orientation
                                 </label>

@@ -45,12 +45,3 @@ exports.Register = async (req, res, next) => {
         next(err)
     }
 }
-
-exports.Logout = async (req, res, next) => {
-    try {
-        res.cookie('jwt', "", {maxAge: 0})
-        res.status(200).send("Compte déconnecté.")
-    } catch (err) {
-        next(err)
-    }
-}

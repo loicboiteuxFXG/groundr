@@ -11,7 +11,6 @@ router.post('/login', authController.Login);
 
 router.post('/register', ValidateSignup, authController.Register);
 
-router.post('/logout', authController.Logout);
 
 
 module.exports = router;
