@@ -31,7 +31,7 @@ const swipeUser = async (req, res, next) => {
                 participants : [userId, swipedUser._id]
             })
             await conversation.save()
-            res.send({action: "update", match: true, user: swipedUser});
+            res.send({action: "update", match: true, user: swipedUser, conversation: conversation});
         } else {
             // DELETE
             console.log("Pas de match. Suppression du ground");

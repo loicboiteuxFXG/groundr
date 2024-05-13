@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import "../styles.css";
 import LoadingIndicator from "./LoadingIndicator";
 import Modal from "./Modal";
@@ -21,11 +21,11 @@ const SubscribeBox = () => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
-        card:"",
-        cvv:"",
-        name:"",
-        month:"",
-        year:""
+        card: "",
+        cvv: "",
+        name: "",
+        month: "",
+        year: ""
     });
 
     const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
@@ -40,9 +40,8 @@ const SubscribeBox = () => {
     };
 
 
-
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData, [name]: value
         });
@@ -57,9 +56,9 @@ const SubscribeBox = () => {
         const validationErrors = {};
 
         if (!formData.name.trim()) {
-             validationErrors.name = 'Ce champ est requis.';
+            validationErrors.name = 'Ce champ est requis.';
         } else if (!formData.name.trim().match(regExpString)) {
-             validationErrors.name = 'Le nom entré est invalide.';
+            validationErrors.name = 'Le nom entré est invalide.';
         }
 
         if (!formData.card.trim()) {
@@ -112,72 +111,73 @@ const SubscribeBox = () => {
 
 
     return (
-        <>
-            <div className="container signup-layout">
-                <h2 className="golden">Modifier le compte</h2>
-                <div className="signup-card">
-                    <form onSubmit={handleSubmit} noValidate>
-                        <label htmlFor="name">Nom du titulaire</label>
-                        <input
-                            id="name"
-                            name="name"
-                            className={errors.name ? "is-invalid form-control" : "form-control"}
-                            onChange={handleChange}
-                            value={formData.name}
-                        />
-                        {errors.name && <span className="invalid-feedback">{errors.name}</span>}
+        <div className="subscribe">
+            <div className="subscribecard">
+                <h2>S'abonner à GroundR Max</h2>
+                <form onSubmit={handleSubmit} noValidate>
+                    <label htmlFor="name">Nom du titulaire</label>
+                    <input
+                        id="name"
+                        name="name"
+                        className={errors.name ? "is-invalid form-control" : "form-control"}
+                        onChange={handleChange}
+                        value={formData.name}
+                    />
+                    {errors.name && <span className="invalid-feedback">{errors.name}</span>}
 
-                        <label htmlFor="card">Numéro de carte</label>
-                        <input
-                            id="card"
-                            name="card"
-                            className={errors.card ? "is-invalid form-control" : "form-control"}
-                            maxLength="19"
-                            placeholder="xxxx xxxx xxxx xxxx"
-                            onChange={handleChange}
-                            value={formData.card}
-                        />
-                        {errors.card && <span className="invalid-feedback">{errors.card}</span>}
+                    <label htmlFor="card">Numéro de carte</label>
+                    <input
+                        id="card"
+                        name="card"
+                        className={errors.card ? "is-invalid form-control" : "form-control"}
+                        maxLength="19"
+                        placeholder="xxxx xxxx xxxx xxxx"
+                        onChange={handleChange}
+                        value={formData.card}
+                    />
+                    {errors.card && <span className="invalid-feedback">{errors.card}</span>}
 
-                        <label htmlFor="cvv">CVV</label>
-                        <input
-                            id="cvv"
-                            name="cvv"
-                            maxLength="3"
-                            className={errors.cvv ? "is-invalid form-control" : "form-control"}
-                            onChange={handleChange}
-                            value={formData.cvv}
-                        />
-                        {errors.cvv && <span className="invalid-feedback">{errors.cvv}</span>}
+                    <label htmlFor="cvv">CVV</label>
+                    <input
+                        id="cvv"
+                        name="cvv"
+                        maxLength="3"
+                        className={errors.cvv ? "is-invalid form-control" : "form-control"}
+                        onChange={handleChange}
+                        value={formData.cvv}
+                    />
+                    {errors.cvv && <span className="invalid-feedback">{errors.cvv}</span>}
 
-                        <label htmlFor="month">MM</label>
-                        <input
-                            id="month"
-                            name="month"
-                            maxLength="2"
-                            className={errors.month ? "is-invalid form-control" : "form-control"}
-                            onChange={handleChange}
-                            value={formData.month}
-                        />
-                        {errors.month && <span className="invalid-feedback">{errors.month}</span>}
+                    <div className="year">
+                        <div>
+                            <label htmlFor="month">MM</label>
+                            <input
+                                id="month"
+                                name="month"
+                                maxLength="2"
+                                className={errors.month ? "is-invalid form-control" : "form-control"}
+                                onChange={handleChange}
+                                value={formData.month}
+                            />
+                            {errors.month && <span className="invalid-feedback">{errors.month}</span>}
+                        </div>
+                        <div>
+                            <label htmlFor="year">AA</label>
+                            <input
+                                id="year"
+                                name="year"
+                                maxLength="2"
+                                className={errors.year ? "is-invalid form-control" : "form-control"}
+                                onChange={handleChange}
+                                value={formData.year}
+                            />
+                            {errors.year && <span className="invalid-feedback">{errors.year}</span>}
+                        </div>
+                    </div>
 
-                        <label htmlFor="year">AA</label>
-                        <input
-                            id="year"
-                            name="year"
-                            type="number"
-                            max="99"
-                            min="0"
-                            className={errors.year ? "is-invalid form-control" : "form-control"}
-                            onChange={handleChange}
-                            value={formData.year}
-                        />
-                        {errors.year && <span className="invalid-feedback">{errors.year}</span>}
-
-                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
-                            <input type="submit" className="custom-btn" value="S'abonner"/>}
-                    </form>
-                </div>
+                    {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                        <input type="submit" className="custom-btn" value="S'abonner"/>}
+                </form>
             </div>
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <div className="pyro">
@@ -189,7 +189,7 @@ const SubscribeBox = () => {
                     <p className="custom-modal-text-p">Merci de votre soutien!</p>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

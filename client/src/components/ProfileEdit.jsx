@@ -88,9 +88,6 @@ const ProfileEdit = () => {
         if (!formData.bio.trim()) {
             validationErrors.bio = 'Ce champ est requis'
         }
-        else if (!formData.bio.match(regExpString)) {
-            validationErrors.bio = 'La bio est invalide.'
-        }
 
         if (!interests || interests.length < 3) {
             validationErrors.interests = 'Vous devez sélectionner au moins 3 intérêts.'
@@ -148,123 +145,121 @@ const ProfileEdit = () => {
     };
 
     return (
-        <div>
-            <div className="profileedit">
-                <div className="profileeditcard">
-                    <h2>Modifier le profil</h2>
-                    <form onSubmit={handleSubmit} noValidate>
-                        <label htmlFor="bio">Bio</label>
-                        <textarea
-                            id="bio"
-                            className={errors.bio ? "is-invalid form-control" : "form-control"}
-                            name="bio"
+        <div className="profileedit">
+            <div className="profileeditcard">
+                <h2>Modifier le profil</h2>
+                <form onSubmit={handleSubmit} noValidate>
+                    <label htmlFor="bio">Bio</label>
+                    <textarea
+                        id="bio"
+                        className={errors.bio ? "is-invalid form-control" : "form-control"}
+                        name="bio"
+                        onChange={handleChange}
+                        value={formData.bio}
+                    />
+                    {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
+                    <label htmlFor="gender">Identité de genre</label>
+                    <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
+                            name="gender"
                             onChange={handleChange}
-                            value={formData.bio}
-                        />
-                        {errors.bio && <span className="invalid-feedback">{errors.bio}</span>}
-                        <label htmlFor="gender">Identité de genre</label>
-                        <select id="gender" className={errors.gender ? "is-invalid form-control" : "form-control"}
-                                name="gender"
-                                onChange={handleChange}
-                                value={formData.gender}>
-                            <option value="M">Homme</option>
-                            <option value="F">Femme</option>
-                            <option value="O">Autre</option>
-                        </select>
-                        {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
-                        <label htmlFor="orientation">Je recherche</label>
-                        <select id="orientation"
-                                className={errors.orientation ? "is-invalid form-control" : "form-control"}
-                                name="orientation"
-                                onChange={handleChange}
-                                value={formData.orientation}>
-                            <option value="M">Homme</option>
-                            <option value="F">Femme</option>
-                            <option value="B">Les deux</option>
-                            <option value="A">Tout</option>
-                        </select>
-                        {errors.orientation && <span className="invalid-feedback">{errors.orientation}</span>}
-                        <label htmlFor="interests">Mes intérêts</label>
-                        <Select
-                            id="interests"
-                            isMulti
-                            name="interests"
-                            options={interestList}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            value={interests}
-                            onChange={handleInterestChange}
-                            theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 5,
-                                colors: {
-                                    ...theme.colors,
-                                    primary25: 'DarkGoldenRod',
-                                    primary: 'DarkGoldenRod',
+                            value={formData.gender}>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                        <option value="O">Autre</option>
+                    </select>
+                    {errors.gender && <span className="invalid-feedback">{errors.gender}</span>}
+                    <label htmlFor="orientation">Je recherche</label>
+                    <select id="orientation"
+                            className={errors.orientation ? "is-invalid form-control" : "form-control"}
+                            name="orientation"
+                            onChange={handleChange}
+                            value={formData.orientation}>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                        <option value="B">Les deux</option>
+                        <option value="A">Tout</option>
+                    </select>
+                    {errors.orientation && <span className="invalid-feedback">{errors.orientation}</span>}
+                    <label htmlFor="interests">Mes intérêts</label>
+                    <Select
+                        id="interests"
+                        isMulti
+                        name="interests"
+                        options={interestList}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        value={interests}
+                        onChange={handleInterestChange}
+                        theme={(theme) => ({
+                            ...theme,
+                            borderRadius: 5,
+                            colors: {
+                                ...theme.colors,
+                                primary25: 'DarkGoldenRod',
+                                primary: 'DarkGoldenRod',
+                            }
+                        })}
+                        styles={{
+                            input: (baseStyles, state) => ({
+                                ...baseStyles,
+                                color: "lightgrey"
+                            }),
+                            control: (baseStyles, state) => ({
+                                ...baseStyles,
+                                backgroundColor: "#232020",
+                                color: "white",
+                                borderColor: "#e3a256",
+                                borderRadius: "40px",
+                                marginBottom: "0px"
+                            }),
+                            menu: (baseStyles, state) => ({
+                                ...baseStyles,
+                                backgroundColor: "#232020",
+                                borderRadius: "5px",
+                                color: "white"
+                            }),
+                            menuList: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderRadius: "5px",
+                                color: "white",
+                            }),
+                            multiValue: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderRadius: "40px",
+                                color: "white",
+                                backgroundColor: "DarkGoldenRod"
+                            }),
+                            multiValueLabel: (baseStyles, state) => ({
+                                ...baseStyles,
+                                color: "white"
+                            }),
+                            multiValueRemove: (baseStyles, state) => ({
+                                ...baseStyles,
+                                borderRadius: "40px",
+                                color: "white",
+                                ":hover": {
+                                    backgroundColor: "goldenrod"
                                 }
-                            })}
-                            styles={{
-                                input: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    color: "lightgrey"
-                                }),
-                                control: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    backgroundColor: "#232020",
-                                    color: "white",
-                                    borderColor: "#e3a256",
-                                    borderRadius: "40px",
-                                    marginBottom: "0px"
-                                }),
-                                menu: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    backgroundColor: "#232020",
-                                    borderRadius: "5px",
-                                    color: "white"
-                                }),
-                                menuList: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    borderRadius: "5px",
-                                    color: "white",
-                                }),
-                                multiValue: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    borderRadius: "40px",
-                                    color: "white",
-                                    backgroundColor: "DarkGoldenRod"
-                                }),
-                                multiValueLabel: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    color: "white"
-                                }),
-                                multiValueRemove: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    borderRadius: "40px",
-                                    color: "white",
-                                    ":hover": {
-                                        backgroundColor: "goldenrod"
-                                    }
-                                })
-                            }}
-                        />
-                        <label htmlFor="range">Distance de recherche maximale (Km)</label>
-                        <input
-                            type="number"
-                            name="range"
-                            className="form-control"
-                            min="0"
-                            onChange={handleChange}
-                            value={formData.range}
-                        />
-                        {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
-                        {
-                            isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
-                                    <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
-                                : <></>
+                            })
+                        }}
+                    />
+                    <label htmlFor="range">Distance de recherche maximale (Km)</label>
+                    <input
+                        type="number"
+                        name="range"
+                        className="form-control"
+                        min="0"
+                        onChange={handleChange}
+                        value={formData.range}
+                    />
+                    {errors.interests && <span className="invalid-feedback">{errors.interests}</span>}
+                    {
+                        isChanged ? <> {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                                <input type="submit" className="custom-btn" value="Mettre à jour"/>}</>
+                            : <></>
 
-                        }
-                    </form>
-                </div>
+                    }
+                </form>
             </div>
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <div className="center-text">

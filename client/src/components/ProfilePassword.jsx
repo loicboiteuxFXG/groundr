@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import "../styles.css";
 import LoadingIndicator from "./LoadingIndicator";
 import Modal from "./Modal";
@@ -89,7 +89,7 @@ const ProfilePassword = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData, [name]: value
         });
@@ -97,50 +97,48 @@ const ProfilePassword = () => {
 
 
     return (
-        <>
-            <div className="signup-layout">
-                <h2 className="golden">Modifier le mot de passe</h2>
-                <div className="signup-card">
-                    <form onSubmit={handleSubmit} noValidate>
-                        <label htmlFor="password_previous">Ancien mot de passe</label>
-                        <input
-                            id="password_previous"
-                            className={errors.password_previous ? "is-invalid form-control" : "form-control"}
-                            type="password"
-                            name="password_previous"
-                            onChange={handleChange}
-                            value={formData.password_previous} />
-                        {errors.password_previous && <span className="invalid-feedback">{errors.password_previous}</span>}
-                        <label htmlFor="password">Nouveau un mot de passe</label>
-                        <input
-                            id="password"
-                            className={errors.password ? "is-invalid form-control" : "form-control"}
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            value={formData.password} />
-                        {errors.password && <span className="invalid-feedback">{errors.password}</span>}
-                        <label htmlFor="password_confirm">Confirmez le nouveau mot de passe</label>
-                        <input
-                            id="password_confirm"
-                            className={errors.password_confirm ? "is-invalid form-control" : "form-control"}
-                            type="password"
-                            name="password_confirm"
-                            onChange={handleChange}
-                            value={formData.password_confirm} />
-                        {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
+        <div className="passwordedit">
+            <div className="passwordeditcard">
+                <h2>Modifier le mot de passe</h2>
+                <form onSubmit={handleSubmit} noValidate>
+                    <label htmlFor="password_previous">Ancien mot de passe</label>
+                    <input
+                        id="password_previous"
+                        className={errors.password_previous ? "is-invalid form-control" : "form-control"}
+                        type="password"
+                        name="password_previous"
+                        onChange={handleChange}
+                        value={formData.password_previous}/>
+                    {errors.password_previous && <span className="invalid-feedback">{errors.password_previous}</span>}
+                    <label htmlFor="password">Nouveau un mot de passe</label>
+                    <input
+                        id="password"
+                        className={errors.password ? "is-invalid form-control" : "form-control"}
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        value={formData.password}/>
+                    {errors.password && <span className="invalid-feedback">{errors.password}</span>}
+                    <label htmlFor="password_confirm">Confirmez le nouveau mot de passe</label>
+                    <input
+                        id="password_confirm"
+                        className={errors.password_confirm ? "is-invalid form-control" : "form-control"}
+                        type="password"
+                        name="password_confirm"
+                        onChange={handleChange}
+                        value={formData.password_confirm}/>
+                    {errors.password_confirm && <span className="invalid-feedback">{errors.password_confirm}</span>}
 
-                        {loading ? <div className="centerHeart mt-5"><LoadingIndicator /></div> :
-                            <input type="submit" className="custom-btn" value="Modifier" />}
-                    </form>
-                </div>
+                    {loading ? <div className="centerHeart mt-5"><LoadingIndicator/></div> :
+                        <input type="submit" className="custom-btn" value="Modifier"/>}
+                </form>
             </div>
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <div className="center-text">
                     <h2 className="custom-modal-text">Mot de passe mis à jour avec succès.</h2>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 

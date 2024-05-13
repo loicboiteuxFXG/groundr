@@ -28,7 +28,7 @@ const SignupBox = () => {
         DoB: '',
         bio: ''
     });
-    const checkIfEmailExists = async (e) => {
+    const checkIfEmailExists = async () => {
         let temp = {
             ...errors
         }
@@ -106,7 +106,8 @@ const SignupBox = () => {
                                     className={errors.email ? "is-invalid form-control" : "form-control"}
                                     type="text"
                                     name="email"
-                                    onChange={handleChange}/>
+                                    onChange={handleChange}
+                                    onBlur={checkIfEmailExists}/>
                                 {errors.email && <span className="invalid-feedback">{errors.email}</span>}
                                 <label htmlFor="password">Créez un mot de passe</label>
                                 <input

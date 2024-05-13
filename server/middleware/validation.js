@@ -55,8 +55,6 @@ const ValidateSignup = async (req, res, next) => {
 
     if (!userData.bio.trim()) {
         errors.bio = 'Ce champ est requis.';
-    } else if (!userData.bio.match(regExpString)) {
-        errors.bio = 'La bio contient des données invalides';
     }
 
     if (!userData.interests || userData.interests.length < 3) {
@@ -95,8 +93,6 @@ const ValidateChanges = async (req, res, next) => {
 
     if (!userData.bio.trim()) {
         errors.bio = 'Ce champ est requis.';
-    } else if (!userData.bio.match(regExpString)) {
-        errors.bio = 'La bio contient des données invalides';
     }
 
     if (!userData.interests || userData.interests.length < 3) {

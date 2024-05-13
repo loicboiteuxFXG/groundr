@@ -140,8 +140,6 @@ const handleInputErrors = (formData, interests) => {
 
     if (!formData.bio.trim()) {
         validationErrors.bio = 'Ce champ est requis.';
-    } else if (!formData.bio.match(regExpString)) {
-        validationErrors.bio = 'La bio contient des données invalides';
     }
 
     return validationErrors

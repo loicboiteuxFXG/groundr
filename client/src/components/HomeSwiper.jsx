@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 import LoadingIndicator from "./LoadingIndicator";
@@ -25,7 +25,7 @@ const HomeSwiper = () => {
     };
 
     const closeModal = () => {
-        setIsModalOpen(false);
+        setIsModalOpen(false)
     };
 
     useEffect(() => {

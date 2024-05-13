@@ -2,6 +2,7 @@
 
 const User = require("../models/user")
 const Conversation = require('../models/conversation')
+const Interest = require("../models/interest")
 const bcrypt = require('bcrypt')
 
 exports.GetUserToken = async (req, res, next) => {
@@ -30,9 +31,11 @@ exports.UpdatePfp = async (req, res, next) => {
 exports.UpdateUserData = async (req, res, next) => {
     const userId = req.user._id
     const data = req.body
+
     try{
+        data.interests = await Interest.find({value: {$in: data.interests}}, '_id')
         await User.updateOne({_id: userId}, data);
-        const newUser = await User.findOne({_id:userId});
+        const newUser = await User.findOne({_id:userId}).populate("interests")
         res.status(200).json(newUser)
     } catch (err){
         next(err)

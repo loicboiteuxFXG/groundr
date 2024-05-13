@@ -12,33 +12,93 @@ $golden2: #e4c14d;
 // ====================
 
 ::selection {
-    background-color: #e4c14d;
-    color: $dark-color2;
+  background-color: #e4c14d;
+  color: $dark-color2;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 body {
-    margin: 0;
-    background-color: $dark-color;
+  margin: 0;
+  background-color: $dark-color;
 }
 
 h1,
 h2,
 h3 {
-    font-family: Montserrat, sans-serif;
-    font-size: 2rem;
-    margin-bottom: 15px;
-    text-align: center;
-    color: $golden;
+  font-family: Montserrat, sans-serif;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: $golden;
 }
 
 .container {
-    max-width: 1200px;
-    width: 90%;
-    margin: 0 auto
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto
+}
+
+.golden {
+  background: #926129 -webkit-linear-gradient(
+                  0deg,
+                  #926129 0%,
+                  #f2e797 50%,
+                  #926129 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &::selection {
+    background: #e4c14d;
+    -webkit-text-fill-color: $dark-color2;
+  }
+}
+
+
+.btnGround {
+  display: block;
+  background-image: url("images/gold.jpg");
+  background-size: 125%;
+  background-position: center;
+  color: $dark-color;
+  padding: 15px;
+  border-radius: 20px;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-position-x: -15px;
+    transition: 250ms;
+  }
+}
+
+
+.custom-btn {
+  display: block;
+  background-image: url("images/gold.jpg");
+  background-size: 125%;
+  background-position: center;
+  color: $dark-color;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border: none;
+
+  &:hover {
+    background-position-x: -5px;
+    transition: 250ms;
+  }
 }
 
 //=====================
@@ -47,26 +107,25 @@ h3 {
 
 
 header {
-    padding: 20px;
-    background-color: $dark-color2;
-    border-radius: 0 0 20px 20px;
+  padding: 20px;
+  background-color: $dark-color2;
+  border-radius: 0 0 20px 20px;
 
-    .presTitle {
-        width: 20%;
-        margin-bottom: 0;
+  .presTitle {
+    width: 20%;
+    margin-bottom: 0;
 
-        img {
-            width: 100%;
-        }
+    img {
+      width: 100%;
     }
+  }
 
-    .header-layout {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+  .header-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
-
 
 
 //=====================
@@ -74,26 +133,30 @@ header {
 //=====================
 
 footer {
-    background-color: $dark-color2;
-    padding: 25px;
-    border-radius: 20px 20px 0 0;
-    div {
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        p {
-            margin: 0;
-            color: $golden;
-        }
-        a {
-            margin: 0 5px;
-        }
-        button {
-            border: none;
-            background: none;
-        }
+  background-color: $dark-color2;
+  padding: 25px;
+  border-radius: 20px 20px 0 0;
+
+  div {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      margin: 0;
+      color: $golden;
     }
+
+    a {
+      margin: 0 5px;
+    }
+
+    button {
+      border: none;
+      background: none;
+    }
+  }
 }
 
 //=====================
@@ -101,78 +164,83 @@ footer {
 //=====================
 
 .presentation {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    .presentationcontainer {
-        flex-grow: 1;
-    }
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .presentationcontainer {
+    flex-grow: 1;
+  }
 }
 
 //=====================
 //===== Accounts ======
 //=====================
 
-.accountspage{
-    min-height: 100vh;
+.accountspage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .accountscontainer {
+    flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    .accountscontainer {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        .accountscard {
-            padding: 40px;
-            border-radius: 40px;
-            background-color: $dark-color2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 500px;
-            h2 {
-                width: 90%;
-                img {
-                    width: 100%;
-                }
-            }
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 
-            h3 {
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-                color: $golden;
-            }
+    .accountscard {
+      padding: 40px;
+      border-radius: 40px;
+      background-color: $dark-color2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 500px;
 
-            p {
-                color: $golden;
-                text-align: center;
-                margin-bottom: 30px;
-            }
+      h2 {
+        width: 90%;
 
-            .buttons{
-                width: 100%;
-                max-width: 250px;
-                background-image: url("images/gold.jpg");
-                background-size: 125%;
-                background-position: center;
-                color: $dark-color;
-                padding: 15px;
-                border-radius: 40px;
-                text-align: center;
-                font-family: Montserrat, sans-serif;
-                font-size: 1rem;
-                font-weight: 700;
-                text-decoration: none;
-                margin-bottom: 10px;
-
-                &:hover {
-                    background-position-x: -5px;
-                    transition: 250ms;
-                }
-            }
+        img {
+          width: 100%;
         }
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: $golden;
+      }
+
+      p {
+        color: $golden;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .buttons {
+        width: 100%;
+        max-width: 250px;
+        background-image: url("images/gold.jpg");
+        background-size: 125%;
+        background-position: center;
+        color: $dark-color;
+        padding: 15px;
+        border-radius: 40px;
+        text-align: center;
+        font-family: Montserrat, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        margin-bottom: 10px;
+
+        &:hover {
+          background-position-x: -5px;
+          transition: 250ms;
+        }
+      }
     }
+  }
 }
 
 
@@ -181,82 +249,82 @@ footer {
 //=====================
 
 .login {
-    min-height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .login-layout {
+    flex-grow: 1;
+    padding: 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    .login-layout {
-        flex-grow: 1;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        h2 {
-            color: $golden;
-            margin-bottom: 0;
-        }
-
-        .login-card {
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
-            margin: 0 auto;
-            border-radius: 30px;
-            background-color: $dark-color2;
-
-            input {
-                background-color: $dark-color;
-                border-color: $golden;
-                color: $golden;
-                border-radius: 40px;
-            }
-
-            input[type="submit"] {
-                margin: 35px auto 0;
-                width: 200px;
-                color: $dark-color;
-            }
-
-            input:focus {
-                box-shadow: none;
-            }
-
-            label {
-                color: $golden;
-                font-family: "Montserrat", sans-serif;
-                margin-top: 20px;
-            }
-
-            p {
-                color: $golden;
-                text-align: center;
-                margin: 30px 0 5px 0;
-            }
-
-            .smallbutton {
-                display: block;
-                max-width: 150px;
-                background-image: url("images/gold.jpg");
-                background-size: 125%;
-                background-position: center;
-                color: $dark-color;
-                padding: 8px;
-                border-radius: 40px;
-                text-align: center;
-                font-family: Montserrat, sans-serif;
-                font-size: 0.8rem;
-                font-weight: 700;
-                text-decoration: none;
-                margin: 0 auto;
-
-                &:hover {
-                    background-position-x: -5px;
-                    transition: 250ms;
-                }
-            }
-        }
+    h2 {
+      color: $golden;
+      margin-bottom: 0;
     }
+
+    .login-card {
+      width: 100%;
+      max-width: 500px;
+      padding: 40px;
+      margin: 0 auto;
+      border-radius: 30px;
+      background-color: $dark-color2;
+
+      input {
+        background-color: $dark-color;
+        border-color: $golden;
+        color: $golden;
+        border-radius: 40px;
+      }
+
+      input[type="submit"] {
+        margin: 35px auto 0;
+        width: 200px;
+        color: $dark-color;
+      }
+
+      input:focus {
+        box-shadow: none;
+      }
+
+      label {
+        color: $golden;
+        font-family: "Montserrat", sans-serif;
+        margin-top: 20px;
+      }
+
+      p {
+        color: $golden;
+        text-align: center;
+        margin: 30px 0 5px 0;
+      }
+
+      .smallbutton {
+        display: block;
+        max-width: 150px;
+        background-image: url("images/gold.jpg");
+        background-size: 125%;
+        background-position: center;
+        color: $dark-color;
+        padding: 8px;
+        border-radius: 40px;
+        text-align: center;
+        font-family: Montserrat, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        margin: 0 auto;
+
+        &:hover {
+          background-position-x: -5px;
+          transition: 250ms;
+        }
+      }
+    }
+  }
 }
 
 //=====================
@@ -264,119 +332,122 @@ footer {
 //=====================
 
 .signup {
-    min-height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .signup-layout {
+    padding: 40px;
     display: flex;
-    flex-direction: column;
-    .signup-layout {
-        padding: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    justify-content: center;
+    align-items: center;
 
-        h2 {
-            color: $golden;
-            margin-bottom: 0;
-        }
-
-        .signup-card {
-            width: 100%;
-            max-width: 900px;
-            background-color: $dark-color2;
-            padding: 40px;
-            border-radius: 40px;
-            margin: 0 auto 20px;
-
-            p {
-                color: $golden;
-                text-align: center;
-                margin: 30px 0 5px 0;
-            }
-
-            .smallbutton {
-                display: block;
-                max-width: 150px;
-                background-image: url("images/gold.jpg");
-                background-size: 125%;
-                background-position: center;
-                color: $dark-color;
-                padding: 8px;
-                border-radius: 40px;
-                text-align: center;
-                font-family: Montserrat, sans-serif;
-                font-size: 0.8rem;
-                font-weight: 700;
-                text-decoration: none;
-                margin: 0 auto;
-
-                &:hover {
-                    background-position-x: -5px;
-                    transition: 250ms;
-                }
-            }
-
-
-            .form {
-                display: flex;
-                justify-content: space-between;
-
-                > div {
-                    width: 47%;
-
-                    h3 {
-                        font-family: "Montserrat", sans-serif;
-                        font-size: 1.3rem;
-                        color: $golden;
-                        margin: 20px 0 0 0;
-                        text-align: center;
-                    }
-
-                    label {
-                        color: $golden;
-                        font-family: Montserrat, sans-serif;
-                        margin-top: 20px;
-                    }
-
-                    input,
-                    select,
-                    textarea {
-                        color: $golden;
-                        background-color: $dark-color;
-                        border: 1px solid $golden;
-                        border-radius: 40px;
-                    }
-
-                    textarea {
-                        border-radius: 20px;
-                    }
-
-                    input::file-selector-button {
-                        background-color: $dark-color;
-                        color: $golden;
-                    }
-
-                    input:focus, textarea:focus, select:focus{
-                        box-shadow: none;
-                    }
-
-                    .css-es2p3j-control,
-                    .css-sg40b7-control {
-                        margin-bottom: 0;
-
-                        &:focus {
-                            margin-bottom: 0;
-                        }
-                    }
-                }
-            }
-            input[type="submit"] {
-                border: none;
-                color: $dark-color;
-                text-align: center;
-                margin: 35px auto 0 auto;
-                border-radius: 40px;
-            }
-        }
+    h2 {
+      color: $golden;
+      margin-bottom: 0;
     }
+
+    .signup-card {
+      width: 100%;
+      max-width: 900px;
+      background-color: $dark-color2;
+      padding: 40px;
+      border-radius: 40px;
+      margin: 0 auto 20px;
+
+      p {
+        color: $golden;
+        text-align: center;
+        margin: 30px 0 5px 0;
+      }
+
+      .smallbutton {
+        display: block;
+        max-width: 150px;
+        background-image: url("images/gold.jpg");
+        background-size: 125%;
+        background-position: center;
+        color: $dark-color;
+        padding: 8px;
+        border-radius: 40px;
+        text-align: center;
+        font-family: Montserrat, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        margin: 0 auto;
+
+        &:hover {
+          background-position-x: -5px;
+          transition: 250ms;
+        }
+      }
+
+
+      .form {
+        display: flex;
+        justify-content: space-between;
+
+        > div {
+          width: 47%;
+
+          h3 {
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.3rem;
+            color: $golden;
+            margin: 20px 0 0 0;
+            text-align: center;
+          }
+
+          label {
+            color: $golden;
+            font-family: Montserrat, sans-serif;
+            margin-top: 20px;
+          }
+
+          input,
+          select,
+          textarea {
+            color: $golden;
+            background-color: $dark-color;
+            border: 1px solid $golden;
+            border-radius: 40px;
+          }
+
+          textarea {
+            border-radius: 20px;
+            resize: none;
+          }
+
+          input::file-selector-button {
+            background-color: $dark-color;
+            color: $golden;
+          }
+
+          input:focus, textarea:focus, select:focus {
+            box-shadow: none;
+          }
+
+          .css-es2p3j-control,
+          .css-sg40b7-control {
+            margin-bottom: 0;
+
+            &:focus {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      input[type="submit"] {
+        border: none;
+        color: $dark-color;
+        text-align: center;
+        margin: 35px auto 0 auto;
+        border-radius: 40px;
+      }
+    }
+  }
 }
 
 //=====================
@@ -384,35 +455,37 @@ footer {
 //=====================
 
 .home-page {
-    height: 100vh;
-    .page-layout {
-        display: flex;
-        justify-content: space-between;
-        background-color: $dark-color;
-        height: calc(100% - 74px);
+  height: 100vh;
 
-        .sidebar {
-            width: 20%;
-            height: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            h1 {
-                img {
-                    width: 100%;
-                }
-            }
-        }
+  .page-layout {
+    display: flex;
+    justify-content: space-between;
+    background-color: $dark-color;
+    height: calc(100% - 74px);
 
-        .content {
-            margin: 15px 0 15px 0;
-            width: 80%;
-            background-color: $dark-color2;
-            border-radius: 40px 0 0 40px;
-            padding: 30px;
+    .sidebar {
+      width: 20%;
+      height: 100%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h1 {
+        img {
+          width: 100%;
         }
+      }
     }
+
+    .content {
+      margin: 15px 0 15px 0;
+      width: 80%;
+      background-color: $dark-color2;
+      border-radius: 40px 0 0 40px;
+      padding: 30px;
+    }
+  }
 }
 
 //=====================
@@ -420,52 +493,52 @@ footer {
 //=====================
 
 .profileButton {
-    margin-bottom: 20px;
-    cursor: pointer;
-    background-color: $dark-color2;
-    border-radius: 20px;
-    padding: 12px 12px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: $dark-color2;
+  border-radius: 20px;
+  padding: 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .profileIcon {
+    position: relative;
+    width: 20%;
+    height: 0;
+    padding-bottom: 20%;
+
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+  }
+
+  .profileButtonContent {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    width: 75%;
 
-    .profileIcon {
-        position: relative;
-        width: 20%;
-        height: 0;
-        padding-bottom: 20%;
-
-        img {
-            width: 100%;
-            border-radius: 15px;
-        }
+    h4 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.3rem;
+      color: #e4c14d;
+      margin-bottom: 0;
     }
 
-    .profileButtonContent {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 75%;
-
-        h4 {
-            font-family: "Montserrat", sans-serif;
-            font-size: 1.3rem;
-            color: #e4c14d;
-            margin-bottom: 0;
-        }
-
-        p {
-            font-size: 0.7rem;
-            text-decoration: underline;
-            color: $golden;
-            margin-bottom: 0;
-        }
+    p {
+      font-size: 0.7rem;
+      text-decoration: underline;
+      color: $golden;
+      margin-bottom: 0;
     }
+  }
 
-    &:hover {
-        background-color: #363636;
-        transition: 250ms;
-    }
+  &:hover {
+    background-color: #363636;
+    transition: 250ms;
+  }
 }
 
 //=====================
@@ -473,95 +546,108 @@ footer {
 //=====================
 
 .search {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding-bottom: 20px;
-    border-bottom: 1px solid $golden;
-    input{
-        width: 80%;
-        border-radius: 40px;
-        background-color: $dark-color2;
-        border-color: $golden;
-        color: $golden;
-        &:focus{
-            background-color: $dark-color2;
-            border-color: $golden;
-            color: $golden;
-            box-shadow: none;
-        }
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $golden;
+
+  input {
+    width: 80%;
+    border-radius: 40px;
+    background-color: $dark-color2;
+    border-color: $golden;
+    color: $golden;
+
+    &:focus {
+      background-color: $dark-color2;
+      border-color: $golden;
+      color: $golden;
+      box-shadow: none;
     }
-    input::placeholder {
-        color: $golden;
-        opacity: 1;
+  }
+
+  input::placeholder {
+    color: $golden;
+    opacity: 1;
+  }
+
+  .btnSearch {
+    background-color: $golden;
+    color: $dark-color;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    border: none;
+
+    &:hover {
+      background-color: #e4c14d;
+      transition: 250ms;
     }
-    .btnSearch {
-        background-color: $golden;
-        color: $dark-color;
-        padding: 5px;
-        width: 40px;
-        height: 40px;
-        border: none;
-        &:hover {
-            background-color: #e4c14d;
-            transition: 250ms;
-        }
-    }
+  }
 }
 
 .sidebar-layout {
-    flex-grow: 1;
-    overflow: auto;
+  flex-grow: 1;
+  overflow: auto;
 
-    .conversation {
-        background-color: $dark-color2;
-        border-radius: 20px;
-        margin: 10px 0;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        .photo {
-            width: 20%;
-            margin-right: 15px;
-            img {
-                width: 100%;
-            }
-        }
-        .middlecontent {
-            width: 75%;
-            .receiver {
-                margin: 0;
-                color: $golden;
-                font-family: "Montserrat", sans-serif;
-                font-size: 1.3rem;
-            }
-        }
-        .onlinestatus {
-            width: 5%;
-        }
-        &:hover{
-            background-color: #363636;
-            transition: 250ms;
-        }
+  .conversation {
+    background-color: $dark-color2;
+    border-radius: 20px;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .photo {
+      width: 20%;
+      margin-right: 15px;
+
+      img {
+        width: 100%;
+      }
     }
 
-    .selected {
-        background-color: #363636;
+    .middlecontent {
+      width: 75%;
+
+      .receiver {
+        margin: 0;
+        color: $golden;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.3rem;
+      }
     }
+
+    .onlinestatus {
+      width: 5%;
+    }
+
+    &:hover {
+      background-color: #363636;
+      transition: 250ms;
+    }
+  }
+
+  .selected {
+    background-color: #363636;
+  }
 }
 
 .btnLogout {
-    width: 15%;
-    button {
-        border: none;
-        background: none;
-        width: 100%;
-    }
-    form{
-        width: 100%;
-    }
+  width: 15%;
+
+  button {
+    border: none;
+    background: none;
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+  }
 }
 
 //=====================
@@ -569,139 +655,156 @@ footer {
 //=====================
 
 .chatbox {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .messages {
+    flex-grow: 1;
+    overflow: auto;
+  }
+
+  .message-start {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    justify-content: start;
+    align-items: flex-start;
+    margin-bottom: 10px;
 
-    .messages {
-        flex-grow: 1;
-        overflow: auto;
-    }
+    .pfp {
+      width: 5%;
+      margin-right: 10px;
 
-    .message-start{
+      img {
         width: 100%;
-        display: flex;
-        justify-content: start;
-        align-items: flex-start;
-        margin-bottom: 10px;
-        .pfp {
-            width: 5%;
-            margin-right: 10px;
-            img {
-                width: 100%;
-                border-radius: 100%;
-            }
-        }
-        .bubble {
-            display: inline-block;
-            max-width: 50%;
-            width: auto;
-            padding: 10px;
-            background-color: $dark-color;
-            border-radius: 25px;
-            overflow-wrap: break-word;
-        }
-        .message {
-            display: inline-block;
-            width: 95%;
-        }
-        .timestamp {
-            color: $golden;
-        }
+        border-radius: 100%;
+      }
     }
 
-    .message-end {
+    .bubble {
+      display: inline-block;
+      max-width: 50%;
+      width: auto;
+      padding: 10px;
+      background-color: $dark-color;
+      border-radius: 25px;
+      overflow-wrap: break-word;
+    }
+
+    .message {
+      display: inline-block;
+      width: 95%;
+    }
+
+    .timestamp {
+      color: $golden;
+    }
+  }
+
+  .message-end {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+
+    .pfp {
+      width: 5%;
+      margin-left: 10px;
+
+      img {
         width: 100%;
-        display: flex;
-        justify-content: end;
-        align-items: flex-start;
-        flex-direction: row-reverse;
-        margin-bottom: 10px;
-        .pfp {
-            width: 5%;
-            margin-left: 10px;
-            img {
-                width: 100%;
-                border-radius: 100%;
-            }
-        }
-        .bubble {
-            display: inline-block;
-            max-width: 50%;
-            width: auto;
-            padding: 10px;
-            background-color: #e4c14d;
-            border-radius: 25px;
-            overflow-wrap: break-word;
-            align-self: flex-end;
-        }
-        .message {
-            display: flex;
-            flex-direction: column;
-            width: 95%;
-        }
-        .timestamp {
-            color: $golden;
-            align-self: flex-end;
-        }
+        border-radius: 100%;
+      }
     }
 
-    .messagebar {
-        display: flex;
-        justify-content: space-between;
-        input {
-            width: 95%;
-            height: 50px;
-            border-radius: 40px;
-            background-color: $dark-color;
-            border-color: $golden;
-            color: $golden;
-            &:focus{
-                box-shadow: none;
-            }
-        }
-        input::placeholder {
-            color: $golden;
-            opacity: 1;
-        }
-        .btnSend {
-            background-color: $golden;
-            padding: 10px;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 100%;
-            &:hover{
-                background-color: #e4c14d;
-                transition: 250ms;
-            }
-        }
+    .bubble {
+      display: inline-block;
+      max-width: 50%;
+      width: auto;
+      padding: 10px;
+      background-color: #e4c14d;
+      border-radius: 25px;
+      overflow-wrap: break-word;
+      align-self: flex-end;
     }
 
-    .contact {
-        color: $golden;
+    .message {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
     }
+
+    .timestamp {
+      color: $golden;
+      align-self: flex-end;
+    }
+  }
+
+  .messagebar {
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      width: 95%;
+      height: 50px;
+      border-radius: 40px;
+      background-color: $dark-color;
+      border-color: $golden;
+      color: $golden;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    input::placeholder {
+      color: $golden;
+      opacity: 1;
+    }
+
+    .btnSend {
+      background-color: $golden;
+      padding: 10px;
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 100%;
+
+      &:hover {
+        background-color: #e4c14d;
+        transition: 250ms;
+      }
+    }
+  }
+
+  .contact {
+    color: $golden;
+  }
 
 }
 
 .message-anim {
-    animation: messagePopIn 0.5s ease forwards;
+  animation: messagePopIn 0.5s ease forwards;
 }
 
 
 .nochatselected {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    h2 {
-        color: $golden;
-    }
-    p {
-        color: $golden;
-        font-family: "Montserrat", sans-serif;
-        text-align: center;
-    }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h2 {
+    color: $golden;
+  }
+
+  p {
+    color: $golden;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+  }
 }
 
 //=====================
@@ -709,72 +812,53 @@ footer {
 //=====================
 
 .profileLayout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 
-    .imageContainer:hover .overlay {
-        opacity: 1;
+  > div {
+    width: 49%;
+    text-align: center;
+
+    img {
+      width: 50%;
+      margin-bottom: 20px;
+      border-radius: 40px;
     }
 
-    .icon {
-        color: white;
-        font-size: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: .3s ease;
+      background-color: red;
     }
 
-    .fa-user:hover {
-        color: $dark-color;
+
+    p {
+      color: $golden;
+      text-align: center;
+      font-size: 1.5rem;
     }
 
-    > div {
-        width: 49%;
-        text-align: center;
-
-        img {
-            width: 50%;
-            margin-bottom: 20px;
-            border-radius: 40px;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            width: 100%;
-            opacity: 0;
-            transition: .3s ease;
-            background-color: red;
-        }
-
-
-        p {
-            color: $golden;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-
-        h2 {
-            color: $golden;
-            margin-bottom: 20px;
-            font-size: 3rem;
-        }
-
-        .buttons {
-            padding: 10px;
-            width: 80%;
-            margin: 15px auto;
-        }
+    h2 {
+      color: $golden;
+      margin-bottom: 20px;
+      font-size: 3rem;
     }
+
+    .buttons {
+      padding: 10px;
+      width: 80%;
+      margin: 15px auto;
+    }
+  }
 }
 
 //=====================
@@ -782,54 +866,398 @@ footer {
 //=====================
 
 .profileedit {
-    width: 100%;
+  height: 100%;
+
+  .profileeditcard {
     height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    .profileeditcard {
-        width: 80%;
-        height: 100%;
-        h2 {
-            color: $golden;
-            text-align: center;
-        }
+    flex-direction: column;
+    justify-content: space-between;
 
-        form {
-            width: 100%;
-            height: 100%;
-
-            label {
-                color: $golden;
-                font-family: Montserrat, sans-serif;
-                margin-top: 20px;
-            }
-
-            input,
-            select,
-            textarea {
-                color: $golden;
-                background-color: $dark-color;
-                border: 1px solid $golden;
-                border-radius: 40px;
-                &:focus {
-                    box-shadow: none;
-                }
-            }
-            textarea {
-                border-radius: 20px;
-                resize: none;
-            }
-
-            input[type="submit"] {
-                border: none;
-                color: $dark-color;
-                text-align: center;
-                margin: 35px auto 0 auto;
-                border-radius: 40px;
-            }
-        }
+    h2 {
+      color: $golden;
+      text-align: center;
     }
+
+    form {
+      margin: 0 auto;
+      flex-grow: 1;
+      width: 80%;
+      overflow: auto;
+
+      label {
+        color: $golden;
+        font-family: Montserrat, sans-serif;
+        margin-top: 20px;
+      }
+
+      input,
+      select,
+      textarea {
+        color: $golden;
+        background-color: $dark-color;
+        border: 1px solid $golden;
+        border-radius: 40px;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      textarea {
+        border-radius: 20px;
+        resize: none;
+      }
+
+      input[type="submit"] {
+        border: none;
+        color: $dark-color;
+        text-align: center;
+        margin: 35px auto 0 auto;
+        border-radius: 40px;
+      }
+    }
+  }
+}
+
+//=====================
+//== Password Change ==
+//=====================
+
+.passwordedit {
+  height: 100%;
+
+  .passwordeditcard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+      color: $golden;
+      text-align: center;
+    }
+
+    form {
+      margin: 0 auto;
+      flex-grow: 1;
+      width: 80%;
+      overflow: auto;
+
+      label {
+        color: $golden;
+        font-family: Montserrat, sans-serif;
+        margin-top: 20px;
+      }
+
+      input {
+        color: $golden;
+        background-color: $dark-color;
+        border: 1px solid $golden;
+        border-radius: 40px;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      input[type="submit"] {
+        border: none;
+        color: $dark-color;
+        text-align: center;
+        margin: 35px auto 0 auto;
+        border-radius: 40px;
+      }
+    }
+  }
+}
+
+//=====================
+//===== Subscribe =====
+//=====================
+
+.subscribe {
+  height: 100%;
+
+  .subscribecard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+      color: $golden;
+      text-align: center;
+    }
+
+    form {
+      margin: 0 auto;
+      flex-grow: 1;
+      width: 40%;
+      overflow: auto;
+
+      #cvv {
+        width: 20%;
+      }
+
+      label {
+        color: $golden;
+        font-family: Montserrat, sans-serif;
+        margin-top: 20px;
+      }
+
+      input {
+        color: $golden;
+        background-color: $dark-color;
+        border: 1px solid $golden;
+        border-radius: 40px;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .year {
+        display: flex;
+        justify-content: space-between;
+        div {
+          width: 49%;
+        }
+      }
+
+      input[type="submit"] {
+        border: none;
+        color: $dark-color;
+        text-align: center;
+        margin: 35px auto 0 auto;
+        border-radius: 40px;
+      }
+    }
+  }
+}
+
+//=====================
+//==== User Search ====
+//=====================
+
+.usersearchbox {
+  height: 100%;
+
+  h2 {
+    margin-bottom: 10px;
+    font-family: "Montserrat", sans-serif;
+    color: $golden;
+  }
+
+  .headerbox {
+    background-color: $dark-color;
+    border-radius: 30px;
+    padding: 20px;
+    margin-bottom: 15px;
+
+    .searchfield {
+      padding-left: 15px;
+      width: 95%;
+      height: 50px;
+      border-radius: 40px;
+      background-color: $dark-color2;
+      border-color: $golden;
+      color: $golden;
+
+      &:focus {
+        background-color: $dark-color2;
+        border-color: $golden;
+        color: $golden;
+        box-shadow: none;
+      }
+
+      &::placeholder {
+        color: $golden;
+        opacity: 1;
+      }
+    }
+
+    .btnSend {
+      background-color: $golden;
+      padding: 10px;
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 100%;
+
+      &:hover {
+        background-color: #e4c14d;
+        transition: 250ms;
+      }
+    }
+
+    fieldset {
+      input[type="checkbox"], input[type="radio"] {
+        background-color: $dark-color;
+        border: 1px $golden solid;
+      }
+
+      label {
+        color: $golden;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      legend {
+        color: $golden;
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      display: inline-block;
+      padding: 20px;
+      background-color: $dark-color2;
+      border-radius: 30px;
+      width: 32%;
+    }
+  }
+
+  .results {
+    background-color: $dark-color;
+    border-radius: 30px;
+    padding: 20px;
+    flex: 1;
+    overflow: auto;
+
+    p {
+      font-family: "Montserrat", sans-serif;
+      text-align: center;
+      color: $golden;
+      font-size: 1rem;
+    }
+  }
+}
+
+.searchresult {
+  background-color: $dark-color2;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+
+  .photo {
+    width: 10%;
+    margin-right: 30px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .text {
+    width: 70%;
+
+    .foundUser {
+      margin: 0;
+      color: $golden;
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.5rem;
+      text-align: start;
+    }
+  }
+
+  &:hover {
+    background-color: #363636;
+    transition: 250ms;
+  }
+}
+
+//=====================
+//====== Swipe ========
+//=====================
+
+.swiperLayout {
+  height: 100%;
+  position: relative;
+  bottom: 0;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  h2 {
+    font-size: 2.3rem;
+
+    span {
+      color: #adadad;
+      font-style: italic;
+    }
+  }
+
+  > img {
+    width: 250px;
+    margin-bottom: 20px;
+    border-radius: 35px;
+  }
+
+  .swiperLayout-buttons {
+    max-width: 300px;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      border: none;
+      color: $golden;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      width: 75px;
+      height: 75px;
+      border-radius: 35%;
+      margin: 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition-duration: 0.4s;
+
+      img {
+        border: none;
+        max-width: 48px;
+        max-height: 48px;
+      }
+
+      &#like {
+        background: rgb(185, 147, 43) linear-gradient(
+                        22deg,
+                        rgba(146, 97, 41, 1) 0%,
+                        rgba(185, 147, 43, 1) 25%,
+                        rgba(242, 231, 151, 1) 100%
+        );
+      }
+
+      &#superlike {
+        background: rgb(12, 6, 108);
+        background: linear-gradient(
+                        22deg,
+                        rgba(12, 6, 108, 1) 0%,
+                        rgba(11, 11, 195, 1) 25%,
+                        rgba(0, 212, 255, 1) 100%
+        );
+      }
+
+      &#dislike {
+        background: rgb(121, 11, 201);
+        background: linear-gradient(
+                        22deg,
+                        rgba(121, 11, 201, 1) 0%,
+                        rgba(152, 11, 195, 1) 25%,
+                        rgba(255, 0, 251, 1) 100%
+        );
+      }
+    }
+  }
 }
 
 //=====================
@@ -837,282 +1265,115 @@ footer {
 //=====================
 
 .notfound {
-    min-height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .notfoundcontainer {
+    flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    .notfoundcontainer {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        .notfoundcard{
-            padding: 50px;
-            border-radius: 40px;
-            max-width: 700px;
-            background-color: $dark-color2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            h1 {
-                font-size: 6rem;
-                color: $golden2;
-            }
-            h2 {
-                font-size: 2rem;
-                color: $golden;
-                margin-bottom: 20px;
-            }
-            .buttons {
-                width: 100%;
-                max-width: 150px;
-                background-image: url("images/gold.jpg");
-                background-size: 125%;
-                background-position: center;
-                color: $dark-color;
-                padding: 15px;
-                border-radius: 40px;
-                text-align: center;
-                font-family: Montserrat, sans-serif;
-                font-size: 1rem;
-                font-weight: 700;
-                text-decoration: none;
-
-                &:hover {
-                    background-position-x: -5px;
-                    transition: 250ms;
-                }
-            }
-        }
-    }
-}
-
-// ====================
-
-
-.golden {
-    background: #926129 -webkit-linear-gradient(
-                    0deg,
-                    #926129 0%,
-                    #f2e797 50%,
-                    #926129 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    &::selection {
-        background: #e4c14d;
-        -webkit-text-fill-color: $dark-color2;
-    }
-}
-
-
-
-.btnGround {
-    display: block;
-    background-image: url("images/gold.jpg");
-    background-size: 125%;
-    background-position: center;
-    color: $dark-color;
-    padding: 15px;
-    border-radius: 20px;
-    text-align: center;
-    font-family: Montserrat, sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-decoration: none;
-    margin-bottom: 20px;
-
-    &:hover {
-        background-position-x: -15px;
-        transition: 250ms;
-    }
-}
-
-
-.custom-btn {
-    display: block;
-    background-image: url("images/gold.jpg");
-    background-size: 125%;
-    background-position: center;
-    color: $dark-color;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: 700;
-    font-family: Montserrat, sans-serif;
-    font-size: 1.2rem;
-    text-decoration: none;
-    border: none;
-
-    &:hover {
-        background-position-x: -5px;
-        transition: 250ms;
-    }
-}
-
-
-.account-content {
-    height: 75vh;
-
-    p {
-        font-family: "Montserrat", sans-serif;
-        text-align: center;
-        margin-bottom: 30px;
-        font-size: 2rem;
-    }
-
-    div {
-        margin: 0 auto;
-        width: 90%;
-        max-width: 550px;
-    }
-}
-
-
-
-.swiperLayout {
-    height: 100%;
-    position: relative;
-    bottom: 0;
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    padding: 20px;
 
-    h2 {
-        font-size: 2.3rem;
-        span {
-            color: #adadad;
-            font-style: italic;
-        }
-    }
+    .notfoundcard {
+      padding: 50px;
+      border-radius: 40px;
+      max-width: 700px;
+      background-color: $dark-color2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    > img {
-        width: 250px;
+      h1 {
+        font-size: 6rem;
+        color: $golden2;
+      }
+
+      h2 {
+        font-size: 2rem;
+        color: $golden;
         margin-bottom: 20px;
-        border-radius: 35px;
-    }
+      }
 
-    .swiperLayout-buttons {
-        max-width: 300px;
-        display: flex;
-        justify-content: space-around;
+      .buttons {
+        width: 100%;
+        max-width: 150px;
+        background-image: url("images/gold.jpg");
+        background-size: 125%;
+        background-position: center;
+        color: $dark-color;
+        padding: 15px;
+        border-radius: 40px;
+        text-align: center;
+        font-family: Montserrat, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
 
-        button {
-            border: none;
-            color: $golden;
-            padding: 16px 32px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
-            width: 75px;
-            height: 75px;
-            border-radius: 35%;
-            margin: 10px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            transition-duration: 0.4s;
-
-            img {
-                border: none;
-                max-width: 48px;
-                max-height: 48px;
-            }
-
-            &#like {
-                background: rgb(185, 147, 43)
-                    linear-gradient(
-                        22deg,
-                        rgba(146, 97, 41, 1) 0%,
-                        rgba(185, 147, 43, 1) 25%,
-                        rgba(242, 231, 151, 1) 100%
-                    );
-            }
-
-            &#superlike {
-                background: rgb(12, 6, 108);
-                background: linear-gradient(
-                    22deg,
-                    rgba(12, 6, 108, 1) 0%,
-                    rgba(11, 11, 195, 1) 25%,
-                    rgba(0, 212, 255, 1) 100%
-                );
-            }
-
-            &#dislike {
-                background: rgb(121, 11, 201);
-                background: linear-gradient(
-                    22deg,
-                    rgba(121, 11, 201, 1) 0%,
-                    rgba(152, 11, 195, 1) 25%,
-                    rgba(255, 0, 251, 1) 100%
-                );
-            }
+        &:hover {
+          background-position-x: -5px;
+          transition: 250ms;
         }
+      }
     }
+  }
 }
-
-
 
 //=====================
 //== Heart Animation ==
 //=====================
 
 .centerHeart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .puslingheart-wrapper {
-    animation: pulse 1s infinite;
+  animation: pulse 1s infinite;
 
-    .pulsingheart {
-        position: relative;
-        width: 100px;
-        height: 90px;
-    }
+  .pulsingheart {
+    position: relative;
+    width: 100px;
+    height: 90px;
+  }
 
-    .pulsingheart:before,
-    .pulsingheart:after {
-        position: absolute;
-        content: "";
-        left: 50px;
-        top: 0;
-        width: 50px;
-        height: 80px;
-        background: #d9913d;
-        border-radius: 50px 50px 0 0;
-        transform: rotate(-45deg);
-        transform-origin: 0 100%;
-        animation: pulsecolor 1s infinite;
-    }
+  .pulsingheart:before,
+  .pulsingheart:after {
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background: #d9913d;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+    animation: pulsecolor 1s infinite;
+  }
 
-    .pulsingheart:after {
-        left: 0;
-        transform: rotate(45deg);
-        transform-origin: 100% 100%;
-        animation: pulsecolor 1s infinite;
-    }
+  .pulsingheart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+    animation: pulsecolor 1s infinite;
+  }
 }
 
 @keyframes pulse {
-    10% {
-        transform: scale(1.1);
-    }
+  10% {
+    transform: scale(1.1);
+  }
 }
 
 @keyframes pulsecolor {
-    10% {
-        background: $golden;
-    }
+  10% {
+    background: $golden;
+  }
 }
 
 //=====================
@@ -1120,55 +1381,55 @@ footer {
 //=====================
 
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .custom-modal-text {
-    font-family: Montserrat, sans-serif;
-    color: #e4c14d;
-    font-size: 3.5rem;
+  font-family: Montserrat, sans-serif;
+  color: #e4c14d;
+  font-size: 3.5rem;
 }
 
 .custom-modal-text-p {
-    font-family: Montserrat, sans-serif;
-    color: #e4c14d;
-    font-size: 2rem;
+  font-family: Montserrat, sans-serif;
+  color: #e4c14d;
+  font-size: 2rem;
 }
 
 .custom-modal {
-    .center-text {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        height: 100%;
-    }
+  .center-text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+  }
 
-    position: fixed; /* Ensure it's fixed position */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Center the modal */
-    background-color: $dark-color2;
-    padding: 30px;
-    width: 40vw;
-    height: 40vh;
-    text-align: center;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 9999; /* Ensure it's above other content */
+  position: fixed; /* Ensure it's fixed position */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the modal */
+  background-color: $dark-color2;
+  padding: 30px;
+  width: 40vw;
+  height: 40vh;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999; /* Ensure it's above other content */
 }
 
 .modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 // ===================
@@ -1183,262 +1444,143 @@ $height: 500;
 $box-shadow: ();
 $box-shadow2: ();
 @for $i from 0 through $particles {
-    $box-shadow: $box-shadow,
-        random($width)-$width /
+  $box-shadow: $box-shadow,
+  random($width)-$width /
             2 +
-            px
-            random($height)-$height /
+            px random($height)-$height /
             1.2 +
-            px
-            hsl(random(360), 100, 50);
-    $box-shadow2: $box-shadow2, 0 0 #fff;
+            px hsl(random(360), 100, 50);
+  $box-shadow2: $box-shadow2, 0 0 #fff;
 }
+
 @mixin keyframes($animationName) {
-    @-webkit-keyframes #{$animationName} {
-        @content;
-    }
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
 
-    @-moz-keyframes #{$animationName} {
-        @content;
-    }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
 
-    @-o-keyframes #{$animationName} {
-        @content;
-    }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
 
-    @-ms-keyframes #{$animationName} {
-        @content;
-    }
+  @-ms-keyframes #{$animationName} {
+    @content;
+  }
 
-    @keyframes #{$animationName} {
-        @content;
-    }
+  @keyframes #{$animationName} {
+    @content;
+  }
 }
 
 @mixin animation-delay($settings) {
-    -moz-animation-delay: $settings;
-    -webkit-animation-delay: $settings;
-    -o-animation-delay: $settings;
-    -ms-animation-delay: $settings;
-    animation-delay: $settings;
+  -moz-animation-delay: $settings;
+  -webkit-animation-delay: $settings;
+  -o-animation-delay: $settings;
+  -ms-animation-delay: $settings;
+  animation-delay: $settings;
 }
 
 @mixin animation-duration($settings) {
-    -moz-animation-duration: $settings;
-    -webkit-animation-duration: $settings;
-    -o-animation-duration: $settings;
-    -ms-animation-duration: $settings;
-    animation-duration: $settings;
+  -moz-animation-duration: $settings;
+  -webkit-animation-duration: $settings;
+  -o-animation-duration: $settings;
+  -ms-animation-duration: $settings;
+  animation-duration: $settings;
 }
 
 @mixin animation($settings) {
-    -moz-animation: $settings;
-    -webkit-animation: $settings;
-    -o-animation: $settings;
-    -ms-animation: $settings;
-    animation: $settings;
+  -moz-animation: $settings;
+  -webkit-animation: $settings;
+  -o-animation: $settings;
+  -ms-animation: $settings;
+  animation: $settings;
 }
 
 @mixin transform($settings) {
-    transform: $settings;
-    -moz-transform: $settings;
-    -webkit-transform: $settings;
-    -o-transform: $settings;
-    -ms-transform: $settings;
+  transform: $settings;
+  -moz-transform: $settings;
+  -webkit-transform: $settings;
+  -o-transform: $settings;
+  -ms-transform: $settings;
 }
 
 .pyro > .before,
 .pyro > .after {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    box-shadow: $box-shadow2;
-    @include animation(
-        (
-            1s bang ease-out infinite backwards,
-            1s gravity ease-in infinite backwards,
-            5s position linear infinite backwards
-        )
-    );
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: $box-shadow2;
+  @include animation(
+                          (
+                                  1s bang ease-out infinite backwards,
+                                  1s gravity ease-in infinite backwards,
+                                  5s position linear infinite backwards
+                          )
+  );
 }
 
 .pyro > .after {
-    @include animation-delay((1.25s, 1.25s, 1.25s));
-    @include animation-duration((1.25s, 1.25s, 6.25s));
+  @include animation-delay((1.25s, 1.25s, 1.25s));
+  @include animation-duration((1.25s, 1.25s, 6.25s));
 }
 
 @include keyframes(bang) {
-    to {
-        box-shadow: $box-shadow;
-    }
+  to {
+    box-shadow: $box-shadow;
+  }
 }
 
 @include keyframes(gravity) {
-    to {
-        @include transform(translateY(200px));
-        opacity: 0;
-    }
+  to {
+    @include transform(translateY(200px));
+    opacity: 0;
+  }
 }
 
 @include keyframes(position) {
-    0%,
-    19.9% {
-        margin-top: 10%;
-        margin-left: 40%;
-    }
-    20%,
-    39.9% {
-        margin-top: 40%;
-        margin-left: 30%;
-    }
-    40%,
-    59.9% {
-        margin-top: 20%;
-        margin-left: 70%;
-    }
-    60%,
-    79.9% {
-        margin-top: 30%;
-        margin-left: 20%;
-    }
-    80%,
-    99.9% {
-        margin-top: 30%;
-        margin-left: 80%;
-    }
+  0%,
+  19.9% {
+    margin-top: 10%;
+    margin-left: 40%;
+  }
+  20%,
+  39.9% {
+    margin-top: 40%;
+    margin-left: 30%;
+  }
+  40%,
+  59.9% {
+    margin-top: 20%;
+    margin-left: 70%;
+  }
+  60%,
+  79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+  80%,
+  99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
 }
 
 @keyframes messagePopIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    70% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.usersearchbox {
-    height: 100%;
-    h2 {
-        margin-bottom: 10px;
-        font-family: "Montserrat", sans-serif;
-        color: $golden;
-    }
-    .headerbox {
-        background-color: $dark-color;
-        border-radius: 30px;
-        padding: 20px;
-        margin-bottom: 15px;
-
-        .searchfield {
-            padding-left: 15px;
-            width: 95%;
-            height: 50px;
-            border-radius: 40px;
-            background-color: $dark-color2;
-            border-color: $golden;
-            color: $golden;
-            &:focus{
-                background-color: $dark-color2;
-                border-color: $golden;
-                color: $golden;
-                box-shadow: none;
-            }
-            &::placeholder {
-                color: $golden;
-                opacity: 1;
-            }
-        }
-
-        .btnSend {
-            background-color: $golden;
-            padding: 10px;
-            width: 50px;
-            height: 50px;
-            border: none;
-            border-radius: 100%;
-            &:hover{
-                background-color: #e4c14d;
-                transition: 250ms;
-            }
-        }
-
-        fieldset {
-            input[type="checkbox"], input[type="radio"] {
-                background-color: $dark-color;
-                border: 1px $golden solid;
-            }
-            label {
-                color: $golden;
-                font-family: "Montserrat", sans-serif;
-            }
-            legend {
-                color: $golden;
-                font-family: "Montserrat", sans-serif;
-                font-weight: bold;
-                text-align: center;
-            }
-            display: inline-block;
-            padding: 20px;
-            background-color: $dark-color2;
-            border-radius: 30px;
-            width: 32%;
-        }
-    }
-
-    .results {
-        background-color: $dark-color;
-        border-radius: 30px;
-        padding: 20px;
-        flex: 1;
-        overflow: auto;
-
-        p {
-            font-family: "Montserrat", sans-serif;
-            text-align: center;
-            color: $golden;
-            font-size: 1rem;
-        }
-    }
-}
-
-.searchresult {
-    background-color: $dark-color2;
-    border-radius: 20px;
-    margin-bottom: 10px;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    cursor: pointer;
-
-    .photo {
-        width: 10%;
-        margin-right: 30px;
-        img {
-            width: 100%;
-        }
-    }
-    .text{
-        width: 70%;
-        .foundUser {
-            margin: 0;
-            color: $golden;
-            font-family: "Montserrat", sans-serif;
-            font-size: 1.5rem;
-            text-align: start;
-        }
-    }
-
-    &:hover{
-        background-color: #363636;
-        transition: 250ms;
-    }
-}
-
+// ====================
