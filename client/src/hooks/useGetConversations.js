@@ -17,7 +17,7 @@ const useGetConversations = () => {
                 throw new Error(response.data.error)
             }
             setConversations(response.data)
-            console.log(conversations)
+            console.log(response.data)
         } catch (err) {
             console.error(err)
         } finally {
