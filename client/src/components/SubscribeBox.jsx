@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import "../styles.css";
 import LoadingIndicator from "./LoadingIndicator";
 import Modal from "./Modal";
+import {useAuthContext} from "../context/AuthContext";
 
 
 const SubscribeBox = () => {
     const navigate = useNavigate();
+    const {authUser, setAuthUser} = useAuthContext()
 
     useEffect(() => {
         document.title = "S'abonner | GroundR";
@@ -100,6 +102,7 @@ const SubscribeBox = () => {
                         "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                     }
                 })
+                setAuthUser(response.data)
                 openModal()
             } catch (err) {
 

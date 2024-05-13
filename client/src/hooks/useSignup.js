@@ -48,11 +48,8 @@ const useSignup = () => {
                 if (!registerResponse.data.error) {
                     localStorage.setItem('auth-user', JSON.stringify(registerResponse.data))
                     setAuthUser(registerResponse.data)
-                } else {
-                    setLoading(false);
                 }
             } catch (error) {
-                setLoading(false);
                 if (error.response && error.response.data) {
                     const errors = error.response.data;
                     setErrors(errors);
@@ -63,7 +60,6 @@ const useSignup = () => {
         } else {
             setErrors(validationErrors)
             setLoading(false)
-            return
         }
     }
 
