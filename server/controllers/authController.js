@@ -37,16 +37,10 @@ exports.Register = async (req, res, next) => {
     const userData = req.body
     console.log(`Register requested from ${userData.email}`)
     try {
-        if(newUser) {
-            generateToken(newUser, res)
-
-            await newUser.save()
-
-            res.status(201).json(newUser)
-        } else {
-            throwError(400, "Données de l'utilisateur invalides.")
-        }
-
+        const newUser = new User(userData)
+        await newUser.save()
+        const token = generateToken(newUser, res)
+        res.status(201).json(token)
     } catch (err) {
         next(err)
     }

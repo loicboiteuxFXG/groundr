@@ -98,8 +98,9 @@ exports.getUsersForSidebar = async (req, res, next) => {
 exports.UpdateUserPremium = async (req, res, next) => {
     const userId = req.user._id;
     try {
-        await User.findByIdAndUpdate(userId, {isPremium: true});
         const updatedUser = await User.findOne({_id: userId});
+        updatedUser.isPremium = true;
+        await updatedUser.save()
         res.status(200).json(updatedUser)
     } catch (err) {
         next(err)
@@ -130,6 +131,21 @@ exports.getResearchedUsers = async (req, res, next) => {
         }).sort(sort)
 
         res.status(200).json(users)
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+exports.checkIfExists = async (req, res, next) => {
+    const email = req.params.email
+    try {
+        const user = await User.findOne({email: req.params.email})
+        if (!user) {
+            res.status(200).send(false)
+        } else {
+            res.status(200).send(true)
+        }
     } catch (err) {
         next(err)
     }

@@ -16,6 +16,7 @@ const SignupBox = () => {
     }, [navigate]);
 
 
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -27,8 +28,24 @@ const SignupBox = () => {
         DoB: '',
         bio: ''
     });
+    const checkIfEmailExists = async (e) => {
+        let temp = {
+            ...errors
+        }
+        try {
+            const response = await axios.get(`https://localhost:3001/user/check/${formData.email}`)
+            if (response.data === true) {
+                temp.email = "Adresse courriel déjà utilisée."
+            } else {
+                delete temp.email
+            }
+        } catch (err) {}
+        setErrors(temp)
+        console.log(errors)
+    }
 
-    const {errors, loading, interestList, signup, fetchData} = useSignup()
+
+    const {errors, setErrors, loading, interestList, signup, fetchData} = useSignup()
     const [interests, setInterests] = useState([]);
     const [file, setFile] = useState();
 
@@ -47,12 +64,13 @@ const SignupBox = () => {
         await signup(formData, interests, file)
     };
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
+    const handleChange = async (e) => {
+        const { name, value } = e.target;
         setFormData({
             ...formData, [name]: value
         });
     };
+
 
 
     return (

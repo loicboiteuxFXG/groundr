@@ -23,7 +23,7 @@ const useSignup = () => {
             var filename = "";
 
             try {
-                const response = await axios.post('http://localhost:3001/file/upload', data);
+                const response = await axios.post('https://localhost:3001/file/upload', data);
                 filename = response.data.filename;
             } catch (error) {
                 console.error(error);
@@ -44,15 +44,12 @@ const useSignup = () => {
             };
 
             try {
-                const registerResponse = await axios.post('http://localhost:3001/auth/register', userData);
+                const registerResponse = await axios.post('https://localhost:3001/auth/register', userData);
                 if (!registerResponse.data.error) {
                     localStorage.setItem('auth-user', JSON.stringify(registerResponse.data))
                     setAuthUser(registerResponse.data)
-                } else {
-                    setLoading(false);
                 }
             } catch (error) {
-                setLoading(false);
                 if (error.response && error.response.data) {
                     const errors = error.response.data;
                     setErrors(errors);
@@ -63,14 +60,13 @@ const useSignup = () => {
         } else {
             setErrors(validationErrors)
             setLoading(false)
-            return
         }
     }
 
     async function fetchData() {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3001/user/get-interests');
+            const response = await axios.get('https://localhost:3001/user/get-interests');
             setInterestList(response.data);
             setLoading(false);
         } catch (error) {
@@ -78,7 +74,7 @@ const useSignup = () => {
         }
     }
 
-    return {errors, loading, interestList, signup, fetchData}
+    return {errors, setErrors, loading, interestList, signup, fetchData}
 }
 export default useSignup
 

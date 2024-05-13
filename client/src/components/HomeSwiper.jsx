@@ -34,7 +34,7 @@ const HomeSwiper = () => {
 
     const fetchData = async () => {
         setLoading(true);
-        axios.get('http://localhost:3001/swipe/get-matches', {
+        axios.get('https://localhost:3001/swipe/get-matches', {
             headers: {
                 "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
             }
@@ -68,7 +68,7 @@ const HomeSwiper = () => {
         setInputEnabled(false);
         console.log(e.target.swipeStatus.value);
         console.log(currentMatch);
-        axios.post('http://localhost:3001/swipe/ground', {
+        axios.post('https://localhost:3001/swipe/ground', {
             swipedUser: currentMatch,
             swipeStatus: e.target.swipeStatus.value,
         }, { headers: { "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}` } })
@@ -118,7 +118,7 @@ const HomeSwiper = () => {
             <div className="swiperLayout">
                 {noMoreMatches ? <h2 className="custom-modal-text">Désolé, nous n'avons plus de Grounds à vous proposer.</h2> :
                     <><img
-                        src={loading ? "http://localhost:3001/media/default-user.png" : `http://localhost:3001/media/${currentMatch.pfpURL}`}
+                        src={loading ? "https://localhost:3001/media/default-user.png" : `https://localhost:3001/media/${currentMatch.pfpURL}`}
                         alt="pfp" />
                         <h2>{loading ? "Chargement" : `${currentMatch.firstName}, `}<span className="age">{age}</span>
                         </h2>

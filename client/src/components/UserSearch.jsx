@@ -4,7 +4,7 @@ import useSearchUser from "../hooks/useSearchUser"
 import LoadingIndicator from "./LoadingIndicator";
 
 const SearchResult = ({user}) => {
-    const url = `http://localhost:3001/media/${user.pfpURL}`
+    const url = `https://localhost:3001/media/${user.pfpURL}`
     const fullName = user.firstName + " " + user.lastName
     let today = new Date();
     let birthDate = new Date(user.DoB);

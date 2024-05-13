@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import "../styles.css";
 import LoadingIndicator from "./LoadingIndicator";
 import Modal from "./Modal";
+import {useAuthContext} from "../context/AuthContext";
 
 
 const SubscribeBox = () => {
     const navigate = useNavigate();
+    const {authUser, setAuthUser} = useAuthContext()
 
     useEffect(() => {
         document.title = "S'abonner | GroundR";
@@ -95,11 +97,12 @@ const SubscribeBox = () => {
         if (Object.keys(validationErrors).length === 0) {
 
             try {
-                const response = await axios.post('http://localhost:3001/user/subscribe', {}, {
+                const response = await axios.post('https://localhost:3001/user/subscribe', {}, {
                     headers: {
                         "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                     }
                 })
+                setAuthUser(response.data)
                 openModal()
             } catch (err) {
 
