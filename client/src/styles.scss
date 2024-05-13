@@ -349,14 +349,6 @@ footer {
                         border-radius: 20px;
                     }
 
-                    input[type="submit"] {
-                        border: none;
-                        color: $dark-color;
-                        text-align: center;
-                        margin: 35px auto 0 auto;
-                        border-radius: 40px;
-                    }
-
                     input::file-selector-button {
                         background-color: $dark-color;
                         color: $golden;
@@ -375,6 +367,13 @@ footer {
                         }
                     }
                 }
+            }
+            input[type="submit"] {
+                border: none;
+                color: $dark-color;
+                text-align: center;
+                margin: 35px auto 0 auto;
+                border-radius: 40px;
             }
         }
     }

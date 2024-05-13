@@ -114,7 +114,7 @@ const HomeLayout = () => {
                     </div>
                     <SearchInput />
                     <Sidebar/>
-                    <div>
+                    <div className="mt-3">
                         <LogoutButton/>
                     </div>
                 </div>
