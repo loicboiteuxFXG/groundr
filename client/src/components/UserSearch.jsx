@@ -1,5 +1,5 @@
 import {IoSearch} from "react-icons/io5";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useSearchUser from "../hooks/useSearchUser"
 import LoadingIndicator from "./LoadingIndicator";
 
@@ -51,12 +51,9 @@ const SearchResult = ({user}) => {
 
     const display = `${fullName}, ${age} ans ${gender}\n${orientation}`
 
-    const handleClick = () => {
-
-    }
 
     return (
-        <div className="searchresult" onClick={handleClick}>
+        <div className="searchresult">
             <div className="photo">
                 <img src={url} alt="Photo de profil"/>
             </div>
@@ -79,6 +76,10 @@ const UserSearch = () => {
     const [orientations, setOrientations] = useState(['M', 'F', 'B', 'A'])
     const [sort, setSort] = useState("alphabetical")
     const [searchDone, setSearchDone] = useState(false)
+
+    useEffect(() => {
+        document.title = "Recherche d'utilisateurs | GroundR"
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

@@ -1,12 +1,12 @@
-import ShowcaseHeader from "./ShowcaseHeader"
-import Footer from "./Footer"
-import {Link, useNavigate} from "react-router-dom"
+import ShowcaseHeader from "../components/ShowcaseHeader"
+import Footer from "../components/Footer"
+import {Link} from "react-router-dom"
+import {useEffect} from "react";
 
 const NotFound = () => {
-    const navigate = useNavigate()
-    const handleClick = () => {
-        navigate('/home')
-    }
+    useEffect(() => {
+        document.title = "Erreur 404 | GroundR"
+    }, [])
 
     return (
         <div className="notfound">

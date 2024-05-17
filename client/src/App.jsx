@@ -12,7 +12,9 @@ import SignupBox from "./components/SignupBox"
 import Chatbox from "./components/Chatbox"
 import SubscribeBox from "./components/SubscribeBox"
 import UserSearch from "./components/UserSearch"
-import NotFound from "./components/NotFound"
+import NotFound from "./pages/NotFound"
+import Forbidden from "./pages/Forbidden";
+import ServerError from "./pages/ServerError";
 
 
 const App = () => {
@@ -32,6 +34,8 @@ const App = () => {
             <Route path="/account" element={authUser ? <Navigate to="/home" />: <Account />} />
             <Route path="/account/login" element={authUser ? <Navigate to="/home" />: <LoginBox />} />
             <Route path="/account/signup" element={authUser ? <Navigate to="/home" />: <SignupBox />} />
+            <Route path="/403" element={<Forbidden />}/>
+            <Route path="/500" element={<ServerError />} />
             <Route path="*" element={<NotFound />}/>
         </Routes>
     )
