@@ -81,9 +81,9 @@ const ValidateSignup = async (req, res, next) => {
     delete userData.password_confirm
 
     if (Object.keys(errors).length !== 0)
-        return res.status(400).send(errors);
+        return res.status(400).json(errors)
 
-    next();
+    next()
 };
 
 const ValidateChanges = async (req, res, next) => {
@@ -100,9 +100,9 @@ const ValidateChanges = async (req, res, next) => {
     }
 
     if (Object.keys(errors).length !== 0)
-        return res.status(400).send(errors);
+        return res.status(400).json(errors)
 
-    next();
+    next()
 };
 
 const ValidatePasswordChange = async (req, res, next) => {
@@ -122,9 +122,9 @@ const ValidatePasswordChange = async (req, res, next) => {
     }
 
     if (Object.keys(errors).length !== 0)
-        return res.status(400).send(errors);
+        return res.status(400).json(errors)
 
-    next();
+    next()
 };
 
 

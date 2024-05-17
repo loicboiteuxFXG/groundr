@@ -17,7 +17,7 @@ const ServerError = () => {
                 <div className="notfoundcard">
                     <h1>505</h1>
                     <h2>Erreur du côté serveur.</h2>
-                    <Link to="/home" className="buttons">Accueil</Link>
+                    <Link to="/" className="buttons">Accueil</Link>
                 </div>
             </div>
             <Footer/>

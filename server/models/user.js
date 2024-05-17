@@ -78,6 +78,11 @@ const userSchema = new Schema({
         type: Number,
         required: true,
         default: 10
+    },
+    blocked: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 },{
     timestamps: false

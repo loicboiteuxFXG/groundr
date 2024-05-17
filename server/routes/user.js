@@ -6,8 +6,11 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const interestController = require("../controllers/interestController");
 const {isAuth, validation} = require("../middleware")
+const {isAdmin} = require("../middleware/is-admin")
 
 router.get('/users', isAuth, userController.getUsersForSidebar)
+
+router.get('/users-admin', isAuth, isAdmin, userController.getUsersForAdmin)
 
 router.post('/users-search', isAuth, userController.getResearchedUsers)
 
@@ -26,6 +29,8 @@ router.post('/set-location', isAuth, userController.setLocation)
 router.post('/subscribe', isAuth, userController.UpdateUserPremium);
 
 router.get('/check/:email', userController.checkIfExists)
+
+router.post('/user/:id', isAuth, isAdmin, userController.blockUser)
 
 
 

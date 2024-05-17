@@ -14,6 +14,7 @@ import {useConversation} from "../context/ConversationContext"
 import SearchInput from "../components/SearchInput";
 
 const HomeLayout = () => {
+    const navigate = useNavigate()
     const location = useLocation()
     const {setSelectedConversation} = useConversation()
 
@@ -51,6 +52,9 @@ const HomeLayout = () => {
                 })
                 const user = response.data
                 setAuthUser(user)
+                if(user.isAdmin !== "undefined") {
+                    navigate("/admin")
+                }
             } catch (err) {
                 if (err.response.status === 401) {
                     localStorage.removeItem("auth-user")

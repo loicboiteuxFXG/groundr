@@ -15,7 +15,7 @@ const NotFound = () => {
                 <div className="notfoundcard">
                     <h1>404</h1>
                     <h2>Erreur: Ressource non trouvée.</h2>
-                    <Link to="/home" className="buttons">Accueil</Link>
+                    <Link to="/" className="buttons">Accueil</Link>
                 </div>
             </div>
             <Footer />

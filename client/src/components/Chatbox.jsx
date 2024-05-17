@@ -1,6 +1,7 @@
 import Messages from "./Messages"
 import MessageInput from "./MessageInput"
 import {useConversation} from "../context/ConversationContext"
+import {useEffect} from "react";
 
 const NoChatSelected = () => {
     return (
@@ -14,6 +15,9 @@ const NoChatSelected = () => {
 const Chatbox = () => {
     const {selectedConversation} = useConversation()
 
+    useEffect(() => {
+        document.title = "Messagerie | GroundR"
+    }, [])
 
     return (
         <>
