@@ -14,7 +14,7 @@ const Presentation = () => {
             <ShowcaseHeader/>
             <div className="presentationcontainer container">
                 <h2 className="golden">GroundR, <span>LA</span> plateforme pour trouver l'amour.</h2>
-                <h3>Trouver votre âme soeur n'a jamais été aussi façile!</h3>
+                <h3>Trouver votre âme soeur n'a jamais été aussi facile!</h3>
                 <div>
                     <p>GroundR repousse les limites de la datation en ligne en mettant l'accent sur la connexion
                         réelle

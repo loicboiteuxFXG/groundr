@@ -1,4 +1,3 @@
-import SearchInput from "./SearchInput";
 import Conversations from "./Conversations";
 
 

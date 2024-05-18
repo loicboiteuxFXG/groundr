@@ -49,8 +49,6 @@ const SearchResult = ({user}) => {
             break
     }
 
-    const display = `${fullName}, ${age} ans ${gender}\n${orientation}`
-
 
     return (
         <div className="searchresult">

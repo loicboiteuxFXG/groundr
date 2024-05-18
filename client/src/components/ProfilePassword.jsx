@@ -4,9 +4,11 @@ import {useNavigate} from 'react-router-dom';
 import "../styles.css";
 import LoadingIndicator from "./LoadingIndicator";
 import Modal from "./Modal";
+import {useAuthContext} from "../context/AuthContext";
 
 const ProfilePassword = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const {setAuthUser} = useAuthContext()
 
     useEffect(() => {
         document.title = "Modifier le mot de passe | GroundR";
@@ -78,11 +80,23 @@ const ProfilePassword = () => {
                 })
                 .catch((err) => {
                     setLoading(false);
-                    const errors = err.response.data;
-                    setErrors(errors);
-                    if (err.response.status === 401) {
-                        localStorage.removeItem("auth-user");
-                        navigate('/');
+                    switch (err.response.status) {
+                        case 401:
+                            localStorage.removeItem("auth-user")
+                            setAuthUser(null)
+                            break
+                        case 403:
+                            navigate("/403")
+                            break
+                        case 404:
+                            navigate("/404")
+                            break
+                        case 400:
+                            const errors = err.response.data
+                            setErrors(errors)
+                            break
+                        default:
+                            navigate("/500")
                     }
                 });
         }

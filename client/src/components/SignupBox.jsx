@@ -7,9 +7,11 @@ import Footer from "./Footer";
 import "../styles.css";
 import LoadingIndicator from "./LoadingIndicator";
 import useSignup from "../hooks/useSignup";
+import {useAuthContext} from "../context/AuthContext";
 
 const SignupBox = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const {setAuthUser} = useAuthContext()
 
     useEffect(() => {
         document.title = "Créer un compte | GroundR";
@@ -39,7 +41,22 @@ const SignupBox = () => {
             } else {
                 delete temp.email
             }
-        } catch (err) {}
+        } catch (err) {
+            switch (err.response.status) {
+                case 401:
+                    localStorage.removeItem("auth-user")
+                    setAuthUser(null)
+                    break
+                case 403:
+                    navigate("/403")
+                    break
+                case 404:
+                    navigate("/404")
+                    break
+                default:
+                    navigate("/500")
+            }
+        }
         setErrors(temp)
         console.log(errors)
     }

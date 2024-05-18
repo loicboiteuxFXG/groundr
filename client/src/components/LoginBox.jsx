@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import ShowcaseHeader from "./ShowcaseHeader";
 import LoadingIndicator from "./LoadingIndicator";
 import Footer from "./Footer";

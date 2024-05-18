@@ -4,18 +4,16 @@ import React, {useEffect, useState} from "react"
 import axios from "axios"
 import Modal from "./Modal"
 import {useAuthContext} from "../context/AuthContext"
+import {useNavigate} from "react-router-dom";
 
 const ProfileEdit = () => {
 
     const {authUser, setAuthUser} = useAuthContext()
+    const navigate = useNavigate()
 
     useEffect(() => {
         document.title = "Modifier votre profil | GroundR"
     }, [])
-
-
-    const regExpString = '^[\'\"\-\$A-Za-zÀ-ÿ\ ]+$'
-    const regExpEmail = '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
 
     const [formData, setFormData] = useState({
 
@@ -122,10 +120,25 @@ const ProfileEdit = () => {
                     openModal();
                 })
                 .catch((err) => {
-                    console.log(err)
-                    setLoading(false);
-                    const errors = err.response.data;
-                    setErrors(errors);
+                    setLoading(false)
+                    switch (err.response.status) {
+                        case 401:
+                            localStorage.removeItem("auth-user")
+                            setAuthUser(null)
+                            break
+                        case 403:
+                            navigate("/403")
+                            break
+                        case 404:
+                            navigate("/404")
+                            break
+                        case 400:
+                            const errors = err.response.data
+                            setErrors(errors)
+                            break
+                        default:
+                            navigate("/500")
+                    }
                 });
         }
     };

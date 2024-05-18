@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useAuthContext} from "../context/AuthContext";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
 const useSignup = () => {
@@ -8,6 +9,7 @@ const useSignup = () => {
     const [errors, setErrors] = useState({})
     const [interestList, setInterestList] = useState([]);
     const {setAuthUser} = useAuthContext()
+    const navigate = useNavigate()
 
     const signup = async (formData, interests, file) => {
         const validationErrors = handleInputErrors(formData, interests)
@@ -26,7 +28,20 @@ const useSignup = () => {
                 const response = await axios.post('http://localhost:3001/file/upload', data);
                 filename = response.data.filename;
             } catch (error) {
-                console.error(error);
+                switch (error.response.status) {
+                    case 401:
+                        localStorage.removeItem("auth-user")
+                        setAuthUser(null)
+                        break
+                    case 403:
+                        navigate("/403")
+                        break
+                    case 404:
+                        navigate("/404")
+                        break
+                    default:
+                        navigate("/500")
+                }
             }
 
             let userData = {
@@ -50,9 +65,23 @@ const useSignup = () => {
                     setAuthUser(registerResponse.data)
                 }
             } catch (error) {
-                if (error.response && error.response.data) {
-                    const errors = error.response.data;
-                    setErrors(errors);
+                switch (error.response.status) {
+                    case 401:
+                        localStorage.removeItem("auth-user")
+                        setAuthUser(null)
+                        break
+                    case 403:
+                        navigate("/403")
+                        break
+                    case 404:
+                        navigate("/404")
+                        break
+                    case 400:
+                        const errors = error.response.data
+                        setErrors(errors)
+                        break
+                    default:
+                        navigate("/500")
                 }
             } finally {
                 setLoading(false)
@@ -70,7 +99,21 @@ const useSignup = () => {
             setInterestList(response.data);
             setLoading(false);
         } catch (error) {
-            setLoading(false);
+            setLoading(false)
+            switch (error.response.status) {
+                case 401:
+                    localStorage.removeItem("auth-user")
+                    setAuthUser(null)
+                    break
+                case 403:
+                    navigate("/403")
+                    break
+                case 404:
+                    navigate("/404")
+                    break
+                default:
+                    navigate("/500")
+            }
         }
     }
 

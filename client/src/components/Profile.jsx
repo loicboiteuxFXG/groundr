@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import '../styles.css'
 import {useEffect, useState} from "react"
 import axios from "axios"
@@ -7,6 +7,7 @@ import {useAuthContext} from "../context/AuthContext"
 const Profile = () => {
     const {authUser, setAuthUser} = useAuthContext()
     const [file, setFile] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         document.title = "Votre profil | GroundR"
@@ -27,7 +28,22 @@ const Profile = () => {
             .then((response) => {
                 filename = response.data.filename;
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                switch (err.response.status) {
+                    case 401:
+                        localStorage.removeItem("auth-user")
+                        setAuthUser(null)
+                        break
+                    case 403:
+                        navigate("/403")
+                        break
+                    case 404:
+                        navigate("/404")
+                        break
+                    default:
+                        navigate("/500")
+                }
+            })
 
         await axios.post('http://localhost:3001/user/update-pfp', {filename: filename}, {
             headers: {
@@ -38,8 +54,19 @@ const Profile = () => {
                 setAuthUser(response.data)
             })
             .catch(err => {
-                if (err.response.status === 401) {
-                    localStorage.removeItem("auth-user")
+                switch (err.response.status) {
+                    case 401:
+                        localStorage.removeItem("auth-user")
+                        setAuthUser(null)
+                        break
+                    case 403:
+                        navigate("/403")
+                        break
+                    case 404:
+                        navigate("/404")
+                        break
+                    default:
+                        navigate("/500")
                 }
             })
     };

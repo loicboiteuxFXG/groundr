@@ -1,13 +1,11 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useEffect, useState} from "react"
+import axios from "axios"
 
-import LoadingIndicator from "./LoadingIndicator";
-import { useNavigate } from "react-router-dom";
-import Modal from "./Modal";
-import {useAuthContext} from "../context/AuthContext";
+import LoadingIndicator from "./LoadingIndicator"
+import { useNavigate } from "react-router-dom"
+import Modal from "./Modal"
+import {useAuthContext} from "../context/AuthContext"
 import notificationSound from "../assets/sounds/message.wav"
-import useGetConversations from "../hooks/useGetConversations";
-
 const HomeSwiper = () => {
     const [matches, setMatches] = useState(null);
     const [currentMatch, setCurrentMatch] = useState({});
@@ -15,6 +13,7 @@ const HomeSwiper = () => {
     const [inputEnabled, setInputEnabled] = useState(true);
     const [matchedUsername, setMatchedUsername] = useState("");
     const [noMoreMatches, setNoMoreMatches] = useState(false);
+    const {setAuthUser} = useAuthContext()
 
     const navigate = useNavigate();
 
@@ -54,13 +53,22 @@ const HomeSwiper = () => {
                 }
             })
             .catch((err) => {
-                console.error(err);
-                if (err.response.status === 401) {
-                    localStorage.removeItem("auth-user");
+                switch (err.response.status) {
+                    case 401:
+                        localStorage.removeItem("auth-user")
+                        setAuthUser(null)
+                        break
+                    case 403:
+                        navigate("/403")
+                        break
+                    case 404:
+                        navigate("/404")
+                        break
+                    default:
+                        navigate("/500")
                 }
             })
             .finally(() => {
-
                 setLoading(false);
             })
     };
@@ -94,11 +102,20 @@ const HomeSwiper = () => {
                 }
             })
             .catch((err) => {
-                console.error(err);
                 setInputEnabled(true);
-                if (err.response.status === 401) {
-                    localStorage.removeItem("auth-user");
-                    navigate('/');
+                switch (err.response.status) {
+                    case 401:
+                        localStorage.removeItem("auth-user")
+                        setAuthUser(null)
+                        break
+                    case 403:
+                        navigate("/403")
+                        break
+                    case 404:
+                        navigate("/404")
+                        break
+                    default:
+                        navigate("/500")
                 }
             });
     };
