@@ -72,6 +72,9 @@ const createMatchList = async (req, res, next) => {
         };
         if (authUser.orientation !== "A") {
             query.gender = authUser.orientation;
+            if(authUser.orientation === "B") {
+                query.gender = {$in: ["M", "F"]}
+            }
         }
 
         let matchingUsers = await User.find(query, { password: false }).limit(20);
