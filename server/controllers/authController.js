@@ -14,13 +14,13 @@ exports.Login = async (req, res, next) => {
         const user = await User.findOne({email: email}).populate("interests");
 
         if(!user) {
-            res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})
+            return res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
         if (!isPasswordCorrect) {
-            res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})
+            return res.status(400).json({error: 'Adresse courriel ou mot de passe invalide.'})
         }
 
         const token = generateToken(user)

@@ -31,6 +31,9 @@ const SignupBox = () => {
         bio: ''
     });
     const checkIfEmailExists = async () => {
+        if(!formData.email) {
+            return
+        }
         let temp = {
             ...errors
         }

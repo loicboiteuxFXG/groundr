@@ -16,7 +16,6 @@ const createMatchList = async (req, res, next) => {
             $or: [{ sender: authUser._id }, { receiver: authUser._id }],
             status: "like"
         })
-        console.log(grounds)
         const superGrounds = await Ground.find(
             {
                 $or: [{ sender: authUser._id }, { receiver: authUser._id }],
@@ -50,12 +49,18 @@ const createMatchList = async (req, res, next) => {
 
         const excludedUsersIDsQuery = likedUsersIDs.concat(superlikedUsersIDs, interestedUsersIDs, superinterestedUsersIDs, excludedUsersIDs);
         excludedUsersIDsQuery.push("6647b7ed228a5a9aaf6dcc3c")
+        let orientationList = ["A"]
+        if(authUser.gender === "M" || authUser.gender === "F") {
+            orientationList.push("B")
+        }
+        orientationList.push(authUser.gender)
         // Only get appropriate users according to gender and orientation
         let query = {
             "_id": { $not: { $in: excludedUsersIDsQuery } },
             "email": { $not: { $eq: authUser.email } },
-            "orientation": { $in: ["A", authUser.gender] },
+            "orientation": { $in: orientationList },
             "interests": {$in: authUser.interests },
+            "isBlocked": false,
             location:
                 { $near:
                         {
