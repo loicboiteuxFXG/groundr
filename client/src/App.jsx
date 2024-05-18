@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound"
 import Forbidden from "./pages/Forbidden";
 import ServerError from "./pages/ServerError";
 import Admin from "./pages/Admin";
+import AccountBlocked from "./pages/AccountBlocked";
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/admin" element={<Admin />} />
             <Route path="/403" element={<Forbidden />}/>
             <Route path="/500" element={<ServerError />} />
+            <Route path="/blocked" element={<AccountBlocked />}/>
             <Route path="*" element={<NotFound />}/>
         </Routes>
     )

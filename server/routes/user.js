@@ -26,11 +26,11 @@ router.get('/get-interests', interestController.getInterests)
 
 router.post('/set-location', isAuth, userController.setLocation)
 
-router.post('/subscribe', isAuth, userController.UpdateUserPremium);
+router.post('/subscribe', isAuth, userController.UpdateUserPremium)
 
 router.get('/check/:email', userController.checkIfExists)
 
-router.post('/user/:id', isAuth, isAdmin, userController.blockUser)
+router.post('/:id', isAuth, isAdmin, userController.blockUser)
 
 
 

@@ -150,7 +150,8 @@ exports.getResearchedUsers = async (req, res, next) => {
             $and: [
                 { $or : [{firstName: regexp}, {lastName: regexp}] },
                 { gender: { $in: criterias.genders } },
-                { orientation: { $in: criterias.orientations } }
+                { orientation: { $in: criterias.orientations }},
+                {_id: {$not : {$eq : "6647b7ed228a5a9aaf6dcc3c"}}}
             ]
         }).sort(sort)
 
@@ -177,7 +178,7 @@ exports.checkIfExists = async (req, res, next) => {
 
 exports.getUsersForAdmin = async (req, res, next) => {
     try {
-        const users = await User.find()
+        const users = await User.find({_id: {$not : {$eq : "6647b7ed228a5a9aaf6dcc3c"}}})
         res.status(200).json(users)
     } catch (err) {
         next(err)
@@ -194,7 +195,7 @@ exports.blockUser = async (req, res, next) => {
             error.statusCode = 404
             throw error
         }
-        user.blocked = !user.blocked
+        user.isBlocked = !user.isBlocked
         await user.save()
         res.status(200).json({message: "Statut mis à jour avec succès."})
     } catch (err) {

@@ -79,7 +79,12 @@ const userSchema = new Schema({
         required: true,
         default: 10
     },
-    blocked: {
+    isBlocked: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isAdministrator: {
         type: Boolean,
         required: true,
         default: false

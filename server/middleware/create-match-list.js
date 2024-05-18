@@ -49,8 +49,7 @@ const createMatchList = async (req, res, next) => {
         });
 
         const excludedUsersIDsQuery = likedUsersIDs.concat(superlikedUsersIDs, interestedUsersIDs, superinterestedUsersIDs, excludedUsersIDs);
-        console.log(excludedUsersIDsQuery)
-
+        excludedUsersIDsQuery.push("6647b7ed228a5a9aaf6dcc3c")
         // Only get appropriate users according to gender and orientation
         let query = {
             "_id": { $not: { $in: excludedUsersIDsQuery } },

@@ -3,16 +3,7 @@ import axios from "axios"
 import {useAuthContext} from "../context/AuthContext";
 import {useNavigate} from "react-router-dom";
 import LoadingIndicator from "./LoadingIndicator";
-import Message from "./Message";
-
-const UserOneLine = ({user}) => {
-
-    return (
-        <div className="useroneline">
-
-        </div>
-    )
-}
+import {FaLock, FaUnlock} from "react-icons/fa";
 
 
 const AdminControlPanel = () => {
@@ -21,17 +12,43 @@ const AdminControlPanel = () => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            setLoading(true)
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get("http://localhost:3001/user/users-admin", {
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
+                }
+            })
+            setUsers(response.data)
+            setLoading(false)
+        } catch (err) {
+            switch (err.response.status){
+                case 401:
+                    localStorage.removeItem("auth-user")
+                    setAuthUser(null)
+                    break
+                case 403:
+                    navigate("/403")
+                    break
+                case 404:
+                    navigate("/404")
+                    break
+                default:
+                    navigate("/500")
+            }
+        }
+    }
+    const UserOneLine = ({user}) => {
+        const pfpURL = `http://localhost:3001/media/${user.pfpURL}`
+
+        const handleClick = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/users", {
+                await axios.post("http://localhost:3001/user/" + user._id, {}, {
                     headers: {
                         "Authorization": `Bearer ${JSON.parse(localStorage.getItem("auth-user"))}`
                     }
                 })
-                setUsers(response.data)
-                setLoading(false)
+                fetchUsers()
             } catch (err) {
                 switch (err.response.status){
                     case 401:
@@ -50,6 +67,27 @@ const AdminControlPanel = () => {
             }
         }
 
+        return (
+            <div className="useroneline">
+                <div className="start-items">
+                    <img src={pfpURL} alt="Photo de profil"/>
+                    <h3>{user.firstName} {user.lastName}</h3>
+                </div>
+                <div>
+                    <button className="buttons" onClick={handleClick}>
+                        {user.isBlocked ?
+                            <FaLock style={{color: "#e3a256", width: "100%", height: "100%"}}/>
+                            :
+                            <FaUnlock style={{color: "#e3a256", width: "100%", height: "100%"}}/>
+                        }
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    useEffect(() => {
+        setLoading(true)
         fetchUsers()
     }, []);
 

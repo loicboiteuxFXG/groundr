@@ -52,8 +52,11 @@ const HomeLayout = () => {
                 })
                 const user = response.data
                 setAuthUser(user)
-                if(user.isAdmin !== "undefined") {
+                if(user.isAdministrator) {
                     navigate("/admin")
+                }
+                if(user.isBlocked) {
+                    navigate("/blocked")
                 }
             } catch (err) {
                 if (err.response.status === 401) {

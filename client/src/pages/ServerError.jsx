@@ -15,7 +15,7 @@ const ServerError = () => {
             <ShowcaseHeader/>
             <div className="notfoundcontainer">
                 <div className="notfoundcard">
-                    <h1>505</h1>
+                    <h1>500</h1>
                     <h2>Erreur du côté serveur.</h2>
                     <Link to="/" className="buttons">Accueil</Link>
                 </div>

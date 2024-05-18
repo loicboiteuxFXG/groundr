@@ -136,22 +136,6 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .admin-header-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .btnAdminLogout {
-      width: 50px;
-
-      button {
-        border: none;
-        background: none;
-        width: 100%;
-      }
-    }
-  }
-
   .adminlayout {
     flex-grow: 1;
     display: flex;
@@ -175,12 +159,55 @@ header {
   }
 }
 
+.admin-header-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btnAdminLogout {
+    width: 50px;
+
+    button {
+      border: none;
+      background: none;
+      width: 100%;
+    }
+  }
+}
+
 .useroneline {
   padding: 10px;
+  border-radius: 10px;
   background-color: $dark-color2;
   display: flex;
   justify-content: space-between;
-  height: 50px
+  margin-bottom: 10px;
+  height: 70px;
+
+  .start-items {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    max-width: 60%;
+
+    h3 {
+      font-family: "Montserrat", sans-serif;
+      color: $golden;
+      margin-bottom: 0;
+    }
+  }
+
+  img {
+    height: 100%;
+    display: inline-block;
+  }
+
+  .buttons {
+    background: none;
+    border: none;
+    height: 100%;
+  }
 }
 
 //=====================
@@ -1397,6 +1424,12 @@ footer {
 
       h2 {
         font-size: 2rem;
+        color: $golden;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.5rem;
         color: $golden;
         margin-bottom: 20px;
       }
