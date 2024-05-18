@@ -1,7 +1,7 @@
-GroundR : Application de rencontre en ligne
+# GroundR : Application de rencontre en ligne
 Voici les détails de notre projets, en espérant que cela vous plait!
 
-POUR UTILISER L'APPLICATION:
+## POUR UTILISER L'APPLICATION:
 Il y a deux façons d'utiliser l'application.
 1. En ligne
   - Rendez-vous sur www.groundr.xyz
@@ -12,7 +12,7 @@ Il y a deux façons d'utiliser l'application.
   - Lancez l'application en effectuant les commandes "npm run client" et "npm run server" dans deux terminaux différents
   - Rendez-vous à l'adresse http://localhost:3000
 
-POUR CONTRIBUER AU PROJET:
+## POUR CONTRIBUER AU PROJET:
 Les contributions sont les bienvenues! Veuillez suivre les étapes suivantes:
 1. Dupliquez le dépôt distant
 2. Créez une nouvelle branche : (bash) git checkout -b feature-branch
@@ -20,7 +20,7 @@ Les contributions sont les bienvenues! Veuillez suivre les étapes suivantes:
 4. Faites un push de vos changements : (bash) git push origin feature-branch
 5. Ouvrez une pull request
 
-FONCTIONNALITÉS:
+## FONCTIONNALITÉS:
 1. Authentification
 2. Fonction de matching
 3. Messagerie
@@ -29,7 +29,7 @@ FONCTIONNALITÉS:
 6. Abonnement à une version premium
 7. Gestion des utilisateurs par un administrateur
 
-POUR CONTINUER: 
+## POUR CONTINUER: 
 Voici quelques fonctionnalités qui pourraient être intéressantes à ajouter dans le futur.
 1. Faire une version pour appareils mobiles
 2. Implémenter différentes langues
@@ -38,18 +38,18 @@ Voici quelques fonctionnalités qui pourraient être intéressantes à ajouter d
 5. Ajouter la possibilité d'envoyer des photos en utilisant la messagerie
 6. Ajouter une fonctionnalité d'appels vidéo
 
-UTILISATEURS DE LA BD:
+### UTILISATEURS DE LA BD:
 1. ADMIN 
   Email: admin@gmail.com
   Mot de passe: Qwerty123
 2. 
 
-INFORMATION SUR LE PROJET POUR L'ÉNONCÉ:
+## INFORMATION SUR LE PROJET POUR L'ÉNONCÉ:
 La validation de champ dynamique est sur le champ courriel de la création de compte. Si le courriel entré est déjà utilisé, l'utilisateur sera immédiatement averti en sortant du champ.
 Pour changer la photo de profil d'un utilisateur, il suffit de cliquer sur la photo dans la page Profil.
 Il est possible qu'un utilisateur n'ait aucun profil suggéré dans la page des swipes. C'est simplement parce qu'aucun utilisateur ne match avec celui-ci.
 
 Ce projet a été réalisé par Adam Demers et Loïc Boiteux dans le cadre du cours 420-08D-FX: Projet d'approfondissement web.
 
-Adam Demers (2241222): addem001@edu.cegepgarneau.ca
-Loïc Boiteux (): loboi002@edu.cegepgarneau.ca
+*Adam Demers (2241222): addem001@edu.cegepgarneau.ca*  
+*Loïc Boiteux (2239312): loboi002@edu.cegepgarneau.ca*  
